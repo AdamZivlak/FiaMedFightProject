@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="FiaMedFight.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FiaMedFight"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Rectangle Height="50" Width="50" Margin="746,450,654,450" Stroke="Black">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <LinearGradientBrush.RelativeTransform>
+                        <CompositeTransform CenterY="0.5" CenterX="0.5" Rotation="-45"/>
+                    </LinearGradientBrush.RelativeTransform>
+                    <GradientStop Color="#FFFF7500"/>
+                    <GradientStop Color="#FFAB00FF" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Height="50" Width="50" Margin="1265,327,605,703" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1220,515,650,515" Stroke="Black" Fill="#FF0010FF"/>
+        <Rectangle Height="50" Width="50" Margin="922,141,478,759" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="439,262,961,638" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1370,515,500,515" Stroke="Black" Fill="#FF0010FF"/>
+        <Rectangle Height="50" Width="50" Margin="746,91,654,809" Stroke="Black" Fill="#FFFDFF00"/>
+        <Rectangle Height="50" Width="50" Margin="1235,770,635,260" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="985,770,885,260" Stroke="Black" Fill="#FFFF00BB"/>
+        <Rectangle Height="50" Width="50" Margin="981,888,889,142" Stroke="Black" Fill="#FFFF00BB"/>
+        <Rectangle Height="50" Width="50" Margin="780,821,1090,209" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="680,708,1190,322" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="867,515,1003,515" Fill="#FFFF0101" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="810,206,1060,824" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1182,821,688,209" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="985,275,885,755" Stroke="Black" Fill="#FFFDFF00"/>
+        <Rectangle Height="50" Width="50" Margin="365,450,1035,450" Fill="Red" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1117,857,753,173" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1050,878,820,152" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="910,878,960,152" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="845,857,1025,173" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="718,770,1152,260" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="647,643,1223,387" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="619,580,1251,450" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="619,454,1251,576" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="644,391,1226,639" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1339,454,531,576" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1314,393,556,637" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1220,257,650,773" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1074,181,796,849" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="892,181,978,849" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="739,257,1131,773" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="810,206,1060,824" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="810,206,1060,824" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1322,643,548,387" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1284,708,586,322" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1352,580,518,450" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="755,515,1115,515" Fill="#FFFF0101" Stroke="Black"/>
+        <Rectangle Height="50" Width="50" Margin="1092,515,778,515" Stroke="Black" Fill="#FF0010FF"/>
+        <Rectangle Height="50" Width="50" Margin="985,393,885,637" Stroke="Black" Fill="#FFFDFF00"/>
+        <Rectangle Height="50" Width="50" Margin="985,643,885,387" Stroke="Black" Fill="#FFFF00BB"/>
+        <Ellipse HorizontalAlignment="Left" Height="1000" Margin="506,0,0,0" Stroke="Black" VerticalAlignment="Center" Width="1000">
+
+        </Ellipse>
+    </Grid>
+</Page>
+
