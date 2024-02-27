@@ -13,8 +13,8 @@
             
             <ResourceDictionary.MergedDictionaries>
                 <!-- Include custom template and style files here -->
-                <ResourceDictionary Source="ControlFunctionTemplates.xaml"/>
-                <ResourceDictionary Source="ControlStyleTemplates.xaml"/>
+                <ResourceDictionary Source="Templates/ControlFunctionTemplates.xaml"/>
+                <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>

@@ -5,7 +5,7 @@
     <Style x:Key="DiceButtonStyle" TargetType="Button">
         <Setter Property="Background">
             <Setter.Value>
-                <ImageBrush x:Name="DiceBackgroundImage" ImageSource="/Assets/Square150x150Logo.scale-200.png" Stretch="Uniform"/>
+                <ImageBrush x:Name="DiceBackgroundImage" ImageSource="ms-appx:///Assets/Dice/Face1.png" Stretch="Uniform"/>
             </Setter.Value>
         </Setter>
         <Setter Property="Opacity" Value="1"/>
