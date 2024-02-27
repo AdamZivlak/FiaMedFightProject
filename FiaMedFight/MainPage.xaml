@@ -10,16 +10,18 @@
 
     <Page.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <!-- Include custom template and style files here -->
-                <!--<ResourceDictionary Source="ButtonStyleTemplates.xaml"/>-->
                 <ResourceDictionary Source="ControlFunctionTemplates.xaml"/>
+                <ResourceDictionary Source="ControlStyleTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
         </ResourceDictionary>
     </Page.Resources>
     
     <Grid Height="1080" Width="1920">
-        <Button Content="Hoverable" Template="{StaticResource ButtonTemplate}"/>
+        <Button Content="Hoverable" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}"/>
 
     </Grid>
 </Page>
