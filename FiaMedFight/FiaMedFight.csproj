@@ -119,6 +119,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\GameManager.cs" />
+    <Compile Include="Classes\GamePiece.cs" />
+    <Compile Include="Classes\GamePlayer.cs" />
+    <Compile Include="Classes\GameSession.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
