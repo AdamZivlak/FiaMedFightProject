@@ -21,7 +21,7 @@
     </Page.Resources>
     
     <Grid Height="1080" Width="1920">
-        <Button Content="Hoverable" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}"/>
-
+        <Button Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click"/>
+        <TextBlock x:Name="ResultText" Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="0,171,0,0" Text="...result..."/>
     </Grid>
 </Page>

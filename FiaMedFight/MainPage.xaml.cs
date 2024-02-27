@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FiaMedFight.Classes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,26 @@ namespace FiaMedFight
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+
+        private void SimpleDice_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            int result = Dice.RollAnyDice(6);
+            ResultText.Text = "You rolled: " + result;
+            Dice.ChangeDiceFace(button, result);
+        }
+
+        private void pointerout(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            //ResultText.Text = "previous result: " + testDice.FaceValue;
+        }
+
+        private void pointerin(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
+        {
+            ResultText.Text = "click to roll";
+
         }
     }
 }
