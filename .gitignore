@@ -50,3 +50,6 @@ Thumbs.db
 
 /.vs
 /FiaMedFight/.vs
+/FiaMedFight/bin/
+/FiaMedFight/obj/
+/FiaMedFight/FiaMedFight.csproj.user
