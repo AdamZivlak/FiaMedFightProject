@@ -26,7 +26,6 @@ namespace FiaMedFight
     public sealed partial class MainPage : Page
     {
         static Storyboard spinAnimation;
-        static Dice sixSides;
 
         public MainPage()
         {
@@ -34,9 +33,7 @@ namespace FiaMedFight
 
             // Get the storyboard animation from the resource dictionary
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
-            Storyboard.SetTarget(spinAnimation, SpinningImage);
-            sixSides = new Dice(6);
-            
+            Storyboard.SetTarget(spinAnimation, SpinningImage);            
         }
 
         /// <summary>
@@ -55,7 +52,7 @@ namespace FiaMedFight
         private void SimpleDice_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {            
             var button = sender as Button;
-            sixSides.RollThisDice(button);
+            GameManager.session.dice.RollThisDice(button);
 
             button.Visibility = Visibility.Collapsed;
             SpinningImage.Visibility = Visibility.Visible;
@@ -65,7 +62,7 @@ namespace FiaMedFight
             {
                 SpinningImage.Visibility = Visibility.Collapsed;
                 button.Visibility = Visibility.Visible;
-                ResultText.Text = "You rolled: " + sixSides.FaceValue;
+                ResultText.Text = "You rolled: " + GameManager.session.dice.FaceValue;
             };
         }
     }

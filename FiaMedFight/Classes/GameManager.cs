@@ -8,11 +8,15 @@ namespace FiaMedFight.Classes
 {
     public static class GameManager
     {
-        public static GameSession currentSession { get; set; }
+        internal static GameSession session { get; set; }
 
-        public static void StartGame(GameSession session)
+        internal static void StartGame(GameSession session)
         {
-            currentSession = session;
+            GameManager.session = session;
+        }
+
+        public static void RollDice(object sender)
+        {
         }
     }
 }

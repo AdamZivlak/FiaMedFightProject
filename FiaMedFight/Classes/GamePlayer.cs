@@ -7,7 +7,7 @@ using Windows.UI.Core;
 
 namespace FiaMedFight.Classes
 {
-    internal class GamePlayer
+    public class GamePlayer
     {
         public string color { get; private set; }
         public List<GamePiece> pieces = new List<GamePiece>();

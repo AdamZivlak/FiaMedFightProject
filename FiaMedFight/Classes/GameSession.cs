@@ -8,10 +8,16 @@ namespace FiaMedFight.Classes
 {
     public class GameSession
     {
-        List<string> players = new List<string>();
-        //Dice object
-        int active_player_index = 0;
+        public List<GamePlayer> players = new List<GamePlayer>();
+        public Dice dice = new Dice(6);
+        public int active_player_index = 0;
 
+        public GameSession() { }
+
+        public void AddPlayer(GamePlayer player)
+        {
+            this.players.Add(player);
+        }
 
     }
 }
