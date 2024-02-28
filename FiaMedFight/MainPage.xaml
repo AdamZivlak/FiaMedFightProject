@@ -25,7 +25,7 @@
         <Button x:Name="button" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click">
             
         </Button>
-        <Image x:Name="image" Source="ms-appx:///Assets/Dice/Face2.png" Height="100" Width="100" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="image" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face2.png" Height="100" Width="100" RenderTransformOrigin="0.5,0.5">
             <Image.Projection>
                 <PlaneProjection/>
             </Image.Projection>

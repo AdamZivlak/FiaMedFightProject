@@ -26,6 +26,7 @@ namespace FiaMedFight
     public sealed partial class MainPage : Page
     {
         static Storyboard spinAnimation;
+        static Dice sixSides;
 
         public MainPage()
         {
@@ -34,36 +35,38 @@ namespace FiaMedFight
             // Get the storyboard animation from the resource dictionary
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
             Storyboard.SetTarget(spinAnimation, image);
-        }        
-        
+            sixSides = new Dice(6);
+            
+        }
+
+        /// <summary>
+        /// Handles the Click event of a Dice button. This method initiates the dice roll process,
+        /// starts an animation, and updates the UI to reflect the roll's outcome.
+        /// </summary>
+        /// <param name="sender">The source of the event, typically the button that was clicked.</param>
+        /// <param name="e">The RoutedEventArgs that contains the event data.</param>
+        /// <remarks>
+        /// This method performs several steps:
+        /// 1. It casts the sender to a Button type and rolls the dice associated with it.
+        /// 2. It makes the button invisible and shows an image to indicate that the dice is rolling.
+        /// 3. It starts a spinning animation to visually represent the dice roll.
+        /// 4. Upon completion of the animation, it updates the UI to show the dice's face value and makes the button visible again.
+        /// </remarks>
         private void SimpleDice_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {            
             var button = sender as Button;
-            int result = Dice.RollAnyDice(6);
+            sixSides.RollThisDice(button);
+
             button.Visibility = Visibility.Collapsed;
             image.Visibility = Visibility.Visible;
 
             spinAnimation.Begin();
-            Dice.ChangeDiceFace(button, result);
-
-            //waits for animation to finish
             spinAnimation.Completed += delegate (object self, object btn)
             {
                 image.Visibility = Visibility.Collapsed;
                 button.Visibility = Visibility.Visible;
-                ResultText.Text = "You rolled: " + result;
+                ResultText.Text = "You rolled: " + sixSides.FaceValue;
             };
-        }     
-
-        private void pointerout(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            //ResultText.Text = "previous result: " + testDice.FaceValue;
-        }
-
-        private void pointerin(object sender, Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
-        {
-            ResultText.Text = "click to roll";
-
         }
     }
 }

@@ -2,6 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    
+    <!-- Creates a 2 second animation that rotates an Image on the X, Y, and Z-axis, as well as changes the Image Source several times. Usable on 6-sided Dice Button Click Animation -->
     <Storyboard x:Name="SpinAnimation">
         <DoubleAnimationUsingKeyFrames x:Name="AnimateRotateX"   Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)">
             <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
