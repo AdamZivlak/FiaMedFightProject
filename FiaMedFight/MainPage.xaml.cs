@@ -34,7 +34,7 @@ namespace FiaMedFight
 
             // Get the storyboard animation from the resource dictionary
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
-            Storyboard.SetTarget(spinAnimation, image);
+            Storyboard.SetTarget(spinAnimation, SpinningImage);
             sixSides = new Dice(6);
             
         }
@@ -58,12 +58,12 @@ namespace FiaMedFight
             sixSides.RollThisDice(button);
 
             button.Visibility = Visibility.Collapsed;
-            image.Visibility = Visibility.Visible;
+            SpinningImage.Visibility = Visibility.Visible;
 
             spinAnimation.Begin();
             spinAnimation.Completed += delegate (object self, object btn)
             {
-                image.Visibility = Visibility.Collapsed;
+                SpinningImage.Visibility = Visibility.Collapsed;
                 button.Visibility = Visibility.Visible;
                 ResultText.Text = "You rolled: " + sixSides.FaceValue;
             };

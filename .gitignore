@@ -50,3 +50,9 @@ Thumbs.db
 
 /.vs
 /FiaMedFight/.vs
+/FiaMedFight/bin/x64/Debug
+/FiaMedFight/obj/x64/Debug
+/FiaMedFight/obj/x64/Debug/App.g.cs
+/FiaMedFight/obj/x64/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/FiaMedFight/obj/x64/Debug/FiaMedFight.csproj.AssemblyReference.cache
+/FiaMedFight/obj/x64/Debug/XamlSaveStateFile.xml
