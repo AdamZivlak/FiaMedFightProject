@@ -68,5 +68,10 @@ namespace FiaMedFight
                 ResultText.Text = "You rolled: " + sixSides.FaceValue;
             };
         }
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Navigera till MenuScreen
+            Frame.Navigate(typeof(MenuScreen));
+        }
     }
 }

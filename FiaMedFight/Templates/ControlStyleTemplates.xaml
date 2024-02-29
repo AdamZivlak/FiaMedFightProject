@@ -13,5 +13,19 @@
         <Setter Property="Height" Value="115"/>
         <Setter Property="Width" Value="100"/>
     </Style>
-    
+
+    <!-- Defines a Style for the Menu Open Button with specific properties, including centered text. -->
+    <Style x:Key="MenuButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Blue"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="Height" Value="60"/>
+        <Setter Property="Width" Value="200"/>
+        <Setter Property="BorderBrush" Value="Black"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
 </ResourceDictionary>
