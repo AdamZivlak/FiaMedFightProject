@@ -16,24 +16,39 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
-        <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
-        <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+            <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
 
-        <Button x:Name="MenuExitButton" Content="Exit Menu"
-                Style="{StaticResource MenuButtonStyle}" Margin="0,315,0,0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+            <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+        </Grid>
+
+        <Button x:Name="MenuExitButton" Content="Exit Program"
+                Style="{StaticResource MenuButtonStyle}" VerticalAlignment="Bottom" Click="MenuExitButton_Click" Width="241"/>
 
         <Button x:Name="RulesOpenButton" Content="Open Rules"
-                Style="{StaticResource MenuButtonStyle}" Margin="0,228,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                Style="{StaticResource MenuButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="RulesOpenButton_Click">
+        </Button>
+
+        <Button x:Name="GameStartButton" Content="Start Game"
+                Style="{StaticResource MenuButtonStyle}" Width="318" Height="130" Click="GameStartButton_Click" HorizontalAlignment="Center"/>
+        
+        <Grid x:Name="RulesPopup" Visibility="Collapsed" Height="500" Width="500" Background="BlueViolet">
+
+            <TextBlock x:Name="RulesHeaderTextBlock" Text="Hej" HorizontalAlignment="Center" VerticalAlignment="Top" Width="500" />
+            <TextBlock x:Name="RulesTextBlock" Text="Hopp" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" />
+
+        </Grid>
+
     </Grid>
 </Page>

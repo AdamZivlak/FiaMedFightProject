@@ -36,7 +36,7 @@ namespace FiaMedFight
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
             Storyboard.SetTarget(spinAnimation, SpinningImage);
             sixSides = new Dice(6);
-            
+
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace FiaMedFight
         /// 4. Upon completion of the animation, it updates the UI to show the dice's face value and makes the button visible again.
         /// </remarks>
         private void SimpleDice_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {            
+        {
             var button = sender as Button;
             sixSides.RollThisDice(button);
 
@@ -73,5 +73,16 @@ namespace FiaMedFight
             // Navigera till MenuScreen
             Frame.Navigate(typeof(MenuScreen));
         }
-    }
+
+        private async void QuitGameButton_Click(object sender, RoutedEventArgs e)
+        {
+                Frame.Navigate(typeof(GameOverDialog));
+
+            // Vänta i 5 sekunder
+            await Task.Delay(5000);
+
+            // Navigera till MenuScreen. Den här koden öppnar Page MenuScreen.            
+            Frame.Navigate(typeof(MenuScreen)); // Om den här koden öppnar sida MenuScreen.Hur ska koden se ut för tt öppna sida GameOverDialog?
+        }
+   }
 }

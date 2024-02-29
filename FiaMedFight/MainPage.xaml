@@ -204,8 +204,10 @@
             <Ellipse x:Name="RedSafeCoordinate3" Grid.Column="19" Grid.Row="27" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="RedSafeCoordinate2" Grid.Column="19" Grid.Row="29" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="RedSafeCoordinate1" Grid.Column="19" Grid.Row="31" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
-            <Button x:Name="MenuOpenButton" Content="Menu" Grid.ColumnSpan="6"
-                    Style="{StaticResource MenuButtonStyle}" Click="MenuButton_Click" Grid.Column="17" Grid.RowSpan="3" Grid.Row="35" Margin="0,17,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+            <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" 
+                    Click="MenuButton_Click" Grid.Column="17" Grid.ColumnSpan="6" Grid.RowSpan="3" Grid.Row="36" VerticalAlignment="Top" HorizontalAlignment="Center" />
+            <Button x:Name="QuitGameButton" Content="Quit game" Style="{StaticResource MenuButtonStyle}" 
+                    Click="QuitGameButton_Click" Grid.Column="33" Grid.ColumnSpan="6" Grid.RowSpan="3" Grid.Row="36" VerticalAlignment="Top" HorizontalAlignment="Center" />
 
         </Grid>
     </Grid>
