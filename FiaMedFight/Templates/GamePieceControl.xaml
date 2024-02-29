@@ -6,6 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    PointerEntered="GamePiece_OnHover"
+    PointerExited="GamePiece_EndHover"
+    PointerPressed="GamePiece_Pressed"
+    PointerReleased="GamePiece_Released"
    >
 
     <Grid x:Name="RedPawn" Background="Transparent">

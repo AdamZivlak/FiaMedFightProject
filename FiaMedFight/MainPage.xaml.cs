@@ -1,6 +1,8 @@
 ﻿using FiaMedFight.Classes;
+using FiaMedFight.Templates;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,14 +28,22 @@ namespace FiaMedFight
     public sealed partial class MainPage : Page
     {
         static Storyboard spinAnimation;
-
+        static Storyboard moveAnimation;
+        static Page activePage;
+        static Grid targetGrid;
         public MainPage()
         {
             this.InitializeComponent();
-
+            this.Loaded += MainPage_Loaded;
+            
             // Get the storyboard animation from the resource dictionary
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
             Storyboard.SetTarget(spinAnimation, SpinningImage);            
+        }
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            activePage = (Window.Current.Content as Frame)?.Content as Page;
+            targetGrid = activePage.FindName("gameBoardGrid") as Grid;
         }
 
         /// <summary>
