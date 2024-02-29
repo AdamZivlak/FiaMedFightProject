@@ -121,6 +121,9 @@
     </Compile>
     <Compile Include="Classes\Dice.cs" />
     <Compile Include="Classes\GameboardLocation.cs" />
+    <Compile Include="GameOverDialog.xaml.cs">
+      <DependentUpon>GameOverDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,7 @@
     <Compile Include="RulesScreen.xaml.cs">
       <DependentUpon>RulesScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Templates\StringBindingCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -144,6 +148,10 @@
     <Content Include="Assets\Dice\Face4.png" />
     <Content Include="Assets\Dice\Face5.png" />
     <Content Include="Assets\Dice\Face6.png" />
+    <Content Include="Assets\GameOverImage.png" />
+    <Content Include="Assets\PlayButton.png" />
+    <Content Include="Assets\SplashScreen.jpg" />
+    <Content Include="Assets\WelcomeImage.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -158,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GameOverDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MenuScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -191,7 +203,6 @@
       <Version>2.0.1</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
