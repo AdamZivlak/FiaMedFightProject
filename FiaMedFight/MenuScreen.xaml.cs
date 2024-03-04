@@ -26,14 +26,19 @@ namespace FiaMedFight
         public MenuScreen()
         {
             this.InitializeComponent();
-            MenuExitButton.Click += MenuExitButton_Click;
+            ApplicationExitButton.Click += ApplicationExitButton_Click;
             DataContext = StringBindingCollection.GetCollection();
         }
 
-        private void MenuExitButton_Click(object sender, RoutedEventArgs e)
+        //stänger programmet
+        private void ApplicationExitButton_Click(object sender, RoutedEventArgs e)
         {
-            // Här ska vi skriva kod som stänger hela programmet! Mustafa kan göra det här?
             Application.Current.Exit();
+        }
+
+        private void NewGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            //SelectPlayersPopup.Visibility = Visibility.Visible;
         }
 
         private void GameStartButton_Click(object sender, RoutedEventArgs e)
@@ -48,7 +53,7 @@ namespace FiaMedFight
 
         private void RulesOpenButton_Click(object sender, RoutedEventArgs e)
         {
-            // Här ska öppnas en popup-ruta med regler, Minna fixar detta
+            RulesPopup.Visibility = Visibility.Visible;
         }
     }
 }
