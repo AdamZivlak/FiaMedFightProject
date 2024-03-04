@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+ 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -15,6 +16,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
+
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -25,35 +27,44 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
             <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
             <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
-
             <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
             <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
         </Grid>
 
-        <Button x:Name="ApplicationExitButton" Content="Exit Program"
-                Style="{StaticResource MenuButtonStyle}" VerticalAlignment="Bottom" Click="ApplicationExitButton_Click" Width="241"/>
+        <StackPanel HorizontalAlignment="Center" Padding="150">
 
-        <Button x:Name="NewGameButton" Content="New Game"
-        Style="{StaticResource MenuButtonStyle}" VerticalAlignment="Bottom" Click="NewGameButton_Click" Width="241" Margin="610,0,0,707"/>
+            <Button x:Name="NewGameButton" Content="New Game"
+            Style="{StaticResource MenuButtonStyle}" Click="NewGameButton_Click"/>
 
-        <!-- this shows a hidden popup on current page -->
-        <Button x:Name="RulesOpenButton" Content="Open Rules"
-                Style="{StaticResource MenuButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="RulesOpenButton_Click">
-        </Button>
-        
-        <!-- this should be hidden until number of players are chosen -->
-        <Button x:Name="GameStartButton" Visibility="Collapsed"  Content="Start Game" 
-                Style="{StaticResource MenuButtonStyle}" Width="318" Height="130" Click="GameStartButton_Click" HorizontalAlignment="Center" Margin="0,682,0,0" VerticalAlignment="Top"/>
+            <!-- this shows a hidden popup on current page -->
+            <Button x:Name="RulesOpenButton" Content="Open Rules"
+                    Style="{StaticResource MenuButtonStyle}" Click="RulesOpenButton_Click">
+            </Button>
 
-        <Grid x:Name="RulesPopup" Visibility="Collapsed" Height="500" Width="500" Background="BlueViolet">
+            <Button x:Name="ApplicationExitButton" Content="Exit Program"
+                    Style="{StaticResource MenuButtonStyle}" Click="ApplicationExitButton_Click"/>
 
-            <TextBlock x:Name="RulesHeaderTextBlock" Text="Hej" HorizontalAlignment="Center" VerticalAlignment="Top" Width="500" />
-            <TextBlock x:Name="RulesTextBlock" Text="Hopp" HorizontalAlignment="Center" VerticalAlignment="Center" Width="500" />
+            <!-- this should be hidden until number of players are chosen -->
+            <Button x:Name="GameStartButton" Visibility="Collapsed"  Content="Start Game" 
+                    Style="{StaticResource MenuButtonStyle}" Width="318" Height="130" Click="GameStartButton_Click"/>
+        </StackPanel>
 
-        </Grid>
+        <!-- Hides buttons while popup windows are open-->
+        <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
+
+        <StackPanel x:Name="RulesPopup" Visibility="Collapsed" Height="500" Width="500" Background="BlueViolet" CornerRadius="5,5,5,5">
+            <TextBlock Text="Att spela Fia med Fight" Width="500" Height="50" TextDecorations="Underline"/>
+            <TextBlock x:Name="RulesHeaderTextBlock" HorizontalAlignment="Center" Width="500" Height="60" />
+            <TextBlock x:Name="RulesBodyTextBlock" HorizontalAlignment="Center" Width="500" Height="300" TextWrapping="WrapWholeWords"/>
+            <Grid >
+                <Button x:Name="ReturnButton" Content="Close"
+                    Style="{StaticResource MenuButtonStyle}" Click="ReturnButton_Click" Margin="5" Width="121" Height="54" HorizontalAlignment="Center"/>
+                <Button x:Name="NextButton" Content="Next"
+                    Style="{StaticResource MenuButtonStyle}" Click="RulesNextButton_Click" Margin="5" Width="134" Height="54" HorizontalAlignment="Right" />
+            </Grid>
+        </StackPanel>
 
     </Grid>
 </Page>

@@ -22,12 +22,14 @@ namespace FiaMedFight
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MenuScreen : Page
-    {
+    {      
+
+        static StringBindingCollection ruleStrings = new StringBindingCollection();
+
         public MenuScreen()
         {
             this.InitializeComponent();
             ApplicationExitButton.Click += ApplicationExitButton_Click;
-            DataContext = StringBindingCollection.GetCollection();
         }
 
         //stänger programmet
@@ -53,7 +55,28 @@ namespace FiaMedFight
 
         private void RulesOpenButton_Click(object sender, RoutedEventArgs e)
         {
+            Dimmer.Visibility = Visibility.Visible;
             RulesPopup.Visibility = Visibility.Visible;
+            NextButton.Tag = 0;
+            RulesHeaderTextBlock.Text = ruleStrings.Title[0];
+            RulesBodyTextBlock.Text = ruleStrings.Rules[0];
+        }
+
+        private void ReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            RulesPopup.Visibility = Visibility.Collapsed;
+            Dimmer.Visibility = Visibility.Collapsed;
+            GameStartButton.Visibility = Visibility.Visible;
+            
+        }
+
+        private void RulesNextButton_Click(object sender, RoutedEventArgs e)
+        {
+            var rulePage = sender as Button;
+            int i = (int)rulePage.Tag + 1;
+            rulePage.Tag = i;
+            RulesHeaderTextBlock.Text = ruleStrings.Title[i];
+            RulesBodyTextBlock.Text = ruleStrings.Rules[i];
         }
     }
 }
