@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Shapes;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -30,7 +31,6 @@ namespace FiaMedFight
         static Storyboard spinAnimation;
         static Storyboard moveAnimation;
         static Page activePage;
-        static Grid targetGrid;
         public MainPage()
         {
             this.InitializeComponent();
@@ -42,8 +42,15 @@ namespace FiaMedFight
         }
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            activePage = (Window.Current.Content as Frame)?.Content as Page;
-            targetGrid = activePage.FindName("gameBoardGrid") as Grid;
+            //Initialize this page to GameManager:
+            GameManager.gameBoard = gameBoardGrid;
+            //Setup test session:
+            GameSession session = new GameSession();
+            GameManager.StartGame(session);
+
+            //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
+            GameManager.AddGamePieceControl("red", "Coordinate11");
+            GameManager.AddGamePieceControl("blue", "Coordinate40");
         }
 
         /// <summary>

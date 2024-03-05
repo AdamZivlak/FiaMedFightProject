@@ -122,7 +122,6 @@
     <Compile Include="Classes\Dice.cs" />
     <Compile Include="Classes\GameboardLocation.cs" />
     <Compile Include="Classes\GameManager.cs" />
-    <Compile Include="Classes\GamePiece.cs" />
     <Compile Include="Classes\GamePlayer.cs" />
     <Compile Include="Classes\GameSession.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -145,9 +144,10 @@
     <Content Include="Assets\Dice\Face4.png" />
     <Content Include="Assets\Dice\Face5.png" />
     <Content Include="Assets\Dice\Face6.png" />
-    <Content Include="Assets\Pieces\pawnGreen.jpg" />
-    <Content Include="Assets\Pieces\pawnRed.jpg" />
-    <Content Include="Assets\Pieces\PawnRed.png" />
+    <Content Include="Assets\Pieces\blue.png" />
+    <Content Include="Assets\Pieces\green.png" />
+    <Content Include="Assets\Pieces\red.png" />
+    <Content Include="Assets\Pieces\yellow.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

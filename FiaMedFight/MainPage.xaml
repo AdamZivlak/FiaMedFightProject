@@ -121,8 +121,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <uc:GamePieceControl x:Name="RedPawn1" Canvas.ZIndex="1" Grid.Column="17" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2" Opacity="100">
-            </uc:GamePieceControl>
+
             <Rectangle x:Name="GreenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="GreenYellow" RadiusX="50" RadiusY="50"/>
             <Rectangle x:Name="RedBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Red" RadiusX="50" RadiusY="50"/>
             <Rectangle x:Name="YellowBase" Grid.Column="24" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Yellow" RadiusX="50" RadiusY="50"/>

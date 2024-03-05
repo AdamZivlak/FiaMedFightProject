@@ -11,8 +11,11 @@
     PointerPressed="GamePiece_Pressed"
     PointerReleased="GamePiece_Released"
    >
-
-    <Grid x:Name="RedPawn" Background="Transparent">
-        <Image Source="ms-appx:///Assets/Pieces/pawnRed.jpg"/>
+    
+    <Grid x:Name="Pawn" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
+        </Grid.RenderTransform>
+        <Image x:Name="GamePieceImage" Source="ms-appx:///Assets/Pieces/red.png"/>
     </Grid>
 </UserControl>

@@ -58,12 +58,6 @@ namespace FiaMedFight
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
-            //Create a development GameSession with two players to test.
-            //TODO: Replace with creating a game session in a "new game" menu
-            Classes.GameSession session = new Classes.GameSession();
-            session.AddPlayer(new Classes.GamePlayer("Blue", 1));
-            session.AddPlayer(new Classes.GamePlayer("Red", 1));
-            Classes.GameManager.StartGame(session);
 
             if (e.PrelaunchActivated == false)
             {
