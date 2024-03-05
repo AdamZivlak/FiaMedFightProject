@@ -34,7 +34,6 @@
             </Image.Projection>
         </Image>
         <TextBlock x:Name="ResultText"  Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="0,171,0,0" Text="...result..."/>
-
         <Grid x:Name="gameBoardGrid" Margin="4,0,-4,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -206,6 +205,9 @@
             <Ellipse x:Name="RedSafeCoordinate3" Grid.Column="19" Grid.Row="27" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="RedSafeCoordinate2" Grid.Column="19" Grid.Row="29" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="RedSafeCoordinate1" Grid.Column="19" Grid.Row="31" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
+
+            <TextBlock x:Name="ActivePlayerText"  Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="2" Grid.Row="35" FontSize="30" Text="Active Player: Green"/>
+
         </Grid>
     </Grid>
 </Page>

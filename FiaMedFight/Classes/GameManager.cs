@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using System.Diagnostics;
+using System.ServiceModel;
+using Windows.Media.Control;
 
 namespace FiaMedFight.Classes
 {
@@ -117,8 +119,11 @@ namespace FiaMedFight.Classes
             int numberOfPlayers = session.players.Count;
             
             session.players[session.activePlayerIndex].EndTurn(); //Deaktivera alla pjäser
-
             session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;
+
+            //Ändra text:
+            var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
+            activePlayerTextBox.Text = "Active Player: " + session.players[session.activePlayerIndex].color;
             //Nu är alla spelpjäser inaktiva och vi har bytt aktiv spelare
             //Aktivera tärningen
             session.dice.Activate();
