@@ -22,7 +22,13 @@ namespace FiaMedFight.Classes
         /// Gets the list of game piece controls owned by the player.
         /// </summary>
         public List<GamePieceControl> pieces = new List<GamePieceControl>();
+        
+        /// <summary>
+        /// The NN value of a "CoordinateNN" string pointing to the first gameLocation to move to from homeBase.
+        /// </summary>
+        public string firstCoordinateAfterHomeBase;
 
+        private bool isPlayerTurn;
         int score;
 
         /// <summary>
@@ -30,10 +36,15 @@ namespace FiaMedFight.Classes
         /// </summary>
         /// <param name="color">The color of the player.</param>
         /// <param name="gamePieces">The number of game pieces.</param>
-        public GamePlayer(string color)
+        /// <param name="firstCoordinateAfterHomeBase">The number on the first game Location to move to after homeBase</param>
+
+        public GamePlayer(string color, string firstCoordinateAfterHomeBase = "Coordinate1")
         {
             this.color = color;
             this.score = 0;
+            this.firstCoordinateAfterHomeBase = firstCoordinateAfterHomeBase;
+            pieces = new List<GamePieceControl>();
+            isPlayerTurn = false;
         }
 
         /// <summary>
@@ -43,6 +54,32 @@ namespace FiaMedFight.Classes
         public void AddPoints(int points)
         {
             this.score += points;
+        }
+
+        /// <summary>
+        /// Starts the player's turn 
+        /// </summary>
+        public void StartTurn()
+        {
+            // Todo: Add logic 
+            isPlayerTurn = true;
+        }
+        
+        /// <summary>
+        /// Ends the player's turn
+        /// </summary>
+        public void EndTurn()
+        {
+            isPlayerTurn = false;
+        }
+
+        /// <summary>
+        /// Checks if it's the player's turn.
+        /// </summary>
+        /// <returns>True if it's the player's turn, otherwise it's false</returns>
+        public bool IsPlayerTurn()
+        { 
+            return isPlayerTurn; 
         }
     }
 }

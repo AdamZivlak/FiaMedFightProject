@@ -122,10 +122,10 @@
             </Grid.RowDefinitions>
 
 
-            <Rectangle x:Name="GreenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="GreenYellow" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="RedBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Red" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="YellowBase" Grid.Column="24" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Yellow" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="BlueBase" Grid.Column="24" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Blue" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="greenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="GreenYellow" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="redBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Red" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="yellowBase" Grid.Column="24" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Yellow" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="blueBase" Grid.Column="24" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Blue" RadiusX="50" RadiusY="50"/>
                 
             <Ellipse x:Name="Coordinate1" Grid.Column="17" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate2" Grid.Column="19" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>

@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Gaming.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -57,6 +58,11 @@ namespace FiaMedFight.Templates
             UpdateImageSource(color);
         }
 
+        public GamePlayer Player()
+        {
+            return GameManager.FindOrCreatePlayer(color);
+        }
+
         /// <summary>
         /// Updates the image source for the game piece based on its color.
         /// </summary>
@@ -89,6 +95,11 @@ namespace FiaMedFight.Templates
         public int GetCoordinateInt()
         {
             string coordinate_num = this.coordinate.Substring(10);
+            return int.Parse(coordinate_num);
+        }
+        public int GetCoordinateInt(string coordinate)
+        {
+            string coordinate_num = coordinate.Substring(10);
             return int.Parse(coordinate_num);
         }
 
@@ -130,8 +141,18 @@ namespace FiaMedFight.Templates
         /// <returns>The string representation of the end coordinate.</returns>
         public string GetEndCoordinateString(int dice_result)
         {
-            int new_pos = GetCoordinateInt() + dice_result;
-            if (new_pos > 52) new_pos -= 52;
+            int new_pos;
+            if (coordinate.ToLower().StartsWith("coordinate"))
+            {
+                new_pos = GetCoordinateInt() + dice_result;
+                if (new_pos > 52) new_pos -= 52;
+            }
+            else if (coordinate.ToLower().StartsWith(color + "base"))
+            {
+                new_pos = GetCoordinateInt(Player().firstCoordinateAfterHomeBase) + dice_result - 1;
+            }
+            else new_pos = 1;
+
             return "Coordinate" + new_pos;
         }
 
@@ -285,6 +306,40 @@ namespace FiaMedFight.Templates
             resizeAnimation.Children.Add(scaleYAnimation);
 
             resizeAnimation.Begin();
+        }
+        public void MoveToHomeBase()
+        {
+            string homeBaseCoordinate = color + "Base";
+            var homeBase = GameManager.gameBoard.FindName(homeBaseCoordinate) as FrameworkElement;
+
+            int baseColumn = Grid.GetColumn(homeBase);
+            int baseRow = Grid.GetRow(homeBase);
+
+            var player = this.Player();
+
+            bool setRowAndColumn = false;
+
+            //Moves the piece within the homeBase if there are already pieces there.
+            for (int row = baseRow + 1; row <= baseRow + 5 && !setRowAndColumn; row += 2)
+            {
+                for (int column = baseColumn + 1; column <= baseColumn + 5 && !setRowAndColumn; column += 2)
+                {
+                    setRowAndColumn = true;
+                    foreach (GamePieceControl p in player.pieces)
+                    {
+                        if (Grid.GetColumn(p) == column && Grid.GetRow(p) == row)
+                        {
+                            setRowAndColumn = false;
+                            break;
+                        }
+                    }
+                    if (setRowAndColumn)
+                    {
+                        Grid.SetRow(this, row);
+                        Grid.SetColumn(this, column);
+                    }
+                }
+            }
         }
     }
 }

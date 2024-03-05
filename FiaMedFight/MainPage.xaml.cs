@@ -29,8 +29,6 @@ namespace FiaMedFight
     public sealed partial class MainPage : Page
     {
         static Storyboard spinAnimation;
-        static Storyboard moveAnimation;
-        static Page activePage;
         public MainPage()
         {
             this.InitializeComponent();
@@ -46,9 +44,17 @@ namespace FiaMedFight
             GameManager.gameBoard = gameBoardGrid;
             //Setup test session:
             GameSession session = new GameSession();
+            session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
+            session.AddPlayer(new GamePlayer("red", "Coordinate31"));
             GameManager.StartGame(session);
 
             //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
+            GameManager.AddGamePieceControl("red");
+            GameManager.AddGamePieceControl("red");
+            GameManager.AddGamePieceControl("red");
+            GameManager.AddGamePieceControl("blue");
+            GameManager.AddGamePieceControl("blue");
+
             GameManager.AddGamePieceControl("red", "Coordinate11");
             GameManager.AddGamePieceControl("blue", "Coordinate40");
         }

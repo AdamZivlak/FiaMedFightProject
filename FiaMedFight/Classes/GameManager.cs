@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
+using System.Diagnostics;
 
 namespace FiaMedFight.Classes
 {
@@ -58,21 +59,44 @@ namespace FiaMedFight.Classes
                 player.pieces.Add(gamePieceControl);
             }
         }
+
+        /// <summary>
+        /// Adds a game piece control to the default 'homeBase' location on the board. Adds the game piece to the active sessions players list of pieces.
+        /// </summary>
+        /// <param name="color">The color of the game piece and owner player..</param>
+        public static void AddGamePieceControl(string color)
+        {
+            GamePlayer player = FindOrCreatePlayer(color);
+
+            var gamePieceControl = new GamePieceControl(color);
+            Canvas.SetZIndex(gamePieceControl, 1);
+            Grid.SetColumnSpan(gamePieceControl, 2);
+            Grid.SetRowSpan(gamePieceControl, 2);
+            gamePieceControl.Opacity = 1;
+            gamePieceControl.MoveToHomeBase();
+            gameBoard.Children.Add(gamePieceControl);
+
+            player.pieces.Add(gamePieceControl);
+        }
+
+        
+
         /// <summary>
         /// Finds an existing player by color or creates a new one if not found.
         /// </summary>
         /// <param name="color">The color used to identify the player.</param>
         /// <returns>A <see cref="GamePlayer"/> instance corresponding to the specified color.</returns>
-        public static GamePlayer FindOrCreatePlayer(string color)
+        public static GamePlayer FindOrCreatePlayer(string color, string firstCoordinateAfterHomeBase = "Coordinate1")
         {
+            if (session == null) session = new GameSession();
+            
             var player = session.players.FirstOrDefault(listedPlayer => listedPlayer.color == color);
 
             if (player == null)
             {
-                player = new GamePlayer(color);
+                player = new GamePlayer(color, firstCoordinateAfterHomeBase);
                 session.players.Add(player);
             }
-
             return player;
         }
         /// <summary>
@@ -86,6 +110,20 @@ namespace FiaMedFight.Classes
             int newColumn = Grid.GetColumn(targetElement);
             int newRow = Grid.GetRow(targetElement);
             return (newRow, newColumn);
+        }
+
+        public static void NextTurn()
+        {
+            int numberOfPlayers = session.players.Count;
+            
+            session.players[session.activePlayerIndex].EndTurn(); //Deaktivera alla pjäser
+
+            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;
+            //Nu är alla spelpjäser inaktiva
+            //Aktivera tärningen
+            //Slå ett slag
+            //Inaktivera tärningen
+            session.players[session.activePlayerIndex].StartTurn(); //Aktivera alla utom i homeBase
         }
     }
 }
