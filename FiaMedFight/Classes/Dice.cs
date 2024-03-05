@@ -12,7 +12,7 @@ namespace FiaMedFight.Classes
     /// <summary>
     /// Represents a dice object with methods to roll and change its face.
     /// </summary>
-    internal class Dice
+    public class Dice
     {
         /// <summary>
         /// Paths to image files for each side of a six-sided dice.

@@ -121,10 +121,16 @@
     </Compile>
     <Compile Include="Classes\Dice.cs" />
     <Compile Include="Classes\GameboardLocation.cs" />
+    <Compile Include="Classes\GameManager.cs" />
+    <Compile Include="Classes\GamePlayer.cs" />
+    <Compile Include="Classes\GameSession.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Templates\GamePieceControl.xaml.cs">
+      <DependentUpon>GamePieceControl.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -138,6 +144,10 @@
     <Content Include="Assets\Dice\Face4.png" />
     <Content Include="Assets\Dice\Face5.png" />
     <Content Include="Assets\Dice\Face6.png" />
+    <Content Include="Assets\Pieces\blue.png" />
+    <Content Include="Assets\Pieces\green.png" />
+    <Content Include="Assets\Pieces\red.png" />
+    <Content Include="Assets\Pieces\yellow.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -163,6 +173,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Templates\GamePieceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Templates\StoryboardAnimations.xaml">
       <SubType>Designer</SubType>
