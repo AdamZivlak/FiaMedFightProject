@@ -150,7 +150,10 @@
     <Content Include="Assets\Dice\Face6.png" />
     <Content Include="Assets\GameOverImage.png" />
     <Content Include="Assets\PlayButton.png" />
-    <Content Include="Assets\SplashScreen.jpg" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-125.png" />
+    <Content Include="Assets\SplashScreen.scale-150.png" />
+    <Content Include="Assets\SplashScreen.scale-400.png" />
     <Content Include="Assets\WelcomeImage.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
