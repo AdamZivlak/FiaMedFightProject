@@ -30,10 +30,10 @@ namespace FiaMedFight.Templates
     /// </remarks>
     public partial class GamePieceControl : UserControl
     {
-        bool active = true;
+        bool active = true; //TODO: Should default to false when GameManeger starts managing turns.
         public string coordinate;
         public Point currentPoint = new Point(0, 0);
-        public string color = "red";
+        public string color;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GamePieceControl"/> class at a specified coordinate.
@@ -231,8 +231,6 @@ namespace FiaMedFight.Templates
 
             Point startPoint = currentPoint;
             Point endPoint = GetXYFromSelfToCoordinate(endCoordinate, offsetX, offsetY);
-            Page activePage = (Window.Current.Content as Frame)?.Content as Page;
-            var targetElement = activePage.FindName(endCoordinate) as FrameworkElement;
 
             oDoubleAnimationX.From = startPoint.X;
             oDoubleAnimationX.To = endPoint.X;
