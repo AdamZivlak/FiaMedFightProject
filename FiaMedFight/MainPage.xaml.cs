@@ -45,7 +45,9 @@ namespace FiaMedFight
             GameManager.gameBoard = gameBoardGrid;
             //Setup test session:
             GameSession session = new GameSession();
+            session.AddPlayer(new GamePlayer("green", "Coordinate44"));
             session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
+            session.AddPlayer(new GamePlayer("yellow", "Coordinate18"));
             session.AddPlayer(new GamePlayer("red", "Coordinate31"));
             GameManager.StartGame(session);
 
@@ -55,9 +57,13 @@ namespace FiaMedFight
             GameManager.AddGamePieceControl("red");
             GameManager.AddGamePieceControl("blue");
             GameManager.AddGamePieceControl("blue");
-
-            GameManager.AddGamePieceControl("red", "Coordinate11");
-            GameManager.AddGamePieceControl("blue", "Coordinate40");
+            GameManager.AddGamePieceControl("blue");
+            GameManager.AddGamePieceControl("green");
+            GameManager.AddGamePieceControl("green");
+            GameManager.AddGamePieceControl("green");
+            GameManager.AddGamePieceControl("yellow");
+            GameManager.AddGamePieceControl("yellow");
+            GameManager.AddGamePieceControl("yellow");
         }
 
         /// <summary>

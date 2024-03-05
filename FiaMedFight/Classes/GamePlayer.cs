@@ -66,7 +66,14 @@ namespace FiaMedFight.Classes
             // Exemepel diceRollsLeft = 1;
             foreach (GamePieceControl piece in pieces)
             {
-                piece.Activate();
+                if (piece.coordinate.ToLower().StartsWith(color + "base"))
+                {
+                    if (GameManager.session.dice.FaceValue == 1 || GameManager.session.dice.FaceValue == 6)
+                    {
+                        piece.Activate();
+                    }
+                }
+                else piece.Activate();
             }
             isPlayerTurn = true;
         }

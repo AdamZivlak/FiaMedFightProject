@@ -133,6 +133,12 @@ namespace FiaMedFight.Classes
             session.dice.Deactivate();
             //Aktivera aktiv spelares pjäser
             session.players[session.activePlayerIndex].StartTurn(); //Aktivera alla utom i homeBase
+
+            //Om ingen pjäs kan gå. NextTurn()
+            if(!session.players[session.activePlayerIndex].pieces.Any(p => p.active == true))
+            {
+                NextTurn();
+            }
         }
     }
 }

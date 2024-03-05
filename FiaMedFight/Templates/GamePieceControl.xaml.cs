@@ -32,7 +32,7 @@ namespace FiaMedFight.Templates
     /// </remarks>
     public partial class GamePieceControl : UserControl
     {
-        bool active = true; //TODO: Should default to false when GameManeger starts managing turns.
+        public bool active = false;
         public string coordinate;
         public Point currentPoint = new Point(0, 0);
         public string color;
