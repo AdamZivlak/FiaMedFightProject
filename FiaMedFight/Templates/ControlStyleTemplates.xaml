@@ -14,7 +14,7 @@
         <Setter Property="Width" Value="100"/>
     </Style>
 
-    <!-- Defines a Style for the Menu Open Button with specific properties, including centered text. -->
+    <!-- Defines a Style for the Menu Buttons with specific properties, including centered text. -->
     <Style x:Key="MenuButtonStyle" TargetType="Button">
         <Setter Property="Background">
             <Setter.Value>
@@ -22,16 +22,54 @@
             </Setter.Value>
         </Setter>
         <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
         <Setter Property="FontSize" Value="30"/>
         <Setter Property="Height" Value="60"/>
         <Setter Property="Width" Value="250"/>
-        <!--<Setter Property="BorderBrush" Value="Black"/>-->
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="50"/>
-        
+    </Style>
+    
+    <Style x:Key="SmallMenuButtonStyle" TargetType="Button">
+        <Setter Property="Background">
+            <Setter.Value>
+                <ImageBrush ImageSource="ms-appx:///Assets/PlayButton.png"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="110"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Defines a style for text, specifically in the Rules popup but can be used elsewhere -->
+    <Style x:Key="HeaderStyle" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="TextDecorations" Value="Underline"/>
+        <Setter Property="HorizontalTextAlignment" Value="Justify"/>
+        <Setter Property="Padding" Value="55,15"/>
+    </Style>
+
+    <Style x:Key="RulesHeaderStyle" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Padding" Value="15, 15,0,0"/>
+    </Style>
+    
+    <Style x:Key="RulesBodyStyle" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Consolas"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="TextWrapping" Value="WrapWholeWords"/>
     </Style>
 
 </ResourceDictionary>

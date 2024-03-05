@@ -35,34 +35,41 @@
 
         <StackPanel HorizontalAlignment="Center" Padding="150">
 
+            <!-- this is where the selection for number of players pops up -->
             <Button x:Name="NewGameButton" Content="New Game"
             Style="{StaticResource MenuButtonStyle}" Click="NewGameButton_Click"/>
 
+            <!-- this should be used to start game once a number of players are chosen -->
+            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" 
+                    Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click"/>
+
             <!-- this shows a hidden popup on current page -->
             <Button x:Name="RulesOpenButton" Content="Open Rules"
-                    Style="{StaticResource MenuButtonStyle}" Click="RulesOpenButton_Click">
-            </Button>
+                    Style="{StaticResource MenuButtonStyle}" Click="RulesOpenButton_Click"/>
 
+            <!-- close the application -->
             <Button x:Name="ApplicationExitButton" Content="Exit Program"
                     Style="{StaticResource MenuButtonStyle}" Click="ApplicationExitButton_Click"/>
-
-            <!-- this should be hidden until number of players are chosen -->
-            <Button x:Name="GameStartButton" Visibility="Collapsed"  Content="Start Game" 
-                    Style="{StaticResource MenuButtonStyle}" Width="318" Height="130" Click="GameStartButton_Click"/>
         </StackPanel>
 
         <!-- Hides buttons while popup windows are open-->
         <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
 
-        <StackPanel x:Name="RulesPopup" Visibility="Collapsed" Height="500" Width="500" Background="BlueViolet" CornerRadius="5,5,5,5">
-            <TextBlock Text="Att spela Fia med Fight" Width="500" Height="50" TextDecorations="Underline"/>
-            <TextBlock x:Name="RulesHeaderTextBlock" HorizontalAlignment="Center" Width="500" Height="60" />
-            <TextBlock x:Name="RulesBodyTextBlock" HorizontalAlignment="Center" Width="500" Height="300" TextWrapping="WrapWholeWords"/>
+        <!-- Popup with rules -->
+        <StackPanel x:Name="RulesPopup" Visibility="Collapsed" Height="600" Width="550" Background="BlueViolet" BorderBrush="Black" BorderThickness="2" CornerRadius="5,5,5,5">
+            <TextBlock x:Name="RulesHeader" Width="550" Height="90" Style="{StaticResource HeaderStyle}" Text="Att spela Fia med Fight" VerticalAlignment="Center" />
+            <TextBlock x:Name="RulesHeaderTextBlock" Width="550" Height="60" Style="{StaticResource RulesHeaderStyle}"/>
+            <TextBlock x:Name="RulesBodyTextBlock" Width="500" Height="360" Style="{StaticResource RulesBodyStyle}"/>
+            <TextBlock Padding="5,0,0,12">
+			    <Hyperlink NavigateUri="https://molk-board-game.atlassian.net/wiki/spaces/MBG/pages/4161552/Information+om+Fia+Med+Fight">Läs reglerna online</Hyperlink> 
+            </TextBlock>
             <Grid >
-                <Button x:Name="ReturnButton" Content="Close"
-                    Style="{StaticResource MenuButtonStyle}" Click="ReturnButton_Click" Margin="5" Width="121" Height="54" HorizontalAlignment="Center"/>
-                <Button x:Name="NextButton" Content="Next"
-                    Style="{StaticResource MenuButtonStyle}" Click="RulesNextButton_Click" Margin="5" Width="134" Height="54" HorizontalAlignment="Right" />
+                <Button x:Name="PrevButton" Content="Föregående"
+                    Style="{StaticResource SmallMenuButtonStyle}" Click="RulesPreviousButton_Click" Margin="10,5,5,5" HorizontalAlignment="Left" />
+                <Button x:Name="ReturnButton" Content="Stäng"
+                    Style="{StaticResource SmallMenuButtonStyle}" Click="ReturnButton_Click" Margin="5" HorizontalAlignment="Center"/>
+                <Button x:Name="NextButton" Content="Nästa"
+                    Style="{StaticResource SmallMenuButtonStyle}" Click="RulesNextButton_Click" Margin="5,5,10,5" HorizontalAlignment="Right" />
             </Grid>
         </StackPanel>
 
