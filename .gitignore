@@ -50,9 +50,14 @@ Thumbs.db
 
 /.vs
 /FiaMedFight/.vs
-/FiaMedFight/bin/x64/Debug
-/FiaMedFight/obj/x64/Debug
+/FiaMedFight/bin/
+/FiaMedFight/obj/
+/FiaMedFight/FiaMedFight.csproj.user
+/FiaMedFight/obj/x64/Debug/FiaMedFight.csproj.AssemblyReference.cache
+/FiaMedFight/obj/FiaMedFight.csproj.nuget.dgspec.json
+/FiaMedFight/obj/FiaMedFight.csproj.nuget.g.props
+/FiaMedFight/obj/project.assets.json
+/FiaMedFight/obj/project.nuget.cache
 /FiaMedFight/obj/x64/Debug/App.g.cs
 /FiaMedFight/obj/x64/Debug/DesignTimeResolveAssemblyReferencesInput.cache
-/FiaMedFight/obj/x64/Debug/FiaMedFight.csproj.AssemblyReference.cache
 /FiaMedFight/obj/x64/Debug/XamlSaveStateFile.xml
