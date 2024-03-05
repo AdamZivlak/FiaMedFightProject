@@ -9,6 +9,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Gaming.Input.Custom;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -73,7 +74,9 @@ namespace FiaMedFight
         /// 4. Upon completion of the animation, it updates the UI to show the dice's face value and makes the button visible again.
         /// </remarks>
         private void SimpleDice_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {            
+        {
+            if (!GameManager.session.dice.active) return;
+            
             var button = sender as Button;
             GameManager.session.dice.RollThisDice(button);
 
@@ -87,6 +90,7 @@ namespace FiaMedFight
                 button.Visibility = Visibility.Visible;
                 ResultText.Text = "You rolled: " + GameManager.session.dice.FaceValue;
             };
+            GameManager.PlayerRolledDice();
         }
     }
 }

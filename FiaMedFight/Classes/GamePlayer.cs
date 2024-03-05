@@ -61,7 +61,13 @@ namespace FiaMedFight.Classes
         /// </summary>
         public void StartTurn()
         {
-            // Todo: Add logic 
+            // Todo: Uppdatera spelarens tillgängliga handlingar,
+            // t.ex antal tärningskast eller antal drag
+            // Exemepel diceRollsLeft = 1;
+            foreach (GamePieceControl piece in pieces)
+            {
+                piece.Activate();
+            }
             isPlayerTurn = true;
         }
         
@@ -70,6 +76,11 @@ namespace FiaMedFight.Classes
         /// </summary>
         public void EndTurn()
         {
+            foreach(GamePieceControl piece in pieces)
+            {
+                piece.Deactivate();
+            }
+            // Todo: 
             isPlayerTurn = false;
         }
 

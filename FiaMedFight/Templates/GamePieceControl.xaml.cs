@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Gaming.Input.Custom;
 using Windows.Gaming.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -202,9 +203,7 @@ namespace FiaMedFight.Templates
             //Resets the transform and actually moves the piece within the grid.
             ResetMovementTransform();
             MoveToNewGridCoordinate(endCoordinate, -1);
-
-            //Reactivates piece for testing purposes. Should stay deactivated until GameManager activates on next turn.
-            Activate();
+            GameManager.NextTurn();
         }
 
         /// <summary>
@@ -307,6 +306,9 @@ namespace FiaMedFight.Templates
 
             resizeAnimation.Begin();
         }
+        /// <summary>
+        /// Repositions the piece to it's homeBase location within the active session's gameBoard Grid.
+        /// </summary>
         public void MoveToHomeBase()
         {
             string homeBaseCoordinate = color + "Base";
@@ -319,7 +321,7 @@ namespace FiaMedFight.Templates
 
             bool setRowAndColumn = false;
 
-            //Moves the piece within the homeBase if there are already pieces there.
+            //Move to another 'row' or 'column' if there is already a piece there.
             for (int row = baseRow + 1; row <= baseRow + 5 && !setRowAndColumn; row += 2)
             {
                 for (int column = baseColumn + 1; column <= baseColumn + 5 && !setRowAndColumn; column += 2)

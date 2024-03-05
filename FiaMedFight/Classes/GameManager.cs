@@ -119,11 +119,21 @@ namespace FiaMedFight.Classes
             session.players[session.activePlayerIndex].EndTurn(); //Deaktivera alla pjäser
 
             session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;
-            //Nu är alla spelpjäser inaktiva
+            //Nu är alla spelpjäser inaktiva och vi har bytt aktiv spelare
             //Aktivera tärningen
+            session.dice.Activate();
+
             //Slå ett slag
+            // Vänta på knapptryck
+
+        }
+        public static void PlayerRolledDice()
+        {
             //Inaktivera tärningen
+            session.dice.Deactivate();
+            //Aktivera aktiv spelares pjäser
             session.players[session.activePlayerIndex].StartTurn(); //Aktivera alla utom i homeBase
         }
     }
 }
+
