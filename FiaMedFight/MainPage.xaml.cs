@@ -112,5 +112,17 @@ namespace FiaMedFight
                 GameManager.PlayerRolledDice();
             };
         }
-    }
+
+        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MenuScreen));
+        }
+
+        private async void QuitGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(GameOverDialog));
+            await Task.Delay(5000);
+            Frame.Navigate(typeof(MenuScreen));
+        }
+   }
 }
