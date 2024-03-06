@@ -277,7 +277,7 @@ namespace FiaMedFight.Templates
             this.coordinate = endCoordinate;
             return tcs.Task;
         }
-        // <summary>
+        /// <summary>
         /// Applies a resize animation to the game piece, scaling it by a specified factor over a set duration.
         /// </summary>
         /// <param name="factor">The factor by which to scale the game piece.</param>

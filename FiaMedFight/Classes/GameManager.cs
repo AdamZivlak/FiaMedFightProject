@@ -79,9 +79,7 @@ namespace FiaMedFight.Classes
             gameBoard.Children.Add(gamePieceControl);
 
             player.pieces.Add(gamePieceControl);
-        }
-
-        
+        }               
 
         /// <summary>
         /// Finds an existing player by color or creates a new one if not found.
@@ -114,36 +112,55 @@ namespace FiaMedFight.Classes
             return (newRow, newColumn);
         }
 
+        /// <summary>
+        /// Returns the active player from the current session
+        /// </summary>
+        /// <returns></returns>
+        public static GamePlayer ActivePlayer()
+        {
+            return session.players[session.activePlayerIndex];
+        }
+
+        /// <summary>
+        /// Advances the game to the next player's turn.
+        /// <list type="bullet">
+        /// <item>Deactivates all pieces belonging to the current active player.</item>
+        /// <item>Changes the active player to the next player in the player list.</item>
+        /// <item>Updates the UI to display the name of the newly active player.</item>
+        /// <item>Activates the dice for the new active player.</item>
+        /// </list>
+        /// </summary>
         public static void NextTurn()
         {
             int numberOfPlayers = session.players.Count;
-            
-            session.players[session.activePlayerIndex].EndTurn(); //Deaktivera alla pjäser
-            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;
 
-            //Ändra text:
+            ActivePlayer().EndTurn(); // Deactivate all pieces
+            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;          
+
             var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
-            activePlayerTextBox.Text = "Active Player: " + session.players[session.activePlayerIndex].color;
-            //Nu är alla spelpjäser inaktiva och vi har bytt aktiv spelare
-            //Aktivera tärningen
+            activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;
+
             session.dice.Activate();
-
-            //Slå ett slag
-            // Vänta på knapptryck
-
         }
+
+        /// <summary>
+        /// Handles the action after a player rolls the dice.
+        /// This method performs the following steps:
+        /// <list type="number">
+        /// <item>Deactivates the dice.</item>
+        /// <item>Activates all pieces belonging to the current active player.</item>
+        /// <item>Checks if any of the active player's pieces can move. If none can move, advances to the next player's turn.</item>
+        /// </list>
+        /// </summary>
         public static void PlayerRolledDice()
         {
-            //Inaktivera tärningen
-            session.dice.Deactivate();
-            //Aktivera aktiv spelares pjäser
-            session.players[session.activePlayerIndex].StartTurn(); //Aktivera alla utom i homeBase
+            ActivePlayer().StartTurn(); // Activate all pieces except those in home base
 
-            //Om ingen pjäs kan gå. NextTurn()
-            if(!session.players[session.activePlayerIndex].pieces.Any(p => p.active == true))
+            if (!ActivePlayer().pieces.Any(p => p.active == true))
             {
                 NextTurn();
             }
+            
         }
     }
 }

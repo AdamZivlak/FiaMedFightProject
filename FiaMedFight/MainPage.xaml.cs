@@ -25,25 +25,38 @@ using Windows.UI.Xaml.Shapes;
 namespace FiaMedFight
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Represents the Game Screen page of the application.
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        /// <summary>
+        /// An animation for spinning the Dice.
+        /// </summary>
         static Storyboard spinAnimation;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainPage"/> class.
+        /// </summary>
         public MainPage()
         {
             this.InitializeComponent();
             this.Loaded += MainPage_Loaded;
-            
-            // Get the storyboard animation from the resource dictionary
+
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
-            Storyboard.SetTarget(spinAnimation, SpinningImage);            
+            Storyboard.SetTarget(spinAnimation, SpinningImage);
         }
+
+        /// <summary>
+        /// Handles the Loaded event of the MainPage.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            //Initialize this page to GameManager:
+            // Initialize this page to GameManager:
             GameManager.gameBoard = gameBoardGrid;
-            //Setup test session:
+
+            // Setup test session:
             GameSession session = new GameSession();
             session.AddPlayer(new GamePlayer("green", "Coordinate44"));
             session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
@@ -51,7 +64,7 @@ namespace FiaMedFight
             session.AddPlayer(new GamePlayer("red", "Coordinate31"));
             GameManager.StartGame(session);
 
-            //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
+            // Spawn test pieces (also adds them to each GamePlayer's list of pieces):
             GameManager.AddGamePieceControl("red");
             GameManager.AddGamePieceControl("red");
             GameManager.AddGamePieceControl("red");
@@ -69,20 +82,21 @@ namespace FiaMedFight
         /// <summary>
         /// Handles the Click event of a Dice button. This method initiates the dice roll process,
         /// starts an animation, and updates the UI to reflect the roll's outcome.
+        /// <list> This method performs several steps:
+        /// <item> 1. It casts the sender to a Button type and rolls the dice associated with it. </item>
+        /// <item> 2. It makes the button invisible and shows an image to indicate that the dice is rolling. </item>
+        /// <item> 3. It starts a spinning animation to visually represent the dice roll. </item>
+        /// <item> 4. Upon completion of the animation, it updates the UI to show the dice's face value and makes the button visible again. </item>
+        /// </list>
         /// </summary>
         /// <param name="sender">The source of the event, typically the button that was clicked.</param>
         /// <param name="e">The RoutedEventArgs that contains the event data.</param>
-        /// <remarks>
-        /// This method performs several steps:
-        /// 1. It casts the sender to a Button type and rolls the dice associated with it.
-        /// 2. It makes the button invisible and shows an image to indicate that the dice is rolling.
-        /// 3. It starts a spinning animation to visually represent the dice roll.
-        /// 4. Upon completion of the animation, it updates the UI to show the dice's face value and makes the button visible again.
-        /// </remarks>
         private void SimpleDice_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (!GameManager.session.dice.active) return;
-            
+
+            GameManager.session.dice.Deactivate();
+
             var button = sender as Button;
             GameManager.session.dice.RollThisDice(button);
 
@@ -95,8 +109,8 @@ namespace FiaMedFight
                 SpinningImage.Visibility = Visibility.Collapsed;
                 button.Visibility = Visibility.Visible;
                 ResultText.Text = "You rolled: " + GameManager.session.dice.FaceValue;
+                GameManager.PlayerRolledDice();
             };
-            GameManager.PlayerRolledDice();
         }
     }
 }

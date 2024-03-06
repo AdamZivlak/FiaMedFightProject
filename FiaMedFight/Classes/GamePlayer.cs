@@ -37,7 +37,6 @@ namespace FiaMedFight.Classes
         /// <param name="color">The color of the player.</param>
         /// <param name="gamePieces">The number of game pieces.</param>
         /// <param name="firstCoordinateAfterHomeBase">The number on the first game Location to move to after homeBase</param>
-
         public GamePlayer(string color, string firstCoordinateAfterHomeBase = "Coordinate1")
         {
             this.color = color;
@@ -61,8 +60,7 @@ namespace FiaMedFight.Classes
         /// </summary>
         public void StartTurn()
         {
-            // Todo: Uppdatera spelarens tillgängliga handlingar,
-            // t.ex antal tärningskast eller antal drag
+            // Todo: Uppdatera spelarens tillgängliga handlingar, t.ex antal tärningskast eller antal drag
             // Exemepel diceRollsLeft = 1;
             foreach (GamePieceControl piece in pieces)
             {
