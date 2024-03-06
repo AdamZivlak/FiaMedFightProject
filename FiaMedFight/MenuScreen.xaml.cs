@@ -63,10 +63,11 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void GameStartButton_Click(object sender, RoutedEventArgs e)
         {
-            // Create an instance of MainPage
             MainPage mainPage = new MainPage();
 
-            // Navigate to MainPage
+            // TODO: populate the gameboard with number of players and pieces here?
+
+
             Frame.Navigate(typeof(MainPage));
         }
 
