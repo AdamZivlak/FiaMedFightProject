@@ -189,7 +189,7 @@ namespace FiaMedFight.Templates
         {
             if (!active) return;
 
-            Deactivate(); //TODO: Should call GameManager to deactivate all pieces on the board?
+            GameManager.ActivePlayer().EndTurn(); //TODO: Should call GameManager to deactivate all pieces on the board?
             int steps = GameManager.session.dice.FaceValue;
             string endCoordinate = GetEndCoordinateString(steps);
 

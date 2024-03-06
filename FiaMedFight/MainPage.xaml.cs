@@ -81,17 +81,16 @@ namespace FiaMedFight
 
         /// <summary>
         /// Handles the Click event of a Dice button. This method initiates the dice roll process,
-        /// starts an animation, and updates the UI to reflect the roll's outcome.
+        /// calls and awaits an animation function, and updates the UI to reflect the roll's outcome.
         /// <list> This method performs several steps:
         /// <item> 1. It casts the sender to a Button type and rolls the dice associated with it. </item>
-        /// <item> 2. It makes the button invisible and shows an image to indicate that the dice is rolling. </item>
-        /// <item> 3. It starts a spinning animation to visually represent the dice roll. </item>
-        /// <item> 4. Upon completion of the animation, it updates the UI to show the dice's face value and makes the button visible again. </item>
+        /// <item> 2. It calls a function to show an animation</item>
+        /// <item> 3. After awaiting the animation it calls a game logic method in GameManager to signal the dice have been rolled.</item>
         /// </list>
         /// </summary>
         /// <param name="sender">The source of the event, typically the button that was clicked.</param>
         /// <param name="e">The RoutedEventArgs that contains the event data.</param>
-        private void SimpleDice_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void SimpleDice_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             if (!GameManager.session.dice.active) return;
 
@@ -100,18 +99,49 @@ namespace FiaMedFight
             var button = sender as Button;
             GameManager.session.dice.RollThisDice(button);
 
+            await SimpleDice_Animation(button);
+            
+            GameManager.PlayerRolledDice();
+        }
+
+        /// <summary>
+        /// Handles the Click animation of a Dice button.
+        /// <list> This method performs several steps:
+        /// <item> 1. It makes the button invisible and shows an image to indicate that the dice is rolling. </item>
+        /// <item> 2. It starts a spinning animation to visually represent the dice roll. </item>
+        /// <item> 3. Upon completion of the animation, it updates the UI to show the dice's face value and makes the button visible again. </item>
+        /// </list>
+        /// </summary>
+        /// <param name="sender">The source of the event, typically the button that was clicked.</param>
+        private Task SimpleDice_Animation(Button button)
+        {
             button.Visibility = Visibility.Collapsed;
             SpinningImage.Visibility = Visibility.Visible;
 
             spinAnimation.Begin();
-            spinAnimation.Completed += delegate (object self, object btn)
+
+            var tcs = new TaskCompletionSource<bool>();
+
+            EventHandler<object> animationCompletedHandler = null;
+            animationCompletedHandler = (sender, args) =>
             {
+                // Unregister the event handler to ensure it's called only once.
+                spinAnimation.Completed -= animationCompletedHandler;
+
                 SpinningImage.Visibility = Visibility.Collapsed;
                 button.Visibility = Visibility.Visible;
                 ResultText.Text = "You rolled: " + GameManager.session.dice.FaceValue;
-                GameManager.PlayerRolledDice();
+
+                // Mark the Task as completed.
+                tcs.SetResult(true);
             };
+
+            // Register the event handler.
+            spinAnimation.Completed += animationCompletedHandler;
+
+            return tcs.Task;
         }
+
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -122,7 +152,7 @@ namespace FiaMedFight
         {
             Frame.Navigate(typeof(GameOverDialog));
             await Task.Delay(5000);
-            Frame.Navigate(typeof(MenuScreen));
+            Frame.Navigate(typeof(MenuScreen)); 
         }
    }
 }

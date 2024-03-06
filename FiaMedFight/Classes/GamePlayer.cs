@@ -24,7 +24,7 @@ namespace FiaMedFight.Classes
         public List<GamePieceControl> pieces = new List<GamePieceControl>();
         
         /// <summary>
-        /// The NN value of a "CoordinateNN" string pointing to the first gameLocation to move to from homeBase.
+        /// The 'x:name' attribute value of the first gameLocation to move to from homeBase.
         /// </summary>
         public string firstCoordinateAfterHomeBase;
 
