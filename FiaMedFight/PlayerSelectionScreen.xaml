@@ -43,6 +43,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <!-- this should be used to start game once a number of players are chosen -->
             <Button x:Name="RedoPlayerButton" Visibility="Visible" Content="Redo" Style="{StaticResource MenuButtonStyle}" Click="RedoPlayerButton_Click"/>
+            <Button x:Name="MenuOpenButton" Visibility="Visible" Content="Menu" Style="{StaticResource MenuButtonStyle}" Click="MenuOpenButton_Click"/>
             <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click"/>
         </StackPanel>
 

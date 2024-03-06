@@ -33,6 +33,12 @@ namespace FiaMedFight
             Frame.Navigate(typeof(MainPage));
         }
 
+        private void MenuOpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            //MenuScreen screen = new MenuScreen();
+            Frame.Navigate(typeof(MenuScreen));
+        }
+
         private void GreenButton_Click(object sender, RoutedEventArgs e)
         {
             GreenImage.Visibility = Visibility.Visible;
