@@ -1,0 +1,73 @@
+﻿<Page
+    x:Class="FiaMedFight.PlayerSelectionScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FiaMedFight"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Include custom template, storyboard and style files here -->
+                <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
+            <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+        </Grid>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,100">
+            <Button x:Name="GreenButton" Content="Add Green" Style="{StaticResource MenuButtonStyle}" Click="GreenButton_Click" VerticalAlignment="Bottom"/>
+            <Button x:Name="YellowButton" Content="Add Yellow" Style="{StaticResource MenuButtonStyle}" Click="YellowButton_Click" VerticalAlignment="Bottom"/>
+            <Button x:Name="RedButton" Content="Add Red" Style="{StaticResource MenuButtonStyle}" Click="RedButton_Click" VerticalAlignment="Bottom"/>
+            <Button x:Name="BlueButton" Content="Add Blue" Style="{StaticResource MenuButtonStyle}" Click="BlueButton_Click" VerticalAlignment="Bottom"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <!-- this should be used to start game once a number of players are chosen -->
+            <Button x:Name="RedoPlayerButton" Visibility="Visible" Content="Redo" Style="{StaticResource MenuButtonStyle}" Click="RedoPlayerButton_Click"/>
+            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click"/>
+        </StackPanel>
+
+
+        <StackPanel Margin="50" HorizontalAlignment="Center" VerticalAlignment="Top" Width="710" Height="510">
+            <Border BorderBrush="Black" BorderThickness="5">        
+                <Grid Height="500" Width="700">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+                    <Image x:Name="RedImage" Height="200" Source="ms-appx:///Assets/Pieces/Red.png" Grid.Row="0" Visibility="Collapsed"></Image>
+                    <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
+                    <Image x:Name="BlueImage" Height="200" Source="ms-appx:///Assets/Pieces/Blue.png" Grid.Column="1" Visibility="Collapsed"></Image>
+                    <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+                    <Image x:Name="GreenImage" Height="200" Source="ms-appx:///Assets/Pieces/Green.png" Grid.Row="1" Visibility="Collapsed"></Image>
+                    <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+                    <Image x:Name="YellowImage" Height="200" Source="ms-appx:///Assets/Pieces/Yellow.png" Grid.Column="1" Grid.Row="1" Visibility="Collapsed"></Image>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

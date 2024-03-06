@@ -54,6 +54,7 @@ namespace FiaMedFight
         private void NewGameButton_Click(object sender, RoutedEventArgs e)
         {
             //SelectPlayersPopup.Visibility = Visibility.Visible;
+            Frame.Navigate(typeof(PlayerSelectionScreen));
         }
 
         /// <summary>

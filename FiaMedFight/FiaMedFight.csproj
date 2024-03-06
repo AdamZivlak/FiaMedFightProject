@@ -133,6 +133,9 @@
     <Compile Include="MenuScreen.xaml.cs">
       <DependentUpon>MenuScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PlayerSelectionScreen.xaml.cs">
+      <DependentUpon>PlayerSelectionScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates\GamePieceControl.xaml.cs">
       <DependentUpon>GamePieceControl.xaml</DependentUpon>
@@ -184,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MenuScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlayerSelectionScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
