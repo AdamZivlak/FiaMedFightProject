@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media;
+using Windows.Devices.SmartCards;
+using System.ComponentModel.Design;
 
 namespace FiaMedFight.Classes
 {
@@ -14,6 +16,11 @@ namespace FiaMedFight.Classes
     /// </summary>
     public class Dice
     {
+        /// <summary>
+        /// Whether the dice is rollable (clickable) or not
+        /// </summary>
+
+        public bool active = true;
         /// <summary>
         /// Paths to image files for each side of a six-sided dice.
         /// </summary>
@@ -69,6 +76,14 @@ namespace FiaMedFight.Classes
             RollDice(b, this);
         }
 
+        public void Activate()
+        {
+            this.active = true;
+        }
+        public void Deactivate()
+        {
+            this.active = false;
+        }
         /// <summary>
         /// Changes the visual representation of the dice face on the provided button.
         /// </summary>

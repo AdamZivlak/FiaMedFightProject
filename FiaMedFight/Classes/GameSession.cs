@@ -24,7 +24,7 @@ namespace FiaMedFight.Classes
         /// <summary>
         /// Gets or sets the index of the active player.
         /// </summary>
-        public int active_player_index = 0;
+        public int activePlayerIndex = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameSession"/> class.
