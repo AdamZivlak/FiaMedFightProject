@@ -46,9 +46,8 @@
             <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click"/>
         </StackPanel>
 
-
         <StackPanel Margin="50" HorizontalAlignment="Center" VerticalAlignment="Top" Width="710" Height="510">
-            <Border BorderBrush="Black" BorderThickness="5">        
+            <Border BorderBrush="white" BorderThickness="5">
                 <Grid Height="500" Width="700">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
