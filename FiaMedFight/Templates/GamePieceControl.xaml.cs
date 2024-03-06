@@ -8,6 +8,8 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Gaming.Input.Custom;
+using Windows.Gaming.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -30,7 +32,7 @@ namespace FiaMedFight.Templates
     /// </remarks>
     public partial class GamePieceControl : UserControl
     {
-        bool active = true; //TODO: Should default to false when GameManeger starts managing turns.
+        public bool active = false;
         public string coordinate;
         public Point currentPoint = new Point(0, 0);
         public string color;
@@ -55,6 +57,11 @@ namespace FiaMedFight.Templates
             this.coordinate = color + "Base";
             InitializeComponent();
             UpdateImageSource(color);
+        }
+
+        public GamePlayer Player()
+        {
+            return GameManager.FindOrCreatePlayer(color);
         }
 
         /// <summary>
@@ -89,6 +96,11 @@ namespace FiaMedFight.Templates
         public int GetCoordinateInt()
         {
             string coordinate_num = this.coordinate.Substring(10);
+            return int.Parse(coordinate_num);
+        }
+        public int GetCoordinateInt(string coordinate)
+        {
+            string coordinate_num = coordinate.Substring(10);
             return int.Parse(coordinate_num);
         }
 
@@ -130,8 +142,18 @@ namespace FiaMedFight.Templates
         /// <returns>The string representation of the end coordinate.</returns>
         public string GetEndCoordinateString(int dice_result)
         {
-            int new_pos = GetCoordinateInt() + dice_result;
-            if (new_pos > 52) new_pos -= 52;
+            int new_pos;
+            if (coordinate.ToLower().StartsWith("coordinate"))
+            {
+                new_pos = GetCoordinateInt() + dice_result;
+                if (new_pos > 52) new_pos -= 52;
+            }
+            else if (coordinate.ToLower().StartsWith(color + "base"))
+            {
+                new_pos = GetCoordinateInt(Player().firstCoordinateAfterHomeBase) + dice_result - 1;
+            }
+            else new_pos = 1;
+
             return "Coordinate" + new_pos;
         }
 
@@ -181,9 +203,7 @@ namespace FiaMedFight.Templates
             //Resets the transform and actually moves the piece within the grid.
             ResetMovementTransform();
             MoveToNewGridCoordinate(endCoordinate, -1);
-
-            //Reactivates piece for testing purposes. Should stay deactivated until GameManager activates on next turn.
-            Activate();
+            GameManager.NextTurn();
         }
 
         /// <summary>
@@ -257,7 +277,7 @@ namespace FiaMedFight.Templates
             this.coordinate = endCoordinate;
             return tcs.Task;
         }
-        // <summary>
+        /// <summary>
         /// Applies a resize animation to the game piece, scaling it by a specified factor over a set duration.
         /// </summary>
         /// <param name="factor">The factor by which to scale the game piece.</param>
@@ -285,6 +305,43 @@ namespace FiaMedFight.Templates
             resizeAnimation.Children.Add(scaleYAnimation);
 
             resizeAnimation.Begin();
+        }
+        /// <summary>
+        /// Repositions the piece to it's homeBase location within the active session's gameBoard Grid.
+        /// </summary>
+        public void MoveToHomeBase()
+        {
+            string homeBaseCoordinate = color + "Base";
+            var homeBase = GameManager.gameBoard.FindName(homeBaseCoordinate) as FrameworkElement;
+
+            int baseColumn = Grid.GetColumn(homeBase);
+            int baseRow = Grid.GetRow(homeBase);
+
+            var player = this.Player();
+
+            bool setRowAndColumn = false;
+
+            //Move to another 'row' or 'column' if there is already a piece there.
+            for (int row = baseRow + 1; row <= baseRow + 5 && !setRowAndColumn; row += 2)
+            {
+                for (int column = baseColumn + 1; column <= baseColumn + 5 && !setRowAndColumn; column += 2)
+                {
+                    setRowAndColumn = true;
+                    foreach (GamePieceControl p in player.pieces)
+                    {
+                        if (Grid.GetColumn(p) == column && Grid.GetRow(p) == row)
+                        {
+                            setRowAndColumn = false;
+                            break;
+                        }
+                    }
+                    if (setRowAndColumn)
+                    {
+                        Grid.SetRow(this, row);
+                        Grid.SetColumn(this, column);
+                    }
+                }
+            }
         }
     }
 }
