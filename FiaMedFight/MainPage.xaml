@@ -34,7 +34,6 @@
             </Image.Projection>
         </Image>
         <TextBlock x:Name="ResultText"  Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="0,171,0,0" Text="...result..."/>
-
         <Grid x:Name="gameBoardGrid" Margin="4,0,-4,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -121,14 +120,15 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Rectangle x:Name="GreenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="GreenYellow" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="RedBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Red" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="YellowBase" Grid.Column="24" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Yellow" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="BlueBase" Grid.Column="24" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Blue" RadiusX="50" RadiusY="50"/>
 
+            <Rectangle x:Name="greenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="GreenYellow" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="redBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Red" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="yellowBase" Grid.Column="24" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Yellow" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="blueBase" Grid.Column="24" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Blue" RadiusX="50" RadiusY="50"/>
+                
             <Ellipse x:Name="Coordinate1" Grid.Column="17" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate2" Grid.Column="19" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate3" Grid.Column="21" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
+            <Ellipse x:Name="Coordinate3" Grid.Column="21" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>                
             <Ellipse x:Name="Coordinate4" Grid.Column="21" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
             <Ellipse x:Name="Coordinate5" Grid.Column="21" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate6" Grid.Column="21" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
@@ -178,13 +178,13 @@
             <Ellipse x:Name="Coordinate50" Grid.Column="17" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate51" Grid.Column="17" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate52" Grid.Column="17" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-
+            
             <Ellipse x:Name="BlueSafeCoordinate1" Grid.Column="19" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
             <Ellipse x:Name="BlueSafeCoordinate2" Grid.Column="19" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
             <Ellipse x:Name="BlueSafeCoordinate3" Grid.Column="19" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
             <Ellipse x:Name="BlueSafeCoordinate4" Grid.Column="19" Grid.Row="13" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
             <Ellipse x:Name="BlueSafeCoordinate5" Grid.Column="19" Grid.Row="15" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
-
+                
             <Ellipse x:Name="GreenSafeCoordinate1" Grid.Column="7" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
             <Ellipse x:Name="GreenSafeCoordinate2" Grid.Column="9" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
             <Ellipse x:Name="GreenSafeCoordinate3" Grid.Column="11" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
@@ -199,18 +199,22 @@
             <Ellipse x:Name="YellowSafeCoordinate3" Grid.Column="27" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
             <Ellipse x:Name="YellowSafeCoordinate2" Grid.Column="29" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
             <Ellipse x:Name="YellowSafeCoordinate1" Grid.Column="31" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
-
+                    
             <Ellipse x:Name="RedSafeCoordinate5" Grid.Column="19" Grid.Row="23" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="RedSafeCoordinate4" Grid.Column="19" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="RedSafeCoordinate3" Grid.Column="19" Grid.Row="27" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="RedSafeCoordinate2" Grid.Column="19" Grid.Row="29" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="RedSafeCoordinate1" Grid.Column="19" Grid.Row="31" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             
-            <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" 
-                    Click="MenuButton_Click" Grid.Column="17" Grid.ColumnSpan="6" Grid.RowSpan="3" Grid.Row="36" VerticalAlignment="Top" HorizontalAlignment="Center" />
-            <Button x:Name="QuitGameButton" Content="Quit game" Style="{StaticResource MenuButtonStyle}" 
-                    Click="QuitGameButton_Click" Grid.Column="33" Grid.ColumnSpan="6" Grid.RowSpan="3" Grid.Row="36" VerticalAlignment="Top" HorizontalAlignment="Center" />
+
+            <TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="2" Grid.Row="35" FontSize="30" Text="Active Player: Green"/>
 
         </Grid>
+            <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
+                    Click="MenuButton_Click"  VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+
+            <Button x:Name="QuitGameButton" Content="Quit game" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
+                    Click="QuitGameButton_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+
     </Grid>
 </Page>
