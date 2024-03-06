@@ -32,7 +32,7 @@ namespace FiaMedFight.Templates
     /// </remarks>
     public partial class GamePieceControl : UserControl
     {
-        public bool active = false;
+        public bool active = false, won = false;
         public string coordinate;
         public Point currentPoint = new Point(0, 0);
         public string color;
@@ -98,10 +98,15 @@ namespace FiaMedFight.Templates
             string coordinate_num = this.coordinate.Substring(10);
             return int.Parse(coordinate_num);
         }
-        public int GetCoordinateInt(string coordinate)
+        public int ExtractIntFromString(string str)
         {
-            string coordinate_num = coordinate.Substring(10);
-            return int.Parse(coordinate_num);
+            string numbers = "";
+            int result;
+            foreach(char c in str)
+                if (char.IsDigit(c))
+                    numbers += c;
+            if(int.TryParse(numbers, out result)) return result;
+            return 0;
         }
 
         /// <summary>
@@ -138,23 +143,41 @@ namespace FiaMedFight.Templates
         /// <summary>
         /// Gets the string representation of the end coordinate after moving a certain number of steps.
         /// </summary>
-        /// <param name="dice_result">The result of the dice roll.</param>
+        /// <param name="stepsToMove">The result of the dice roll.</param>
         /// <returns>The string representation of the end coordinate.</returns>
-        public string GetEndCoordinateString(int dice_result)
+        public string GetEndCoordinateString(int stepsToMove)
         {
-            int new_pos;
-            if (coordinate.ToLower().StartsWith("coordinate"))
-            {
-                new_pos = GetCoordinateInt() + dice_result;
-                if (new_pos > 52) new_pos -= 52;
-            }
-            else if (coordinate.ToLower().StartsWith(color + "base"))
-            {
-                new_pos = GetCoordinateInt(Player().firstCoordinateAfterHomeBase) + dice_result - 1;
-            }
-            else new_pos = 1;
+            int enterSafeZoneCoordinate = ExtractIntFromString(Player().firstCoordinateAfterHomeBase) - 1,
+                currentCoordinate = ExtractIntFromString(coordinate),
+                targetCoordinate = currentCoordinate + stepsToMove;
+            if (targetCoordinate >= 53) targetCoordinate -= 52;
 
-            return "Coordinate" + new_pos;
+            if (stepsToMove == 0 || coordinate.ToLower().StartsWith("goal")) return coordinate;
+
+            else if (coordinate.ToLower().StartsWith(color + "base")) //If in home base
+            {
+                return "Coordinate" + (enterSafeZoneCoordinate + targetCoordinate);
+            }
+            else if (coordinate.ToLower().StartsWith(color + "safe")) //If in safe zone
+            {
+                if (targetCoordinate >= 6) //TODO: Make sure the piece is deactivated if targetCoordinate > 6
+                {
+                    won = true;
+                    return "goalCoordinate2";
+                }
+                return color + "SafeCoordinate" + targetCoordinate;
+            }
+            else if (coordinate == "Coordinate" + enterSafeZoneCoordinate) //If moving into safe zone
+            {
+                if (stepsToMove >= 6)
+                {
+                    won = true;
+                    return "goalCoordinate2";
+                }
+                return color + "SafeCoordinate" + stepsToMove;
+            }
+
+            return "Coordinate" + targetCoordinate;
         }
 
         /// <summary>
@@ -191,7 +214,6 @@ namespace FiaMedFight.Templates
 
             GameManager.ActivePlayer().EndTurn(); //TODO: Should call GameManager to deactivate all pieces on the board?
             int steps = GameManager.session.dice.FaceValue;
-            string endCoordinate = GetEndCoordinateString(steps);
 
             //Animates the movement by transformation
             ResizeAnimation(1.35, 100);
@@ -202,7 +224,7 @@ namespace FiaMedFight.Templates
 
             //Resets the transform and actually moves the piece within the grid.
             ResetMovementTransform();
-            MoveToNewGridCoordinate(endCoordinate, -1);
+            MoveToNewGridCoordinate(coordinate, -1);
             GameManager.NextTurn();
         }
 
@@ -235,9 +257,10 @@ namespace FiaMedFight.Templates
         /// </summary>
         /// <param name="steps">The number of steps to move.</param>
         /// <param name="milliseconds">The duration of the animation in milliseconds.</param>
-        /// <param name="offsetX">Optional X offset for each step.</param>
-        /// <param name="offsetY">Optional Y offset for each step.</param>
+        /// <param name="offsetX">Optional X offset for each step. Any double between -1.0 and 1.0.</param>
+        /// <param name="offsetY">Optional Y offset for each step. Any double between -1.0 and 1.0.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <remarks>In effect the offset is in </remarks>
         private Task MoveStepsAsync(int steps, int milliseconds, double offsetX = 0, double offsetY = 0)
         {
             this.RenderTransform = new CompositeTransform();

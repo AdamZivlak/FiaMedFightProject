@@ -58,25 +58,29 @@ namespace FiaMedFight
 
             // Setup test session:
             GameSession session = new GameSession();
-            session.AddPlayer(new GamePlayer("green", "Coordinate44"));
-            session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
-            session.AddPlayer(new GamePlayer("yellow", "Coordinate18"));
-            session.AddPlayer(new GamePlayer("red", "Coordinate31"));
+            session.AddPlayer(new GamePlayer("green", "Coordinate42"));
+            session.AddPlayer(new GamePlayer("blue", "Coordinate3"));
+            session.AddPlayer(new GamePlayer("yellow", "Coordinate16"));
+            session.AddPlayer(new GamePlayer("red", "Coordinate29"));
             GameManager.StartGame(session);
 
             // Spawn test pieces (also adds them to each GamePlayer's list of pieces):
             GameManager.AddGamePieceControl("red");
             GameManager.AddGamePieceControl("red");
             GameManager.AddGamePieceControl("red");
+            GameManager.AddGamePieceControl("red", "Coordinate22");
             GameManager.AddGamePieceControl("blue");
             GameManager.AddGamePieceControl("blue");
             GameManager.AddGamePieceControl("blue");
+            GameManager.AddGamePieceControl("blue", "Coordinate49");
             GameManager.AddGamePieceControl("green");
             GameManager.AddGamePieceControl("green");
             GameManager.AddGamePieceControl("green");
+            GameManager.AddGamePieceControl("green", "Coordinate30");
             GameManager.AddGamePieceControl("yellow");
             GameManager.AddGamePieceControl("yellow");
             GameManager.AddGamePieceControl("yellow");
+            GameManager.AddGamePieceControl("yellow", "Coordinate9");
         }
 
         /// <summary>
