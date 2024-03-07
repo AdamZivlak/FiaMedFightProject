@@ -1,4 +1,5 @@
 ﻿using FiaMedFight.Classes;
+using static FiaMedFight.PlayerSelectionScreen;
 using FiaMedFight.Templates;
 using System;
 using System.Collections.Generic;
@@ -47,41 +48,24 @@ namespace FiaMedFight
         }
 
         /// <summary>
-        /// Handles the Loaded event of the MainPage.
+        /// Handles the Loaded event of the MainPage. Initializes the gameboard to GameManager and adds game pieces for each player in the session.
         /// </summary>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event arguments.</param>
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            // Initialize this page to GameManager:
             GameManager.gameBoard = gameBoardGrid;
             GameManager.activePage = this;
-            // Setup test session:
-            GameSession session = new GameSession();
-            session.AddPlayer(new GamePlayer("green", "Coordinate42"));
-            session.AddPlayer(new GamePlayer("blue", "Coordinate3"));
-            session.AddPlayer(new GamePlayer("yellow", "Coordinate16"));
-            session.AddPlayer(new GamePlayer("red", "Coordinate29"));
-            GameManager.StartGame(session);
 
-            // Spawn test pieces (also adds them to each GamePlayer's list of pieces):
-            //GameManager.AddGamePieceControl("red");
-            //GameManager.AddGamePieceControl("red");
-            GameManager.AddGamePieceControl("red");
-            GameManager.AddGamePieceControl("red");
-            //GameManager.AddGamePieceControl("blue");
-            //GameManager.AddGamePieceControl("blue");
-            //GameManager.AddGamePieceControl("blue", "blueSafeCoordinate1");
-            GameManager.AddGamePieceControl("blue");
-            GameManager.AddGamePieceControl("green");
-            //GameManager.AddGamePieceControl("green");
-            //GameManager.AddGamePieceControl("green");
-            GameManager.AddGamePieceControl("green");
-            //GameManager.AddGamePieceControl("yellow");
-            //GameManager.AddGamePieceControl("yellow");
-            //GameManager.AddGamePieceControl("yellow");
-            GameManager.AddGamePieceControl("yellow");
-        }
+            GameManager.LoadSession(sess);
+
+            foreach (GamePlayer player in sess.players)
+            {
+                for (int i = 0; i < 4; i++)
+                    GameManager.AddGamePieceControl(player.color);
+            }
+
+        }  
 
         /// <summary>
         /// Handles the Click event of a Dice button. This method initiates the dice roll process,
@@ -122,8 +106,6 @@ namespace FiaMedFight
             button.Visibility = Visibility.Collapsed;
             SpinningImage.Visibility = Visibility.Visible;
 
-            spinAnimation.Begin();
-
             var tcs = new TaskCompletionSource<bool>();
 
             EventHandler<object> animationCompletedHandler = null;
@@ -143,20 +125,30 @@ namespace FiaMedFight
             // Register the event handler.
             spinAnimation.Completed += animationCompletedHandler;
 
+            spinAnimation.Begin();
             return tcs.Task;
         }
 
-
+        /// <summary>
+        /// Returns to the menu screen when the button is clicked without ending the game session.
+        /// </summary>
+        /// <param name="sender">The source of the event, typically the button that was clicked.</param>
+        /// <param name="e">The event data.</param>
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MenuScreen));
         }
 
+        /// <summary>
+        /// Ends current game session when the button is clicked. Displays the Game Over image and the returns to the menu page.
+        /// </summary>
+        /// <param name="sender">The source of the event, typically the button that was clicked.</param>
+        /// <param name="e">The event data.</param>
         private async void QuitGameButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(GameOverDialog));
-            await Task.Delay(5000);
-            Frame.Navigate(typeof(MenuScreen)); 
+            await Task.Delay(4000);
+            Frame.Navigate(typeof(MenuScreen));
         }
    }
 }

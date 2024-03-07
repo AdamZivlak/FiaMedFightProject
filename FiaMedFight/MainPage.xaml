@@ -230,10 +230,24 @@
         </StackPanel>
 
         <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
-                Click="MenuButton_Click"  VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+                Click="MenuButton_Click"  VerticalAlignment="Bottom" HorizontalAlignment="Left">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFDCDCE8"/>
+                    <GradientStop Color="#FFF59200" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
         <Button x:Name="QuitGameButton" Content="Quit game" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
-                Click="QuitGameButton_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                    Click="QuitGameButton_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFDCDCE8"/>
+                    <GradientStop Color="#FFF59200" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
 
     </Grid>
