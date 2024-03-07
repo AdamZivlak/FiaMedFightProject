@@ -53,10 +53,10 @@ namespace FiaMedFight
         }
 
         /// <summary>
-        /// Navigates to the Game Board page when the button is clicked.
+        /// Event handler for the click event of the game start button.
         /// </summary>
-        /// <param name="sender">The source of the event, typically the button that was clicked.</param>
-        /// <param name="e">The event data.</param>
+        /// <param name="sender">The object that fired the event.</param>
+        /// <param name="e">Event arguments containing information about the event.</param>
         private async void GameStartButton_Click(object sender, RoutedEventArgs e)
         {
             // Define an exit animation for the PlayerSelectionScreen (eases out)
@@ -181,26 +181,40 @@ namespace FiaMedFight
             BlueImage.Visibility = Visibility.Collapsed;
         }
 
-        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        /*private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
         {
 
-        }
+        }*/
 
+        /// <summary>
+        /// Event handler for when the mouse pointer enters the stack panel.
+        /// </summary>
+        /// <param name="sender">The object that fired the event.</param>
+        /// <param name="e">Event arguments containing information about the pointer event.</param>
         private void StackPanel_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             infoImage.Visibility = Visibility.Visible;
             timer.Stop();
         }
 
+        /// <summary>
+        /// Event handler for when the mouse pointer exits the stack panel.
+        /// </summary>
+        /// <param name="sender">The object that fired the event.</param>
+        /// <param name="e">Event arguments containing information about the pointer event.</param>
         private void StackPanel_PointerExited(object sender, PointerRoutedEventArgs e)
         {
             infoImage.Visibility = Visibility.Collapsed;
-            // timer.Start(); // Enable this if the image should keep changing opacity
+            /* timer.Start(); // Enable this if the image should keep changing opacity */
         }
 
+        /// <summary>
+        /// Event handler for the timer tick event.
+        /// </summary>
+        /// <param name="sender">The object that fired the event.</param>
+        /// <param name="e">Event arguments containing information about the event.</param>
         private void Timer_Tick(object sender, object e)
         {
-            // Create a DoubleAnimation to change the opacity
             DoubleAnimation opacityAnimation = new DoubleAnimation();
             opacityAnimation.From = 0.3; // Start opacity
             opacityAnimation.To = 1; // End opacity
