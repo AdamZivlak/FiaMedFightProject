@@ -24,11 +24,10 @@ namespace FiaMedFight.Classes
         public List<GamePieceControl> pieces = new List<GamePieceControl>();
         
         /// <summary>
-        /// The NN value of a "CoordinateNN" string pointing to the first gameLocation to move to from homeBase.
+        /// The 'x:name' attribute value of the gameLocation where the player's pieces should change direction towards the goal.
         /// </summary>
-        public string firstCoordinateAfterHomeBase;
+        public string entranceToSafeZoneCoordinate;
 
-        private bool isPlayerTurn;
         int score;
 
         /// <summary>
@@ -41,9 +40,8 @@ namespace FiaMedFight.Classes
         {
             this.color = color;
             this.score = 0;
-            this.firstCoordinateAfterHomeBase = firstCoordinateAfterHomeBase;
+            this.entranceToSafeZoneCoordinate = firstCoordinateAfterHomeBase;
             pieces = new List<GamePieceControl>();
-            isPlayerTurn = false;
         }
 
         /// <summary>
@@ -56,28 +54,30 @@ namespace FiaMedFight.Classes
         }
 
         /// <summary>
-        /// Starts the player's turn 
+        /// Starts the player's turn. Activates some of the player's game pieces. Depends on conditions of their positions and the dice roll result.
         /// </summary>
         public void StartTurn()
         {
             // Todo: Uppdatera spelarens tillgängliga handlingar, t.ex antal tärningskast eller antal drag
             // Exemepel diceRollsLeft = 1;
+            string targetCoordinate;
+            int diceResult = GameManager.session.dice.FaceValue;
+
             foreach (GamePieceControl piece in pieces)
             {
-                if (piece.coordinate.ToLower().StartsWith(color + "base"))
-                {
-                    if (GameManager.session.dice.FaceValue == 1 || GameManager.session.dice.FaceValue == 6)
-                    {
-                        piece.Activate();
-                    }
-                }
-                else piece.Activate();
+                if (piece.isInHomeBase() && diceResult != 1 && diceResult != 6)
+                    continue;
+
+                targetCoordinate = piece.GetTargetCoordinateAsString(diceResult);
+                if (targetCoordinate == "overpassingTheGoald")
+                    continue;
+
+                piece.Activate();
             }
-            isPlayerTurn = true;
         }
         
         /// <summary>
-        /// Ends the player's turn
+        /// Ends the player's turn. Deactivates all the player's game pieces, making them unclickable.
         /// </summary>
         public void EndTurn()
         {
@@ -85,17 +85,7 @@ namespace FiaMedFight.Classes
             {
                 piece.Deactivate();
             }
-            // Todo: 
-            isPlayerTurn = false;
-        }
 
-        /// <summary>
-        /// Checks if it's the player's turn.
-        /// </summary>
-        /// <returns>True if it's the player's turn, otherwise it's false</returns>
-        public bool IsPlayerTurn()
-        { 
-            return isPlayerTurn; 
         }
     }
 }

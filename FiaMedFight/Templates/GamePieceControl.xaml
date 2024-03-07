@@ -11,11 +11,21 @@
     PointerPressed="GamePiece_Pressed"
     PointerReleased="GamePiece_Released"
    >
+
+<UserControl.Resources>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>          
+            <ResourceDictionary Source="StoryboardAnimations.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+</UserControl.Resources>
     
-    <Grid x:Name="Pawn" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+    <Grid x:Name="pawnImage" Background="Transparent" RenderTransformOrigin="0.5,0.5">
         <Grid.RenderTransform>
             <ScaleTransform x:Name="scaleTransform" ScaleX="1" ScaleY="1"/>
         </Grid.RenderTransform>
         <Image x:Name="GamePieceImage" Source="ms-appx:///Assets/Pieces/red.png"/>
+
+
     </Grid>
 </UserControl>

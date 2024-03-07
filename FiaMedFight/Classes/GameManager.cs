@@ -23,11 +23,13 @@ namespace FiaMedFight.Classes
         /// </summary>
         public static Grid gameBoard { get; set; }
 
+        public static Page activePage { get; set; }
+
         /// <summary>
         /// Initiates a new game session, setting up the game environment.
         /// </summary>
         /// <param name="session">The game session to start.</param>
-        internal static void StartGame(GameSession sess)
+        internal static void LoadSession(GameSession sess)
         {
             GameManager.session = sess;
         }
@@ -135,7 +137,9 @@ namespace FiaMedFight.Classes
             int numberOfPlayers = session.players.Count;
 
             ActivePlayer().EndTurn(); // Deactivate all pieces
-            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;          
+            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;   
+            
+            if(ActivePlayer().pieces.Count == 0) { NextTurn(); } //End turn before rolling dice if all pieces in goal
 
             var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
             activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;

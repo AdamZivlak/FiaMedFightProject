@@ -119,7 +119,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void GreenButton_Click(object sender, RoutedEventArgs e)
         {
-            sess.AddPlayer(new GamePlayer("green", "Coordinate44"));
+            sess.AddPlayer(new GamePlayer("green", "Coordinate42"));
             GreenImage.Visibility = Visibility.Visible;
         }
 
@@ -131,7 +131,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void YellowButton_Click(object sender, RoutedEventArgs e)
         {
-            sess.AddPlayer(new GamePlayer("yellow", "Coordinate18"));
+            sess.AddPlayer(new GamePlayer("yellow", "Coordinate16"));
             YellowImage.Visibility = Visibility.Visible;
         }
 
@@ -143,7 +143,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void RedButton_Click(object sender, RoutedEventArgs e)
         {
-            sess.AddPlayer(new GamePlayer("red", "Coordinate31"));
+            sess.AddPlayer(new GamePlayer("red", "Coordinate29"));
             RedImage.Visibility = Visibility.Visible;
         }
 
@@ -155,7 +155,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void BlueButton_Click(object sender, RoutedEventArgs e)
         {
-            sess.AddPlayer(new GamePlayer("blue", "Coordinate5"));
+            sess.AddPlayer(new GamePlayer("blue", "Coordinate3"));
             BlueImage.Visibility = Visibility.Visible;
         }
 
