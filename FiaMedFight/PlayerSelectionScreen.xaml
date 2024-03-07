@@ -1,0 +1,137 @@
+﻿<Page
+    x:Class="FiaMedFight.PlayerSelectionScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FiaMedFight"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Include custom template, storyboard and style files here -->
+                <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
+            <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+            <!--<TextBlock HorizontalAlignment="Left" Margin="599,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Add Player" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="119" Width="373" SelectionChanged="TextBlock_SelectionChanged" FontSize="72" Foreground="Black" FontFamily="Comic Sans MS"/> -->
+        </Grid>
+
+        <StackPanel Width="290" Height="290" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                    PointerEntered="StackPanel_PointerEntered" PointerExited="StackPanel_PointerExited">
+            <Image x:Name="cartoonFigure"  Source="ms-appx:///Assets/cartoonFigure.png"/>
+        </StackPanel>
+        <StackPanel Width="350" Height="300" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150,0,0,40">
+            <Image x:Name="infoImage" Source="ms-appx:///Assets/infoPlayerText.png" Visibility="Collapsed"></Image>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button x:Name="GreenButton" Content="Green" Style="{StaticResource MenuButtonStyle}" Click="GreenButton_Click" Foreground="#FF1F0404" FocusVisualPrimaryBrush="White" BorderBrush="White">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="Green" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Button.FocusVisualSecondaryBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF732525" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.FocusVisualSecondaryBrush>
+            </Button>
+            <Button x:Name="YellowButton" Content=" Yellow" Style="{StaticResource MenuButtonStyle}" Click="YellowButton_Click" BorderBrush="White" Foreground="#FF060000">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="Yellow" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="RedButton" Content=" Red" Style="{StaticResource MenuButtonStyle}" Click="RedButton_Click" VerticalAlignment="Bottom" BorderBrush="White" Foreground="#FF0C0000">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="Red" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="BlueButton" Content=" Blue" Style="{StaticResource MenuButtonStyle}" Click="BlueButton_Click" VerticalAlignment="Bottom" BorderBrush="White" Foreground="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="Blue" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <!-- this should be used to start game once a number of players are chosen -->
+            <Button x:Name="RedoPlayerButton" Visibility="Visible" Content="Redo" Style="{StaticResource MenuButtonStyle}" Click="RedoPlayerButton_Click" FocusVisualPrimaryBrush="White" Foreground="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="#FFF59200" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="MenuOpenButton" Visibility="Visible" Content="Menu" Style="{StaticResource MenuButtonStyle}" Click="MenuOpenButton_Click" Foreground="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="#FFFF9800" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click" Foreground="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="#FFFF9800" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Margin="50" HorizontalAlignment="Center" VerticalAlignment="Top" Width="710" Height="510">
+            <Border BorderBrush="white" BorderThickness="5">
+                <Grid Height="500" Width="700">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+                    <Image x:Name="RedImage" Height="200" Source="ms-appx:///Assets/Pieces/Red.png" Grid.Row="0" Visibility="Collapsed"></Image>
+                    <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
+                    <Image x:Name="BlueImage" Height="200" Source="ms-appx:///Assets/Pieces/Blue.png" Grid.Column="1" Visibility="Collapsed"></Image>
+                    <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+                    <Image x:Name="GreenImage" Height="200" Source="ms-appx:///Assets/Pieces/Green.png" Grid.Row="1" Visibility="Collapsed"></Image>
+                    <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+                    <Image x:Name="YellowImage" Height="200" Source="ms-appx:///Assets/Pieces/Yellow.png" Grid.Column="1" Grid.Row="1" Visibility="Collapsed"></Image>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</Page>

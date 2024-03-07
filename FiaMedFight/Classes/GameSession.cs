@@ -39,6 +39,5 @@ namespace FiaMedFight.Classes
         {
             this.players.Add(player);
         }
-
     }
 }

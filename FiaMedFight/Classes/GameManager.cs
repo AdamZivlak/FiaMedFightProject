@@ -27,9 +27,9 @@ namespace FiaMedFight.Classes
         /// Initiates a new game session, setting up the game environment.
         /// </summary>
         /// <param name="session">The game session to start.</param>
-        internal static void StartGame(GameSession session)
+        internal static void StartGame(GameSession sess)
         {
-            GameManager.session = session;
+            GameManager.session = sess;
         }
 
         public static void RollDice(object sender)
