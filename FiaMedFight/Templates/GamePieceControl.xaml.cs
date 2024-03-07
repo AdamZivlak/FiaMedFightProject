@@ -1,4 +1,5 @@
 ﻿using FiaMedFight.Classes;
+using FiaMedFight.Templates;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -32,7 +33,7 @@ namespace FiaMedFight.Templates
     /// </remarks>
     public partial class GamePieceControl : UserControl
     {
-        public bool active = false, won = false;
+        public bool active = false;
         public string coordinate;
         public Point currentPoint = new Point(0, 0);
         public string color;
@@ -143,43 +144,54 @@ namespace FiaMedFight.Templates
         /// <summary>
         /// Gets the string representation of the end coordinate after moving a certain number of steps.
         /// </summary>
-        /// <param name="stepsToMove">The result of the dice roll.</param>
+        /// <param name="stepsToMove">The number of steps on the game board to move</param>
         /// <returns>The string representation of the end coordinate.</returns>
         public string GetEndCoordinateString(int stepsToMove)
         {
             int enterSafeZoneCoordinate = ExtractIntFromString(Player().firstCoordinateAfterHomeBase) - 1,
-                currentCoordinate = ExtractIntFromString(coordinate),
+                currentCoordinate = ExtractIntFromString(this.coordinate),
                 targetCoordinate = currentCoordinate + stepsToMove;
             if (targetCoordinate >= 53) targetCoordinate -= 52;
 
-            if (stepsToMove == 0 || coordinate.ToLower().StartsWith("goal")) return coordinate;
+            if (stepsToMove == 0 || coordinate.ToLower().StartsWith("goal")) return this.coordinate;
 
             else if (coordinate.ToLower().StartsWith(color + "base")) //If in home base
             {
                 return "Coordinate" + (enterSafeZoneCoordinate + targetCoordinate);
             }
+
             else if (coordinate.ToLower().StartsWith(color + "safe")) //If in safe zone
             {
-                if (targetCoordinate >= 6) //TODO: Make sure the piece is deactivated if targetCoordinate > 6
-                {
-                    won = true;
-                    return "goalCoordinate2";
+                if (targetCoordinate == 6)
+                { 
+                    return "goalCoordinate";
                 }
-                return color + "SafeCoordinate" + targetCoordinate;
+                else if (targetCoordinate > 6)
+                {     
+                    return "overpassingTheGoal";
+                }
+                else
+                {
+                    return color + "SafeCoordinate" + targetCoordinate;
+                }
             }
+
             else if (coordinate == "Coordinate" + enterSafeZoneCoordinate) //If moving into safe zone
             {
-                if (stepsToMove >= 6)
+                if (stepsToMove == 6)
                 {
-                    won = true;
-                    return "goalCoordinate2";
+                    return "goalCoordinate";
+                }
+                else if (stepsToMove > 6)
+                { 
+                    return "overpassingTheGoal";
                 }
                 return color + "SafeCoordinate" + stepsToMove;
             }
 
             return "Coordinate" + targetCoordinate;
         }
-
+        
         /// <summary>
         /// Handles the hover event for the game piece.
         /// </summary>
@@ -225,7 +237,25 @@ namespace FiaMedFight.Templates
             //Resets the transform and actually moves the piece within the grid.
             ResetMovementTransform();
             MoveToNewGridCoordinate(coordinate, -1);
+            if (coordinate == "goalCoordinate")
+            {
+                //GoalAnimation(); //TODO: Fix confetti animation
+                ResizeAnimation(3.00, 1000);
+                ChangeOpacityAnimation(0, 1500);
+            }
             GameManager.NextTurn();
+        }
+
+        private void GoalAnimation()
+        {
+            //TODO: Finish and test this animation.
+            var confettiArea = GameManager.activePage.FindName("confettiArea") as FrameworkElement;
+
+            Storyboard confetti = GameManager.activePage.FindName("confettiAnimation") as Storyboard;
+            //Storyboard.SetTarget(confetti, confettiArea);
+            
+            confettiArea.Visibility = Visibility.Visible;
+            confetti.Begin();
         }
 
         /// <summary>
@@ -297,7 +327,7 @@ namespace FiaMedFight.Templates
             };
 
             moveAnimation.Begin();
-            this.coordinate = endCoordinate;
+            this.coordinate = endCoordinate;            
             return tcs.Task;
         }
         /// <summary>
@@ -329,6 +359,21 @@ namespace FiaMedFight.Templates
 
             resizeAnimation.Begin();
         }
+        private void ChangeOpacityAnimation(double opacity, int milliseconds)
+        {
+            Storyboard opacityStoryboard = new Storyboard();
+            DoubleAnimation opacityAnimation = new DoubleAnimation()
+            {
+                To = opacity,
+                Duration = TimeSpan.FromMilliseconds(milliseconds)
+            };
+            Storyboard.SetTarget(opacityAnimation, pawnImage);
+            Storyboard.SetTargetProperty(opacityAnimation, "Opacity");
+
+            opacityStoryboard.Children.Add(opacityAnimation);
+
+            opacityStoryboard.Begin();
+        }
         /// <summary>
         /// Repositions the piece to it's homeBase location within the active session's gameBoard Grid.
         /// </summary>
@@ -347,7 +392,7 @@ namespace FiaMedFight.Templates
             //Move to another 'row' or 'column' if there is already a piece there.
             for (int row = baseRow + 1; row <= baseRow + 5 && !setRowAndColumn; row += 2)
             {
-                for (int column = baseColumn + 1; column <= baseColumn + 5 && !setRowAndColumn; column += 2)
+                for (int column = baseColumn + 1; column <= baseColumn + 5; column += 2)
                 {
                     setRowAndColumn = true;
                     foreach (GamePieceControl p in player.pieces)
@@ -362,9 +407,35 @@ namespace FiaMedFight.Templates
                     {
                         Grid.SetRow(this, row);
                         Grid.SetColumn(this, column);
+                        break;
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Returns 'true' if the piece is standing in the goal
+        /// </summary>
+
+        public bool isInGoal()
+        {
+            return coordinate.ToLower().StartsWith("goal");
+        }
+        /// <summary>
+        /// Returns 'true' if the piece is standing in it's home base
+        /// </summary>
+        
+        public bool isInHomeBase()
+        {
+            return coordinate.ToLower().StartsWith(color + "base");
+        }
+        /// <summary>
+        /// Returns 'true' if the piece is standing in a safe zone coordinate
+        /// </summary>
+        
+        public bool isInSafeZone()
+        {
+            return coordinate.ToLower().StartsWith(color + "safe");
         }
     }
 }

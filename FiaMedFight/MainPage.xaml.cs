@@ -55,32 +55,32 @@ namespace FiaMedFight
         {
             // Initialize this page to GameManager:
             GameManager.gameBoard = gameBoardGrid;
-
+            GameManager.activePage = this;
             // Setup test session:
             GameSession session = new GameSession();
-            session.AddPlayer(new GamePlayer("green", "Coordinate42"));
-            session.AddPlayer(new GamePlayer("blue", "Coordinate3"));
-            session.AddPlayer(new GamePlayer("yellow", "Coordinate16"));
-            session.AddPlayer(new GamePlayer("red", "Coordinate29"));
+            session.AddPlayer(new GamePlayer("green", "Coordinate43"));
+            session.AddPlayer(new GamePlayer("blue", "Coordinate4"));
+            session.AddPlayer(new GamePlayer("yellow", "Coordinate17"));
+            session.AddPlayer(new GamePlayer("red", "Coordinate30"));
             GameManager.StartGame(session);
 
             // Spawn test pieces (also adds them to each GamePlayer's list of pieces):
             GameManager.AddGamePieceControl("red");
             GameManager.AddGamePieceControl("red");
             GameManager.AddGamePieceControl("red");
-            GameManager.AddGamePieceControl("red", "Coordinate22");
+            GameManager.AddGamePieceControl("red", "redSafeCoordinate4");
             GameManager.AddGamePieceControl("blue");
             GameManager.AddGamePieceControl("blue");
             GameManager.AddGamePieceControl("blue");
-            GameManager.AddGamePieceControl("blue", "Coordinate49");
+            GameManager.AddGamePieceControl("blue", "blueSafeCoordinate4");
             GameManager.AddGamePieceControl("green");
             GameManager.AddGamePieceControl("green");
             GameManager.AddGamePieceControl("green");
-            GameManager.AddGamePieceControl("green", "Coordinate30");
+            GameManager.AddGamePieceControl("green", "greenSafeCoordinate3");
             GameManager.AddGamePieceControl("yellow");
             GameManager.AddGamePieceControl("yellow");
             GameManager.AddGamePieceControl("yellow");
-            GameManager.AddGamePieceControl("yellow", "Coordinate9");
+            GameManager.AddGamePieceControl("yellow", "yellowSafeCoordinate5");
         }
 
         /// <summary>

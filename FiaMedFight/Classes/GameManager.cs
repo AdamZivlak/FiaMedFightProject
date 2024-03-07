@@ -23,6 +23,8 @@ namespace FiaMedFight.Classes
         /// </summary>
         public static Grid gameBoard { get; set; }
 
+        public static Page activePage { get; set; }
+
         /// <summary>
         /// Initiates a new game session, setting up the game environment.
         /// </summary>

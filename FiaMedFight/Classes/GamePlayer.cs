@@ -62,18 +62,20 @@ namespace FiaMedFight.Classes
         {
             // Todo: Uppdatera spelarens tillgängliga handlingar, t.ex antal tärningskast eller antal drag
             // Exemepel diceRollsLeft = 1;
+            string targetCoordinate;
+            int diceResult = GameManager.session.dice.FaceValue;
+
             foreach (GamePieceControl piece in pieces)
             {
-                if (piece.coordinate.ToLower().StartsWith(color + "base"))
-                {
-                    if (GameManager.session.dice.FaceValue == 1 || GameManager.session.dice.FaceValue == 6)
-                    {
-                        piece.Activate();
-                    }
-                }
-                else piece.Activate();
+                if (piece.isInHomeBase() && diceResult != 1 && diceResult != 6)
+                    continue;
+
+                targetCoordinate = piece.GetEndCoordinateString(diceResult);
+                if (piece.isInGoal() || targetCoordinate == "overpassingTheGoal")
+                    continue;
+
+                piece.Activate();
             }
-            isPlayerTurn = true;
         }
         
         /// <summary>
