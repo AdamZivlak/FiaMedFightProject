@@ -151,12 +151,14 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\cartoonFigure.png" />
     <Content Include="Assets\Dice\Face1.png" />
     <Content Include="Assets\Dice\Face2.png" />
     <Content Include="Assets\Dice\Face3.png" />
     <Content Include="Assets\Dice\Face4.png" />
     <Content Include="Assets\Dice\Face5.png" />
     <Content Include="Assets\Dice\Face6.png" />
+    <Content Include="Assets\infoPlayerText.png" />
     <Content Include="Assets\Pieces\blue.png" />
     <Content Include="Assets\Pieces\green.png" />
     <Content Include="Assets\Pieces\red.png" />

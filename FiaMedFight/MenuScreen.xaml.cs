@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -12,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -51,10 +53,48 @@ namespace FiaMedFight
         /// </summary>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event arguments.</param>
-        private void NewGameButton_Click(object sender, RoutedEventArgs e)
+        private async void NewGameButton_Click(object sender, RoutedEventArgs e)
         {
-            //SelectPlayersPopup.Visibility = Visibility.Visible;
-            Frame.Navigate(typeof(PlayerSelectionScreen));
+            // Define an exit animation for the PlayerSelectionScreen (eases out)
+            var exitAnimation = new DoubleAnimation
+            {
+                To = 0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.5)),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
+            };
+            Storyboard.SetTarget(exitAnimation, this); // Set the target of the animation to the PlayerSelectionScreen
+            Storyboard.SetTargetProperty(exitAnimation, "(UIElement.Opacity)"); // Set the target property to Opacity
+
+            // Create a storyboard for the exit animation
+            var exitStoryboard = new Storyboard();
+            exitStoryboard.Children.Add(exitAnimation);
+
+            // Begin the exit animation on the PlayerSelectionScreen
+            exitStoryboard.Begin();
+
+            // Wait for the exit animation to complete
+            await Task.Delay(500);
+
+            // Navigate to the MainPage
+            Frame.Navigate(typeof(PlayerSelectionScreen), null, new SuppressNavigationTransitionInfo());
+
+            // Define an entrance animation for the MainPage (eases in)
+            var entranceAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = new Duration(TimeSpan.FromSeconds(0.5)),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseIn }
+            };
+            Storyboard.SetTarget(entranceAnimation, Frame.Content as UIElement); // Set the target of the animation to the MainPage
+            Storyboard.SetTargetProperty(entranceAnimation, "(UIElement.Opacity)"); // Set the target property to Opacity
+
+            // Create a storyboard for the entrance animation
+            var entranceStoryboard = new Storyboard();
+            entranceStoryboard.Children.Add(entranceAnimation);
+
+            // Begin the entrance animation on the MainPage
+            entranceStoryboard.Begin();
         }
 
         /// <summary>

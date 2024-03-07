@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -12,7 +13,11 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+
 using Windows.UI.Xaml.Navigation;
+using static System.Net.Mime.MediaTypeNames;
+
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -29,11 +34,22 @@ namespace FiaMedFight
         public static GameSession sess = new GameSession();
 
         /// <summary>
+        /// Declare the timer variable at class level
+        /// </summary>
+        private DispatcherTimer timer;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSelectionScreen"/> class.
         /// </summary>
         public PlayerSelectionScreen()
         {
             this.InitializeComponent();
+
+            // Create a DispatcherTimer
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2); // Set the interval .. seconds
+            timer.Tick += Timer_Tick; // Add event handler for the Tick event
+            timer.Start(); // Start the timer
         }
 
         /// <summary>
@@ -41,10 +57,48 @@ namespace FiaMedFight
         /// </summary>
         /// <param name="sender">The source of the event, typically the button that was clicked.</param>
         /// <param name="e">The event data.</param>
-        private void GameStartButton_Click(object sender, RoutedEventArgs e)
+        private async void GameStartButton_Click(object sender, RoutedEventArgs e)
         {
-            MainPage mainPage = new MainPage();
-            Frame.Navigate(typeof(MainPage));
+            // Define an exit animation for the PlayerSelectionScreen (eases out)
+            var exitAnimation = new DoubleAnimation
+            {
+                To = 0,
+                Duration = new Duration(TimeSpan.FromSeconds(0.5)),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
+            };
+            Storyboard.SetTarget(exitAnimation, this); // Set the target of the animation to the PlayerSelectionScreen
+            Storyboard.SetTargetProperty(exitAnimation, "(UIElement.Opacity)"); // Set the target property to Opacity
+
+            // Create a storyboard for the exit animation
+            var exitStoryboard = new Storyboard();
+            exitStoryboard.Children.Add(exitAnimation);
+
+            // Begin the exit animation on the PlayerSelectionScreen
+            exitStoryboard.Begin();
+
+            // Wait for the exit animation to complete
+            await Task.Delay(500);
+
+            // Navigate to the MainPage
+            Frame.Navigate(typeof(MainPage), null, new SuppressNavigationTransitionInfo());
+
+            // Define an entrance animation for the MainPage (eases in)
+            var entranceAnimation = new DoubleAnimation
+            {
+                From = 0,
+                To = 1,
+                Duration = new Duration(TimeSpan.FromSeconds(0.5)),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseIn }
+            };
+            Storyboard.SetTarget(entranceAnimation, Frame.Content as UIElement); // Set the target of the animation to the MainPage
+            Storyboard.SetTargetProperty(entranceAnimation, "(UIElement.Opacity)"); // Set the target property to Opacity
+
+            // Create a storyboard for the entrance animation
+            var entranceStoryboard = new Storyboard();
+            entranceStoryboard.Children.Add(entranceAnimation);
+
+            // Begin the entrance animation on the MainPage
+            entranceStoryboard.Begin();
         }
 
         /// <summary>
@@ -131,8 +185,37 @@ namespace FiaMedFight
         {
 
         }
+
+        private void StackPanel_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            infoImage.Visibility = Visibility.Visible;
+            timer.Stop();
+        }
+
+        private void StackPanel_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            infoImage.Visibility = Visibility.Collapsed;
+            // timer.Start(); // Enable this if the image should keep changing opacity
+        }
+
+        private void Timer_Tick(object sender, object e)
+        {
+            // Create a DoubleAnimation to change the opacity
+            DoubleAnimation opacityAnimation = new DoubleAnimation();
+            opacityAnimation.From = 0.3; // Start opacity
+            opacityAnimation.To = 1; // End opacity
+            opacityAnimation.Duration = TimeSpan.FromSeconds(1.5); // Animation duration
+
+            // Apply the animation to the Opacity property of the image
+            Storyboard.SetTarget(opacityAnimation, cartoonFigure);
+            Storyboard.SetTargetProperty(opacityAnimation, "Opacity");
+
+            // Create a storyboard and add the opacity animation to it
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(opacityAnimation);
+
+            // Begin the storyboard
+            storyboard.Begin();
+        }
     }
-
-
 }
-

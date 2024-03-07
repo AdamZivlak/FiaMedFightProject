@@ -31,10 +31,18 @@
             <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
             <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
             <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
-            <TextBlock HorizontalAlignment="Left" Margin="599,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Add Player" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="119" Width="373" SelectionChanged="TextBlock_SelectionChanged" FontSize="72" Foreground="Black" FontFamily="Comic Sans MS"/>
+            <!--<TextBlock HorizontalAlignment="Left" Margin="599,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Add Player" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="119" Width="373" SelectionChanged="TextBlock_SelectionChanged" FontSize="72" Foreground="Black" FontFamily="Comic Sans MS"/> -->
         </Grid>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,100">
+        <StackPanel Width="290" Height="290" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                    PointerEntered="StackPanel_PointerEntered" PointerExited="StackPanel_PointerExited">
+            <Image x:Name="cartoonFigure"  Source="ms-appx:///Assets/cartoonFigure.png"/>
+        </StackPanel>
+        <StackPanel Width="350" Height="300" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150,0,0,40">
+            <Image x:Name="infoImage" Source="ms-appx:///Assets/infoPlayerText.png" Visibility="Collapsed"></Image>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Button x:Name="GreenButton" Content="Green" Style="{StaticResource MenuButtonStyle}" Click="GreenButton_Click" Foreground="#FF1F0404" FocusVisualPrimaryBrush="White" BorderBrush="White">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -74,8 +82,8 @@
                 </Button.Background>
             </Button>
         </StackPanel>
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
             <!-- this should be used to start game once a number of players are chosen -->
             <Button x:Name="RedoPlayerButton" Visibility="Visible" Content="Redo" Style="{StaticResource MenuButtonStyle}" Click="RedoPlayerButton_Click" FocusVisualPrimaryBrush="White" Foreground="Black">
                 <Button.Background>
