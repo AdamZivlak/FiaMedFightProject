@@ -31,20 +31,76 @@
             <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
             <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
             <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+            <TextBlock HorizontalAlignment="Left" Margin="599,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Add Player" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="119" Width="373" SelectionChanged="TextBlock_SelectionChanged" FontSize="72" Foreground="Black" FontFamily="Comic Sans MS"/>
         </Grid>
-        
+
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,100">
-            <Button x:Name="GreenButton" Content="Add Green" Style="{StaticResource MenuButtonStyle}" Click="GreenButton_Click" VerticalAlignment="Bottom"/>
-            <Button x:Name="YellowButton" Content="Add Yellow" Style="{StaticResource MenuButtonStyle}" Click="YellowButton_Click" VerticalAlignment="Bottom"/>
-            <Button x:Name="RedButton" Content="Add Red" Style="{StaticResource MenuButtonStyle}" Click="RedButton_Click" VerticalAlignment="Bottom"/>
-            <Button x:Name="BlueButton" Content="Add Blue" Style="{StaticResource MenuButtonStyle}" Click="BlueButton_Click" VerticalAlignment="Bottom"/>
+            <Button x:Name="GreenButton" Content="Green" Style="{StaticResource MenuButtonStyle}" Click="GreenButton_Click" Foreground="#FF1F0404" FocusVisualPrimaryBrush="White" BorderBrush="White">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="Green" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+                <Button.FocusVisualSecondaryBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF732525" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.FocusVisualSecondaryBrush>
+            </Button>
+            <Button x:Name="YellowButton" Content=" Yellow" Style="{StaticResource MenuButtonStyle}" Click="YellowButton_Click" BorderBrush="White" Foreground="#FF060000">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="Yellow" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="RedButton" Content=" Red" Style="{StaticResource MenuButtonStyle}" Click="RedButton_Click" VerticalAlignment="Bottom" BorderBrush="White" Foreground="#FF0C0000">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="Red" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="BlueButton" Content=" Blue" Style="{StaticResource MenuButtonStyle}" Click="BlueButton_Click" VerticalAlignment="Bottom" BorderBrush="White" Foreground="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="Blue" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
         </StackPanel>
-        
+
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <!-- this should be used to start game once a number of players are chosen -->
-            <Button x:Name="RedoPlayerButton" Visibility="Visible" Content="Redo" Style="{StaticResource MenuButtonStyle}" Click="RedoPlayerButton_Click"/>
-            <Button x:Name="MenuOpenButton" Visibility="Visible" Content="Menu" Style="{StaticResource MenuButtonStyle}" Click="MenuOpenButton_Click"/>
-            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click"/>
+            <Button x:Name="RedoPlayerButton" Visibility="Visible" Content="Redo" Style="{StaticResource MenuButtonStyle}" Click="RedoPlayerButton_Click" FocusVisualPrimaryBrush="White" Foreground="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="#FFF59200" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="MenuOpenButton" Visibility="Visible" Content="Menu" Style="{StaticResource MenuButtonStyle}" Click="MenuOpenButton_Click" Foreground="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="#FFFF9800" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click" Foreground="Black">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFDCDCE8"/>
+                        <GradientStop Color="#FFFF9800" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
         </StackPanel>
 
         <StackPanel Margin="50" HorizontalAlignment="Center" VerticalAlignment="Top" Width="710" Height="510">

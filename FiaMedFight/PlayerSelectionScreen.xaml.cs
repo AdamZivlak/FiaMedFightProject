@@ -126,6 +126,11 @@ namespace FiaMedFight
             RedImage.Visibility = Visibility.Collapsed;
             BlueImage.Visibility = Visibility.Collapsed;
         }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 
