@@ -228,8 +228,11 @@ namespace FiaMedFight.Templates
             if (coordinate == "goalCoordinate")
             {
                 //GoalAnimation(); //TODO: Fix confetti animation
+
                 ResizeAnimation(3, 1500);
-                TransformDoubleProperty(this, "Opacity", 0, 1500);
+                await TransformDoubleProperty(this, "Opacity", 0, 1500);
+                GameManager.ActivePlayer().pieces.Remove(this);
+                GameManager.gameBoard.Children.Remove(this);
             }
             GameManager.NextTurn();
         }
