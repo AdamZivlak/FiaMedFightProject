@@ -24,11 +24,10 @@ namespace FiaMedFight.Classes
         public List<GamePieceControl> pieces = new List<GamePieceControl>();
         
         /// <summary>
-        /// The 'x:name' attribute value of the first gameLocation to move to from homeBase.
+        /// The 'x:name' attribute value of the gameLocation where the player's pieces should change direction towards the goal.
         /// </summary>
-        public string firstCoordinateAfterHomeBase;
+        public string entranceToSafeZoneCoordinate;
 
-        private bool isPlayerTurn;
         int score;
 
         /// <summary>
@@ -41,9 +40,8 @@ namespace FiaMedFight.Classes
         {
             this.color = color;
             this.score = 0;
-            this.firstCoordinateAfterHomeBase = firstCoordinateAfterHomeBase;
+            this.entranceToSafeZoneCoordinate = firstCoordinateAfterHomeBase;
             pieces = new List<GamePieceControl>();
-            isPlayerTurn = false;
         }
 
         /// <summary>
@@ -56,7 +54,7 @@ namespace FiaMedFight.Classes
         }
 
         /// <summary>
-        /// Starts the player's turn 
+        /// Starts the player's turn. Activates some of the player's game pieces. Depends on conditions of their positions and the dice roll result.
         /// </summary>
         public void StartTurn()
         {
@@ -70,7 +68,7 @@ namespace FiaMedFight.Classes
                 if (piece.isInHomeBase() && diceResult != 1 && diceResult != 6)
                     continue;
 
-                targetCoordinate = piece.GetEndCoordinateString(diceResult);
+                targetCoordinate = piece.GetTargetCoordinateAsString(diceResult);
                 if (piece.isInGoal() || targetCoordinate == "overpassingTheGoal")
                     continue;
 
@@ -79,7 +77,7 @@ namespace FiaMedFight.Classes
         }
         
         /// <summary>
-        /// Ends the player's turn
+        /// Ends the player's turn. Deactivates all the player's game pieces, making them unclickable.
         /// </summary>
         public void EndTurn()
         {
@@ -87,17 +85,7 @@ namespace FiaMedFight.Classes
             {
                 piece.Deactivate();
             }
-            // Todo: 
-            isPlayerTurn = false;
-        }
 
-        /// <summary>
-        /// Checks if it's the player's turn.
-        /// </summary>
-        /// <returns>True if it's the player's turn, otherwise it's false</returns>
-        public bool IsPlayerTurn()
-        { 
-            return isPlayerTurn; 
         }
     }
 }

@@ -60,6 +60,10 @@ namespace FiaMedFight.Templates
             UpdateImageSource(color);
         }
 
+        /// <summary>
+        /// Returns the player owning this GamePieceControl
+        /// </summary>
+        /// <returns></returns>
         public GamePlayer Player()
         {
             return GameManager.FindOrCreatePlayer(color);
@@ -75,7 +79,7 @@ namespace FiaMedFight.Templates
         }
 
         /// <summary>
-        /// Activates the game piece.
+        /// Activates the game piece. Makes it clickable.
         /// </summary>
         public void Activate()
         {
@@ -83,7 +87,7 @@ namespace FiaMedFight.Templates
         }
 
         /// <summary>
-        /// Deactivates the game piece.
+        /// Deactivates the game piece. Makes it unclickable.
         /// </summary>
         public void Deactivate()
         {
@@ -91,14 +95,9 @@ namespace FiaMedFight.Templates
         }
 
         /// <summary>
-        /// Gets the integer value of the coordinate.
+        /// Gets all numerical characters from a string.
         /// </summary>
-        /// <returns>The integer value of the coordinate.</returns>
-        public int GetCoordinateInt()
-        {
-            string coordinate_num = this.coordinate.Substring(10);
-            return int.Parse(coordinate_num);
-        }
+        /// <returns>A series of numerical characters as a string.</returns>
         public int ExtractIntFromString(string str)
         {
             string numbers = "";
@@ -145,49 +144,38 @@ namespace FiaMedFight.Templates
         /// Gets the string representation of the end coordinate after moving a certain number of steps.
         /// </summary>
         /// <param name="stepsToMove">The number of steps on the game board to move</param>
-        /// <returns>The string representation of the end coordinate.</returns>
-        public string GetEndCoordinateString(int stepsToMove)
+        /// <returns>The 'x:name' property of the target game board location.</returns>
+        public string GetTargetCoordinateAsString(int stepsToMove)
         {
-            int enterSafeZoneCoordinate = ExtractIntFromString(Player().firstCoordinateAfterHomeBase) - 1,
+            int entranceToSafeZoneCoordinate = ExtractIntFromString(Player().entranceToSafeZoneCoordinate),
                 currentCoordinate = ExtractIntFromString(this.coordinate),
                 targetCoordinate = currentCoordinate + stepsToMove;
-            if (targetCoordinate >= 53) targetCoordinate -= 52;
+            
+            if (stepsToMove == 0 || isInGoal())
+                return this.coordinate;
 
-            if (stepsToMove == 0 || coordinate.ToLower().StartsWith("goal")) return this.coordinate;
+            if (isInHomeBase())
+                return "Coordinate" + (entranceToSafeZoneCoordinate + targetCoordinate); //Piece enters the board one or six steps after the entrance location.
 
-            else if (coordinate.ToLower().StartsWith(color + "base")) //If in home base
-            {
-                return "Coordinate" + (enterSafeZoneCoordinate + targetCoordinate);
-            }
-
-            else if (coordinate.ToLower().StartsWith(color + "safe")) //If in safe zone
-            {
+            if (isInSafeZone())
                 if (targetCoordinate == 6)
-                { 
                     return "goalCoordinate";
-                }
                 else if (targetCoordinate > 6)
-                {     
-                    return "overpassingTheGoal";
-                }
+                    return "overpassingTheGoal"; //This is used for deactivating the piece
                 else
-                {
                     return color + "SafeCoordinate" + targetCoordinate;
-                }
-            }
 
-            else if (coordinate == "Coordinate" + enterSafeZoneCoordinate) //If moving into safe zone
+            if (coordinate == "Coordinate" + entranceToSafeZoneCoordinate) //If on first step into safe zone
             {
                 if (stepsToMove == 6)
-                {
                     return "goalCoordinate";
-                }
                 else if (stepsToMove > 6)
-                { 
                     return "overpassingTheGoal";
-                }
                 return color + "SafeCoordinate" + stepsToMove;
             }
+            //default - Normal movement on the board:
+            while (targetCoordinate >= 53)
+                targetCoordinate -= 52; //Cannot use % operator as coordinates are not 0-indexed
 
             return "Coordinate" + targetCoordinate;
         }
@@ -228,7 +216,7 @@ namespace FiaMedFight.Templates
             int steps = GameManager.session.dice.FaceValue;
 
             //Animates the movement by transformation
-            ResizeAnimation(1.35, 100);
+            ResizeAnimation(1.5, 100);
             while (steps-- > 0)
                 await MoveStepsAsync(1, 300, 0, -1);
             ResizeAnimation(1, 150);
@@ -240,15 +228,15 @@ namespace FiaMedFight.Templates
             if (coordinate == "goalCoordinate")
             {
                 //GoalAnimation(); //TODO: Fix confetti animation
-                ResizeAnimation(3.00, 1000);
-                ChangeOpacityAnimation(0, 1500);
+                ResizeAnimation(3, 1500);
+                TransformDoubleProperty(this, "Opacity", 0, 1500);
             }
             GameManager.NextTurn();
         }
 
+        //TODO: Finish and apply the confetti animation:
         private void GoalAnimation()
         {
-            //TODO: Finish and test this animation.
             var confettiArea = GameManager.activePage.FindName("confettiArea") as FrameworkElement;
 
             Storyboard confetti = GameManager.activePage.FindName("confettiAnimation") as Storyboard;
@@ -300,7 +288,7 @@ namespace FiaMedFight.Templates
             oDoubleAnimationX.Duration = new Duration(TimeSpan.FromMilliseconds(milliseconds));
             oDoubleAnimationY.Duration = new Duration(TimeSpan.FromMilliseconds(milliseconds));
 
-            string endCoordinate = GetEndCoordinateString(steps);
+            string endCoordinate = GetTargetCoordinateAsString(steps);
 
             Point startPoint = currentPoint;
             Point endPoint = GetXYFromSelfToCoordinate(endCoordinate, offsetX, offsetY);
@@ -330,12 +318,13 @@ namespace FiaMedFight.Templates
             this.coordinate = endCoordinate;            
             return tcs.Task;
         }
+
         /// <summary>
         /// Applies a resize animation to the game piece, scaling it by a specified factor over a set duration.
         /// </summary>
         /// <param name="factor">The factor by which to scale the game piece.</param>
         /// <param name="milliseconds">The duration of the animation in milliseconds.</param>
-        private void ResizeAnimation(double factor, int milliseconds)
+        private Task ResizeAnimation(double factor, int milliseconds)
         {
             Storyboard resizeAnimation = new Storyboard();
             DoubleAnimation scaleXAnimation = new DoubleAnimation()
@@ -356,24 +345,48 @@ namespace FiaMedFight.Templates
 
             resizeAnimation.Children.Add(scaleXAnimation);
             resizeAnimation.Children.Add(scaleYAnimation);
+            var tcs = new TaskCompletionSource<bool>();
 
-            resizeAnimation.Begin();
-        }
-        private void ChangeOpacityAnimation(double opacity, int milliseconds)
-        {
-            Storyboard opacityStoryboard = new Storyboard();
-            DoubleAnimation opacityAnimation = new DoubleAnimation()
+            resizeAnimation.Completed += (s, e) =>
             {
-                To = opacity,
+                tcs.SetResult(true);
+            };
+            resizeAnimation.Begin();
+
+            return tcs.Task;
+        }
+
+        /// <summary>
+        /// Applies a DoubleAnimation to an Element or Transform instance, changing the value of a chosen property to a specified value over a set duration.
+        /// </summary>
+        /// <param name="element">The object to transform. A UIElement, FrameworkElement, Transform or any other inherited type from DependencyObject.</param>
+        /// <param name="property">The name of the DependencyProperty of 'element' to transform.</param>
+        /// <param name="value">The value to set the property to.</param>
+        /// <param name="milliseconds">The duration of the animation in milliseconds.</param>
+        private Task TransformDoubleProperty(DependencyObject element, string property, double value, int milliseconds)
+        {
+            Storyboard doubleStoryboard = new Storyboard();
+            DoubleAnimation doubleAnimation = new DoubleAnimation()
+            {
+                To = value,
                 Duration = TimeSpan.FromMilliseconds(milliseconds)
             };
-            Storyboard.SetTarget(opacityAnimation, pawnImage);
-            Storyboard.SetTargetProperty(opacityAnimation, "Opacity");
+            Storyboard.SetTarget(doubleAnimation, element);
+            Storyboard.SetTargetProperty(doubleAnimation, property);
 
-            opacityStoryboard.Children.Add(opacityAnimation);
+            doubleStoryboard.Children.Add(doubleAnimation);
 
-            opacityStoryboard.Begin();
+            var tcs = new TaskCompletionSource<bool>();
+            
+            doubleAnimation.Completed += (s, e) =>
+            {
+                tcs.SetResult(true);
+            };
+            
+            doubleStoryboard.Begin();
+            return tcs.Task;
         }
+
         /// <summary>
         /// Repositions the piece to it's homeBase location within the active session's gameBoard Grid.
         /// </summary>
@@ -416,23 +429,22 @@ namespace FiaMedFight.Templates
         /// <summary>
         /// Returns 'true' if the piece is standing in the goal
         /// </summary>
-
         public bool isInGoal()
         {
             return coordinate.ToLower().StartsWith("goal");
         }
+
         /// <summary>
         /// Returns 'true' if the piece is standing in it's home base
         /// </summary>
-        
         public bool isInHomeBase()
         {
             return coordinate.ToLower().StartsWith(color + "base");
         }
+        
         /// <summary>
         /// Returns 'true' if the piece is standing in a safe zone coordinate
         /// </summary>
-        
         public bool isInSafeZone()
         {
             return coordinate.ToLower().StartsWith(color + "safe");
