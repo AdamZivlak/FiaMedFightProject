@@ -137,7 +137,9 @@ namespace FiaMedFight.Classes
             int numberOfPlayers = session.players.Count;
 
             ActivePlayer().EndTurn(); // Deactivate all pieces
-            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;          
+            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;   
+            
+            if(ActivePlayer().pieces.Count == 0) { NextTurn(); } //End turn before rolling dice if all pieces in goal
 
             var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
             activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;

@@ -242,6 +242,8 @@ namespace FiaMedFight.Templates
                 //GoalAnimation(); //TODO: Fix confetti animation
                 ResizeAnimation(3.00, 1000);
                 ChangeOpacityAnimation(0, 1500);
+                GameManager.ActivePlayer().pieces.Remove(this);
+                GameManager.gameBoard.Children.Remove(this);
             }
             GameManager.NextTurn();
         }

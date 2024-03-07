@@ -28,7 +28,6 @@ namespace FiaMedFight.Classes
         /// </summary>
         public string firstCoordinateAfterHomeBase;
 
-        private bool isPlayerTurn;
         int score;
 
         /// <summary>
@@ -43,7 +42,6 @@ namespace FiaMedFight.Classes
             this.score = 0;
             this.firstCoordinateAfterHomeBase = firstCoordinateAfterHomeBase;
             pieces = new List<GamePieceControl>();
-            isPlayerTurn = false;
         }
 
         /// <summary>
@@ -70,8 +68,13 @@ namespace FiaMedFight.Classes
                 if (piece.isInHomeBase() && diceResult != 1 && diceResult != 6)
                     continue;
 
+                if (piece.isInGoal())
+                {
+                    continue;
+                }
+
                 targetCoordinate = piece.GetEndCoordinateString(diceResult);
-                if (piece.isInGoal() || targetCoordinate == "overpassingTheGoal")
+                if (targetCoordinate == "overpassingTheGoald")
                     continue;
 
                 piece.Activate();
@@ -88,16 +91,8 @@ namespace FiaMedFight.Classes
                 piece.Deactivate();
             }
             // Todo: 
-            isPlayerTurn = false;
         }
 
-        /// <summary>
-        /// Checks if it's the player's turn.
-        /// </summary>
-        /// <returns>True if it's the player's turn, otherwise it's false</returns>
-        public bool IsPlayerTurn()
-        { 
-            return isPlayerTurn; 
-        }
+     
     }
 }

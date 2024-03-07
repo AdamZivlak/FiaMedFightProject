@@ -207,7 +207,7 @@
             <Ellipse x:Name="redSafeCoordinate2" Grid.Column="19" Grid.Row="29" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="redSafeCoordinate1" Grid.Column="19" Grid.Row="31" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
 
-            <TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="2" FontSize="30" TextAlignment="Center" Text="Active Player: Green"/>
+            <TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="2" FontSize="30" TextAlignment="Center" Text="Active Player: Green" Foreground="White"/>
 
         </Grid>
             
