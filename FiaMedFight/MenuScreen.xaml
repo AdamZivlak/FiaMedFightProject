@@ -36,7 +36,7 @@
         <StackPanel HorizontalAlignment="Center" Padding="150">
 
             <!-- this is where the selection for number of players pops up -->
-            <Button x:Name="NewGameButton" Content="New Game"
+            <Button x:Name="NewGameButton" Content="New Game" 
             Style="{StaticResource MenuButtonStyle}" Click="NewGameButton_Click">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -47,8 +47,8 @@
             </Button>
 
             <!-- this should be used to start game once a number of players are chosen -->
-            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" 
-                    Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click">
+            <Button x:Name="ResumeGameButton" Visibility="Collapsed"  Content="Resume Game" 
+                    Style="{StaticResource MenuButtonStyle}" Click="ResumeGameButton_Click">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#FFDCDCE8"/>

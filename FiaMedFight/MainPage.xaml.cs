@@ -20,6 +20,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
+using Windows.Media.Playback;
+using Windows.Media.Core;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -35,6 +37,8 @@ namespace FiaMedFight
         /// </summary>
         static Storyboard spinAnimation;
 
+        public static MediaPlayer walkingSoundManager;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage"/> class.
         /// </summary>
@@ -42,6 +46,11 @@ namespace FiaMedFight
         {
             this.InitializeComponent();
             this.Loaded += MainPage_Loaded;
+            
+            // create move sounds for pieces
+            walkingSoundManager = new MediaPlayer();
+            GameManager.PreloadSoundManagers("stepSound.mp3", walkingSoundManager);
+            walkingSoundManager.IsLoopingEnabled = true;
 
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
             Storyboard.SetTarget(spinAnimation, SpinningImage);
@@ -82,11 +91,13 @@ namespace FiaMedFight
         {
             if (!GameManager.session.dice.active) return;
 
+            GameManager.PlaySound("diceSound.mp3");
+
             GameManager.session.dice.Deactivate();
 
             var button = sender as Button;
             GameManager.session.dice.RollThisDice(button);
-
+            await Task.Delay(500);
             await SimpleDice_Animation(button);
             
             GameManager.PlayerRolledDice();
@@ -136,7 +147,10 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             Frame.Navigate(typeof(MenuScreen));
+
+            // TODO: Add a resume game-button in MenuScreen to keep the old game?
         }
 
         /// <summary>
@@ -146,9 +160,12 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private async void QuitGameButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             Frame.Navigate(typeof(GameOverDialog));
             await Task.Delay(4000);
             Frame.Navigate(typeof(MenuScreen));
+
+            //TODO: Clear the old game
         }
    }
 }

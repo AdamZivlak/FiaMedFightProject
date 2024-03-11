@@ -1,4 +1,5 @@
 ﻿using FiaMedFight.Templates;
+using FiaMedFight.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.Media.Playback;
+using Windows.Media.Core;
 
 
 namespace FiaMedFight
@@ -24,6 +27,8 @@ namespace FiaMedFight
     /// </summary>
     public sealed partial class MenuScreen : Page
     {
+        public static MediaPlayer clickSoundManager;
+
         /// <summary>
         /// Collection of string bindings for game rules.
         /// </summary>
@@ -36,6 +41,8 @@ namespace FiaMedFight
         {
             this.InitializeComponent();
             ApplicationExitButton.Click += ApplicationExitButton_Click;
+            clickSoundManager = new MediaPlayer();
+            GameManager.PreloadSoundManagers("clickSound.mp3", clickSoundManager);
         }
 
         /// <summary>
@@ -43,10 +50,13 @@ namespace FiaMedFight
         /// </summary>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event arguments.</param>
-        private void ApplicationExitButton_Click(object sender, RoutedEventArgs e)
+        private async void ApplicationExitButton_Click(object sender, RoutedEventArgs e)
         {
+            GameManager.PlayClickSound(clickSoundManager);
+            await Task.Delay(500);
             Application.Current.Exit();
         }
+
 
         /// <summary>
         /// Click to open the game options screen, to select number of players for the new game.
@@ -55,6 +65,10 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private async void NewGameButton_Click(object sender, RoutedEventArgs e)
         {
+            GameManager.PlayClickSound(clickSoundManager);
+
+            //await Task.Delay(500);
+
             // Define an exit animation for the PlayerSelectionScreen (eases out)
             var exitAnimation = new DoubleAnimation
             {
@@ -102,10 +116,11 @@ namespace FiaMedFight
         /// </summary>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The event arguments.</param>
-        private void GameStartButton_Click(object sender, RoutedEventArgs e)
+        private void ResumeGameButton_Click(object sender, RoutedEventArgs e)
         {
             // TODO: populate the gameboard with number of players and pieces here?
-
+            MenuScreen.clickSoundManager.Play();
+            GameManager.PlaySound("combatSound.mp3");
 
             Frame.Navigate(typeof(MainPage));
         }
@@ -117,6 +132,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void RulesOpenButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             Dimmer.Visibility = Visibility.Visible;
             RulesPopup.Visibility = Visibility.Visible;
 
@@ -135,9 +151,9 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             RulesPopup.Visibility = Visibility.Collapsed;
             Dimmer.Visibility = Visibility.Collapsed;
-            GameStartButton.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -147,6 +163,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void RulesNextButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             if (PrevButton.Visibility != Visibility.Visible)
                 PrevButton.Visibility = Visibility.Visible;
 
@@ -167,6 +184,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void RulesPreviousButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             if (NextButton.Visibility != Visibility.Visible)
                 NextButton.Visibility = Visibility.Visible;
 

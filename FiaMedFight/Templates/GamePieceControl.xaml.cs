@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
+
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace FiaMedFight.Templates
@@ -217,10 +218,17 @@ namespace FiaMedFight.Templates
 
             //Animates the movement by transformation
             ResizeAnimation(1.5, 100);
+
+            MainPage.walkingSoundManager.Play();
+
             while (steps-- > 0)
                 await MoveStepsAsync(1, 300, 0, -1);
             ResizeAnimation(1, 150);
             await MoveStepsAsync(0, 150, 0, -0.5);
+
+            MainPage.walkingSoundManager.Pause();
+            MainPage.walkingSoundManager.Position = TimeSpan.Zero;
+
 
             //Resets the transform and actually moves the piece within the grid.
             ResetMovementTransform();
@@ -228,7 +236,7 @@ namespace FiaMedFight.Templates
             if (coordinate == "goalCoordinate")
             {
                 //GoalAnimation(); //TODO: Fix confetti animation
-
+                GameManager.PlaySound("goalSound.mp3");
                 ResizeAnimation(3, 1500);
                 await TransformDoubleProperty(this, "Opacity", 0, 1500);
                 GameManager.ActivePlayer().pieces.Remove(this);

@@ -9,11 +9,17 @@ using Windows.UI.Xaml;
 using System.Diagnostics;
 using System.ServiceModel;
 using Windows.Media.Control;
+using Windows.Media.Playback;
+using Windows.Media.Core;
 
 namespace FiaMedFight.Classes
 {
     public static class GameManager
     {
+        static MediaPlayer soundManager = new MediaPlayer();
+        static bool isPlayingSound = false;
+
+
         /// <summary>
         /// Manages the overall game logic, including starting the game, managing players, and handling game piece movements on the board.
         /// </summary>
@@ -165,6 +171,43 @@ namespace FiaMedFight.Classes
                 NextTurn();
             }
             
+        }
+
+        public static async void PreloadSoundManagers(string soundFile, MediaPlayer manager)
+        {
+            // Set up the MediaElement
+            manager.AutoPlay = false;
+            manager.Volume = 1;
+
+            // Load the sound file
+            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\Sounds");
+            Windows.Storage.StorageFile file = await folder.GetFileAsync(soundFile);
+            manager.Source = MediaSource.CreateFromStorageFile(file);
+        }
+
+        async public static Task PlayClickSound(MediaPlayer manager)
+        {
+            manager.Play();
+        }
+
+        public static async Task PlaySound(string soundFile = "clickSound.mp3")
+        {
+            // clears the previously played sound
+            soundManager.Source = null;
+
+            soundManager.AutoPlay = true;
+            soundManager.Volume = 1;
+
+            // sets which sound to play
+            Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\Sounds");
+            //string folderpath = "ms - appx:///Assets/Sounds/";
+
+            Windows.Storage.StorageFile file = await folder.GetFileAsync(soundFile);
+
+            soundManager.Source = MediaSource.CreateFromStorageFile(file);
+            
+
+            //soundManager.Play();
         }
     }
 }

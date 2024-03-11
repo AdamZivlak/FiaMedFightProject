@@ -14,9 +14,13 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.Media.Playback;
+using Windows.Media.Core;
 
 using Windows.UI.Xaml.Navigation;
 using static System.Net.Mime.MediaTypeNames;
+using Windows.Media;
+using Windows.Media.Core.Preview;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -59,6 +63,9 @@ namespace FiaMedFight
         /// <param name="e">Event arguments containing information about the event.</param>
         private async void GameStartButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
+
+            GameManager.PlaySound("goalSound.mp3");
             // Define an exit animation for the PlayerSelectionScreen (eases out)
             var exitAnimation = new DoubleAnimation
             {
@@ -73,10 +80,7 @@ namespace FiaMedFight
             var exitStoryboard = new Storyboard();
             exitStoryboard.Children.Add(exitAnimation);
 
-            // Begin the exit animation on the PlayerSelectionScreen
             exitStoryboard.Begin();
-
-            // Wait for the exit animation to complete
             await Task.Delay(500);
 
             // Navigate to the MainPage
@@ -97,7 +101,6 @@ namespace FiaMedFight
             var entranceStoryboard = new Storyboard();
             entranceStoryboard.Children.Add(entranceAnimation);
 
-            // Begin the entrance animation on the MainPage
             entranceStoryboard.Begin();
         }
 
@@ -108,6 +111,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void MenuOpenButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             Frame.Navigate(typeof(MenuScreen));
         }
 
@@ -119,6 +123,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void GreenButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             sess.AddPlayer(new GamePlayer("green", "Coordinate42"));
             GreenImage.Visibility = Visibility.Visible;
         }
@@ -131,6 +136,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void YellowButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             sess.AddPlayer(new GamePlayer("yellow", "Coordinate16"));
             YellowImage.Visibility = Visibility.Visible;
         }
@@ -143,6 +149,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void RedButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             sess.AddPlayer(new GamePlayer("red", "Coordinate29"));
             RedImage.Visibility = Visibility.Visible;
         }
@@ -155,6 +162,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void BlueButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             sess.AddPlayer(new GamePlayer("blue", "Coordinate3"));
             BlueImage.Visibility = Visibility.Visible;
         }
@@ -166,6 +174,7 @@ namespace FiaMedFight
         /// <param name="e">The event data.</param>
         private void RedoPlayerButton_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             sess.players.Clear();
             ResetImages();
         }
