@@ -407,9 +407,9 @@ namespace FiaMedFight.Templates
             bool setRowAndColumn = false;
 
             //Move to another 'row' or 'column' if there is already a piece there.
-            for (int row = baseRow + 1; row <= baseRow + 5 && !setRowAndColumn; row += 2)
+            for (int row = baseRow + 4; row <= baseRow + 5 && !setRowAndColumn; row += 2)
             {
-                for (int column = baseColumn + 1; column <= baseColumn + 5; column += 2)
+                for (int column = baseColumn + 1; column <= baseColumn + 7; column += 2)
                 {
                     setRowAndColumn = true;
                     foreach (GamePieceControl p in player.pieces)

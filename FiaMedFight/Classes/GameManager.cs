@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.ServiceModel;
 using Windows.Media.Control;
 using System.Runtime.CompilerServices;
+using Windows.UI.Xaml.Media;
 
 namespace FiaMedFight.Classes
 {
@@ -138,14 +139,65 @@ namespace FiaMedFight.Classes
             int numberOfPlayers = session.players.Count;
 
             ActivePlayer().EndTurn(); // Deactivate all pieces
-            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;   
-            
-            if(ActivePlayer().pieces.Count == 0) { NextTurn(); } //End turn before rolling dice if all pieces in goal
+            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;
 
-            var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
-            activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;
+            if (ActivePlayer().pieces.Count == 0) { NextTurn(); } //End turn before rolling dice if all pieces in goal
+
+            GUIChangeActivePlayer();
 
             session.dice.Activate();
+        }
+
+        /// <summary>
+        /// Changes the GUI to show who is the active player.
+        /// TODO: MBG-111
+        /// </summary>
+        private static void GUIChangeActivePlayer()
+        {
+            var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
+            activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;
+        }
+
+
+        /// <summary>
+        /// Makes the scoreboards for players in the game visible.
+        /// </summary>
+        public static void ActivateScoreBoard()
+        {
+            for (int i = 0; i < session.players.Count; i++)
+            {
+                var player = session.players[i];
+                string colorBrush = player.color + "Brush";
+
+                var scoreboard = gameBoard.FindName("scorePlayer" + i) as TextBlock;
+                scoreboard.Text = player.color + ": " + player.score;
+                if (activePage.Resources.TryGetValue(colorBrush, out object brush))
+                {
+                    scoreboard.Foreground = brush as SolidColorBrush;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Clears all scoreboards and makes them invisible.
+        /// </summary>
+        public static void DeactivateScoreBoard()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                var scoreboard = gameBoard.FindName("scorePlayer" + i) as TextBlock;
+                scoreboard.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Updates the GUI to show the score value for the active player
+        /// </summary>
+        public static void UpdateScoreBoard()
+        {
+            var player = ActivePlayer();
+            var scoreboard = gameBoard.FindName("scorePlayer" + session.activePlayerIndex) as TextBlock;
+            scoreboard.Text = player.color + ": " + player.score;
         }
 
         /// <summary>
@@ -178,6 +230,7 @@ namespace FiaMedFight.Classes
             }
             player.AddPoints(points);
             Debug.WriteLine($"{player} gets {points} points!");
+            UpdateScoreBoard();
             //TODO: Play animation adding points
             
             //Give bonus points for first three pieces to reach goal
@@ -186,13 +239,16 @@ namespace FiaMedFight.Classes
                 case 0:
                     player.AddPoints(200 * numPlayers); // TODO: Play animation adding bonus points
                     Debug.WriteLine($"{player} gets {200 * numPlayers} bonus points!");
+                    UpdateScoreBoard();
                     break;
                 case 1:
                     player.AddPoints(100 * numPlayers); // TODO: Play animation adding bonus points
+                    UpdateScoreBoard();
                     Debug.WriteLine($"{player} gets {100 * numPlayers} bonus points!");
                     break;
                 case 2:
                     if (numPlayers > 2) player.AddPoints(50 * numPlayers); // TODO: Play animation adding bonus points
+                    UpdateScoreBoard();
                     Debug.WriteLine($"{player} gets {50 * numPlayers} bonus points!");
                     break;
                 default:
@@ -205,6 +261,7 @@ namespace FiaMedFight.Classes
                 if (session.numFullTeamsReachedGoal++ == 0)
                 { 
                     player.AddPoints(200 * numPlayers);
+                    UpdateScoreBoard();
                     Debug.WriteLine($"{player} gets {200 * numPlayers} bonus points!");
                 }
                 //Todo: Play animation adding bonus points
