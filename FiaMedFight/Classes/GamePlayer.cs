@@ -69,7 +69,7 @@ namespace FiaMedFight.Classes
                     continue;
 
                 targetCoordinate = piece.GetTargetCoordinateAsString(diceResult);
-                if (targetCoordinate == "overpassingTheGoald")
+                if (targetCoordinate == "overpassingTheGoal")
                     continue;
 
                 piece.Activate();

@@ -27,6 +27,16 @@ namespace FiaMedFight.Classes
         public int activePlayerIndex = 0;
 
         /// <summary>
+        /// Total number of pieces that has entered the goal.
+        /// </summary>
+        public int numPiecesReachedGoal = 0;
+
+        /// <summary>
+        /// Total number of pieces that has entered the goal.
+        /// </summary>
+        public int numFullTeamsReachedGoal = 0;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GameSession"/> class.
         /// </summary>
         public GameSession() { }

@@ -161,7 +161,7 @@ namespace FiaMedFight.Templates
                 if (targetCoordinate == 6)
                     return "goalCoordinate";
                 else if (targetCoordinate > 6)
-                    return "overpassingTheGoal"; //This is used for deactivating the piece
+                    return "overpassingTheGoal"; //This return value is used for deactivating the piece as it needs to enter the goal on an exact dice roll.
                 else
                     return color + "SafeCoordinate" + targetCoordinate;
 
@@ -174,8 +174,8 @@ namespace FiaMedFight.Templates
                 return color + "SafeCoordinate" + stepsToMove;
             }
             //default - Normal movement on the board:
-            while (targetCoordinate >= 53)
-                targetCoordinate -= 52; //Cannot use % operator as coordinates are not 0-indexed
+            while (targetCoordinate >= 53) //Cannot rebase by % operator as coordinates are not 0-indexed
+                targetCoordinate -= 52; 
 
             return "Coordinate" + targetCoordinate;
         }
@@ -212,7 +212,7 @@ namespace FiaMedFight.Templates
         {
             if (!active) return;
 
-            GameManager.ActivePlayer().EndTurn(); //TODO: Should call GameManager to deactivate all pieces on the board?
+            GameManager.ActivePlayer().EndTurn();
             int steps = GameManager.session.dice.FaceValue;
 
             //Animates the movement by transformation
@@ -231,6 +231,7 @@ namespace FiaMedFight.Templates
 
                 ResizeAnimation(3, 1500);
                 await TransformDoubleProperty(this, "Opacity", 0, 1500);
+                GameManager.GivePointsForPieceInGoal(this);
                 GameManager.ActivePlayer().pieces.Remove(this);
                 GameManager.gameBoard.Children.Remove(this);
             }
@@ -238,7 +239,7 @@ namespace FiaMedFight.Templates
         }
 
         //TODO: Finish and apply the confetti animation:
-        private void GoalAnimation()
+        /*private void GoalAnimation()
         {
             var confettiArea = GameManager.activePage.FindName("confettiArea") as FrameworkElement;
 
@@ -247,7 +248,7 @@ namespace FiaMedFight.Templates
             
             confettiArea.Visibility = Visibility.Visible;
             confetti.Begin();
-        }
+        }*/
 
         /// <summary>
         /// Moves the game piece to a new grid coordinate with optional row and column offsets.

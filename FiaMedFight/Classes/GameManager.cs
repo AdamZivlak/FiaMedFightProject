@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using System.Diagnostics;
 using System.ServiceModel;
 using Windows.Media.Control;
+using System.Runtime.CompilerServices;
 
 namespace FiaMedFight.Classes
 {
@@ -165,6 +166,56 @@ namespace FiaMedFight.Classes
                 NextTurn();
             }
             
+        }
+        public static void GivePointsForPieceInGoal(GamePieceControl piece)
+        {
+            GamePlayer player = piece.Player();
+            int points = 0, numPlayers = 0;
+            foreach (var p in session.players)
+            {
+                points += p.pieces.Count * 100;
+                numPlayers += 1;
+            }
+            player.AddPoints(points);
+            Debug.WriteLine($"{player} gets {points} points!");
+            //TODO: Play animation adding points
+            
+            //Give bonus points for first three pieces to reach goal
+            switch (session.numPiecesReachedGoal)
+            {
+                case 0:
+                    player.AddPoints(200 * numPlayers); // TODO: Play animation adding bonus points
+                    Debug.WriteLine($"{player} gets {200 * numPlayers} bonus points!");
+                    break;
+                case 1:
+                    player.AddPoints(100 * numPlayers); // TODO: Play animation adding bonus points
+                    Debug.WriteLine($"{player} gets {100 * numPlayers} bonus points!");
+                    break;
+                case 2:
+                    if (numPlayers > 2) player.AddPoints(50 * numPlayers); // TODO: Play animation adding bonus points
+                    Debug.WriteLine($"{player} gets {50 * numPlayers} bonus points!");
+                    break;
+                default:
+                    break;
+            }
+
+            //Give bonus points for first team to reach goal with all pieces
+            if (player.pieces.Count == 1 && session.numFullTeamsReachedGoal == 0)
+            {
+                if (session.numFullTeamsReachedGoal++ == 0)
+                { 
+                    player.AddPoints(200 * numPlayers);
+                    Debug.WriteLine($"{player} gets {200 * numPlayers} bonus points!");
+                }
+                //Todo: Play animation adding bonus points
+                if (session.numFullTeamsReachedGoal <= numPlayers -1)
+                {
+                    //TODO: Display game results screen
+                }
+            }
+            
+            Debug.WriteLine($"{player} got {points} points!");
+            session.numPiecesReachedGoal += 1;
         }
     }
 }
