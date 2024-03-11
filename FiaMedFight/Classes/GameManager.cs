@@ -152,7 +152,7 @@ namespace FiaMedFight.Classes
         /// Changes the GUI to show who is the active player.
         /// TODO: MBG-111
         /// </summary>
-        private static void GUIChangeActivePlayer()
+        public static void GUIChangeActivePlayer()
         {
             var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
             activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;
