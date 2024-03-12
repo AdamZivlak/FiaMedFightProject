@@ -195,6 +195,11 @@ namespace FiaMedFight.Classes
             }
             
         }
+
+        /// <summary>
+        /// Triggered when a piece enters the goal area. Adds points to owning player, plays animations and removes piece.
+        /// </summary>
+        /// <param name="piece">The GamePieceControl that triggered the event</param>
         public static async void GivePointsForPieceInGoal(GamePieceControl piece)
         {
             GamePlayer player = piece.Player();
@@ -254,7 +259,7 @@ namespace FiaMedFight.Classes
                 }
                 activePage.ShowBonus(bonusMessage, brushColor);
 
-                if (session.numFullTeamsReachedGoal <= numPlayers -1)
+                if (session.numFullTeamsReachedGoal <= numPlayers -1) //If only one player has pieces left on the board, end the game
                 {
                     session.complete = true;
                     await Task.Delay(1000);
@@ -265,7 +270,10 @@ namespace FiaMedFight.Classes
             session.numPiecesReachedGoal += 1;
         }
 
-
+        /// <summary>
+        /// Removes a GamePieceControl both from the GamePlayer object's list and from the xaml Page
+        /// </summary>
+        /// <param name="piece"></param>
         public static void RemovePiece(GamePieceControl piece)
         {
             GameManager.ActivePlayer().pieces.Remove(piece);
