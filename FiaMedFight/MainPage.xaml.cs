@@ -65,7 +65,7 @@ namespace FiaMedFight
             foreach (GamePlayer player in GameManager.session.players)
             {
                 for (int i = 0; i < 4; i++)
-                    GameManager.AddGamePieceControl(player.color);
+                    GameManager.AddGamePieceControl(player.color, player.color + "SafeCoordinate" + (i + 1));
             }//For debugging replace with: GameManager.AddGamePieceControl(player.color, player.color + "SafeCoordinate" + (i + 1));
             GameManager.ActivateScoreBoard();
             GameManager.GUIChangeActivePlayer();

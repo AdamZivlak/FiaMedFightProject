@@ -238,16 +238,22 @@ namespace FiaMedFight.Classes
             }
 
             //Give bonus points for first team to reach goal with all pieces
-            if (player.pieces.Count == 1 && session.numFullTeamsReachedGoal == 0)
+            if (player.pieces.Count == 1)
             {
                 if (session.numFullTeamsReachedGoal++ == 0)
                 { 
                     bonus = 200 * numPlayers;
-                    bonusMessage = $"TEAM BONUS! {bonus} POINTS!";
+                    bonusMessage = $"WINNER BONUS! {bonus} POINTS!";
                     brushColor = "goldBrush";
                     player.AddPoints(bonus);
-                    activePage.ShowBonus(bonusMessage, brushColor);
                 }
+                else
+                {
+                    bonusMessage = $"{player.color.ToUpper()} HAS FINISHED!";
+                    brushColor = "goldBrush";
+                }
+                activePage.ShowBonus(bonusMessage, brushColor);
+
                 if (session.numFullTeamsReachedGoal <= numPlayers -1)
                 {
                     //TODO: End session and display game results screen
