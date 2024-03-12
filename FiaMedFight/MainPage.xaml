@@ -26,14 +26,20 @@
         </LinearGradientBrush>
     </Page.Background>
 
-    <Grid>
+    <Grid x:Name="gamePageGridFull">
+
+        <Popup x:Name="fightingPopup" HorizontalOffset="200" VerticalOffset="200">
+            <local:RulesScreen/>
+        </Popup>
+        
         <Button x:Name="button" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click"></Button>
-        <Image x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Height="100" Width="100" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <Image x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Width="103" Height="119" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Image.Projection>
                 <PlaneProjection/>
             </Image.Projection>
         </Image>
         <TextBlock x:Name="ResultText"  Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="0,171,0,0" Text="...result..."/>
+       
         <Grid x:Name="gameBoardGrid" Margin="4,0,-4,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

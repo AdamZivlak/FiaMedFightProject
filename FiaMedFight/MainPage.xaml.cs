@@ -55,6 +55,9 @@ namespace FiaMedFight
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             GameManager.gameBoard = gameBoardGrid;
+
+            GameManager.gamePageGridFull = gamePageGridFull;
+
             GameManager.activePage = this;
 
             GameManager.LoadSession(sess);
@@ -150,5 +153,5 @@ namespace FiaMedFight
             await Task.Delay(4000);
             Frame.Navigate(typeof(MenuScreen));
         }
-   }
+    }
 }
