@@ -30,10 +30,10 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
-            <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
-            <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-            <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+            <Rectangle Fill="#660000" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="#000066" Grid.Column="2" Grid.Row="0"/>
+            <Rectangle Fill="#145214" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Rectangle Fill="#FF666600" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
 
             
         </Grid>
