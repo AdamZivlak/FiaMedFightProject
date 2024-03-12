@@ -65,7 +65,7 @@ namespace FiaMedFight
             foreach (GamePlayer player in GameManager.session.players)
             {
                 for (int i = 0; i < 4; i++)
-                    GameManager.AddGamePieceControl(player.color, player.color + "SafeCoordinate" + (i + 1));
+                    GameManager.AddGamePieceControl(player.color);
             }//For debugging replace with: GameManager.AddGamePieceControl(player.color, player.color + "SafeCoordinate" + (i + 1));
             GameManager.ActivateScoreBoard();
             GameManager.GUIChangeActivePlayer();
@@ -152,8 +152,11 @@ namespace FiaMedFight
         private async void QuitGameButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(GameOverDialog));
-            await Task.Delay(4000);
-            Frame.Navigate(typeof(MenuScreen));
+            if (!GameManager.session.complete)
+            {
+                await Task.Delay(4000);
+                Frame.Navigate(typeof(MenuScreen));
+            }
         }
 
         public void ShowPoints(int points)

@@ -256,7 +256,10 @@ namespace FiaMedFight.Classes
 
                 if (session.numFullTeamsReachedGoal <= numPlayers -1)
                 {
-                    //TODO: End session and display game results screen
+                    session.complete = true;
+                    await Task.Delay(1000);
+                    activePage.Frame.Navigate(typeof(GameOverDialog));
+
                 }
             }
             session.numPiecesReachedGoal += 1;

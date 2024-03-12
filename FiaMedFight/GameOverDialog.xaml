@@ -18,6 +18,7 @@
                 </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
         </Page.Resources>
+    
     <Grid>
         
         <Grid>
@@ -38,5 +39,29 @@
             
         </Grid>
             <Image Source="ms-appx:///Assets/GameOverImage.png"/>
+
+        <!-- Hides buttons while popup windows are open-->
+        <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
+
+        <!-- Popup with rules -->
+        <Grid x:Name="ResultsPopup" Visibility="Collapsed" Height="600" Width="550" Background="BlueViolet" BorderBrush="Black" BorderThickness="2" CornerRadius="5,5,5,5">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock x:Name="ResultsHeader" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="1" Style="{StaticResource HeaderStyle}" Text="GAME FINISHED" VerticalAlignment="Center" />
+                <Button x:Name="ReturnButton" Content="Stäng"
+                    Style="{StaticResource SmallMenuButtonStyle}" Click="ContinueButton_Click" Margin="5" Grid.Column="1" Grid.Row="4" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        </Grid>
     </Grid>
+    
 </Page>

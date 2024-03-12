@@ -61,6 +61,7 @@ namespace FiaMedFight
             // Adds operations each time the page is navigated to. 
             sess = new GameSession();
         }
+
         /// <summary>
         /// Event handler for the click event of the game start button.
         /// </summary>
