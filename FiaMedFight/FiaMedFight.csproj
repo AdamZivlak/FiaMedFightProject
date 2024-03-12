@@ -151,6 +151,16 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\ActivePlayerColours\BlueActive.png" />
+    <Content Include="Assets\ActivePlayerColours\BlueActiveWood.png" />
+    <Content Include="Assets\ActivePlayerColours\GreenActive.png" />
+    <Content Include="Assets\ActivePlayerColours\GreenActiveWood.png" />
+    <Content Include="Assets\ActivePlayerColours\MainPageBg.png" />
+    <Content Include="Assets\ActivePlayerColours\RedActive.png" />
+    <Content Include="Assets\ActivePlayerColours\RedActiveWood.png" />
+    <Content Include="Assets\ActivePlayerColours\woodenBg.png" />
+    <Content Include="Assets\ActivePlayerColours\YellowActive.png" />
+    <Content Include="Assets\ActivePlayerColours\YellowActiveWood.png" />
     <Content Include="Assets\cartoonFigure.png" />
     <Content Include="Assets\Dice\Face1.png" />
     <Content Include="Assets\Dice\Face2.png" />
@@ -159,8 +169,8 @@
     <Content Include="Assets\Dice\Face5.png" />
     <Content Include="Assets\Dice\Face6.png" />
     <Content Include="Assets\infoPlayerText.png" />
-    <Content Include="Assets\Pieces\blue.png" />
     <Content Include="Assets\Pieces\green.png" />
+    <Content Include="Assets\Pieces\blue.png" />
     <Content Include="Assets\Pieces\red.png" />
     <Content Include="Assets\Pieces\yellow.png" />
     <Content Include="Assets\GameOverImage.png" />
@@ -229,6 +239,7 @@
       <Version>2.0.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
