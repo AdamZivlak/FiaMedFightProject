@@ -77,5 +77,8 @@
     <SolidColorBrush x:Key="greenBrush" Color="GreenYellow"/>
     <SolidColorBrush x:Key="yellowBrush" Color="Yellow"/>
     <SolidColorBrush x:Key="blueBrush" Color="LightBlue"/>
+    <SolidColorBrush x:Key="goldBrush" Color="Gold"/>
+    <SolidColorBrush x:Key="silverBrush" Color="Silver"/>
+    <SolidColorBrush x:Key="bronzeBrush" Color="RosyBrown"/>
     
 </ResourceDictionary>

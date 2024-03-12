@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
                 <ResourceDictionary Source="Templates/StoryboardAnimations.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
         </ResourceDictionary>
     </Page.Resources>
 
@@ -126,20 +127,20 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="scorePlayer0" Grid.Column="0" Grid.ColumnSpan="1" HorizontalAlignment="Center " Text="" FontSize="30" FontWeight="ExtraBold" Foreground="GreenYellow"/>
-                <TextBlock x:Name="scorePlayer1" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" Foreground="LightBlue"/>
-                <TextBlock x:Name="scorePlayer2" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" Foreground="Red"/>
-                <TextBlock x:Name="scorePlayer3" Grid.Column="3" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" Foreground="Yellow"/>
+                <TextBlock x:Name="scorePlayer0" Grid.Column="0" Grid.ColumnSpan="1" HorizontalAlignment="Center " Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer1" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer2" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer3" Grid.Column="3" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
             </Grid>
 
             <Rectangle x:Name="greenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="GreenYellow" RadiusX="50" RadiusY="50"/>
             <Rectangle x:Name="redBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Red" RadiusX="50" RadiusY="50"/>
             <Rectangle x:Name="yellowBase" Grid.Column="24" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Yellow" RadiusX="50" RadiusY="50"/>
             <Rectangle x:Name="blueBase" Grid.Column="24" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Blue" RadiusX="50" RadiusY="50"/>
-                
+
             <Ellipse x:Name="Coordinate1" Grid.Column="17" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate2" Grid.Column="19" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate3" Grid.Column="21" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>                
+            <Ellipse x:Name="Coordinate3" Grid.Column="21" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
             <Ellipse x:Name="Coordinate4" Grid.Column="21" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate5" Grid.Column="21" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate6" Grid.Column="21" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
@@ -195,7 +196,7 @@
             <Ellipse x:Name="blueSafeCoordinate3" Grid.Column="19" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
             <Ellipse x:Name="blueSafeCoordinate4" Grid.Column="19" Grid.Row="13" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
             <Ellipse x:Name="blueSafeCoordinate5" Grid.Column="19" Grid.Row="15" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
-                
+
             <Ellipse x:Name="greenSafeCoordinate1" Grid.Column="7" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
             <Ellipse x:Name="greenSafeCoordinate2" Grid.Column="9" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
             <Ellipse x:Name="greenSafeCoordinate3" Grid.Column="11" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
@@ -204,14 +205,14 @@
             <Ellipse Grid.Column="17" Grid.Row="17" Grid.ColumnSpan="6" Grid.RowSpan="6" Stroke="Black" Fill="Yellow"/>
             <Ellipse Grid.Column="18" Grid.Row="18" Grid.ColumnSpan="4" Grid.RowSpan="4" Stroke="Black" Fill="Orange"/>
             <Ellipse x:Name="goalCoordinate" Grid.Column="19" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
- 
+
 
             <Ellipse x:Name="yellowSafeCoordinate5" Grid.Column="23" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
             <Ellipse x:Name="yellowSafeCoordinate4" Grid.Column="25" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
             <Ellipse x:Name="yellowSafeCoordinate3" Grid.Column="27" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
             <Ellipse x:Name="yellowSafeCoordinate2" Grid.Column="29" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
             <Ellipse x:Name="yellowSafeCoordinate1" Grid.Column="31" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
-                    
+
             <Ellipse x:Name="redSafeCoordinate5" Grid.Column="19" Grid.Row="23" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="redSafeCoordinate4" Grid.Column="19" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
             <Ellipse x:Name="redSafeCoordinate3" Grid.Column="19" Grid.Row="27" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
@@ -221,24 +222,18 @@
             <TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="38" FontSize="30" TextAlignment="Center" Text="Active Player: " Foreground="White"/>
 
         </Grid>
-            
-<!--trying to make confetti-->
-        <StackPanel x:Name="confettiArea" Visibility="Collapsed" Height="500" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <!-- Confetti Piece 1 -->
-            <Rectangle x:Name="confetti1" Width="20" Height="20" Fill="Red" RenderTransformOrigin="0.5,0.5">
-                <Rectangle.RenderTransform>
-                       <CompositeTransform/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
-            
-            <!-- Confetti Piece 2 -->
-            <Rectangle x:Name="confetti2" Width="20" Height="20" Fill="Blue" RenderTransformOrigin="0.5,0.5">
-                <Rectangle.RenderTransform>
-                    <CompositeTransform/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
 
-        </StackPanel>
+        <!--Score text to show and animate when reaching goal-->
+        <TextBlock x:Name="pointsText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <CompositeTransform/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="bonusText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <CompositeTransform/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
 
         <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
                 Click="MenuButton_Click"  VerticalAlignment="Bottom" HorizontalAlignment="Left">

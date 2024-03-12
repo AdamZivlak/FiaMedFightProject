@@ -25,7 +25,7 @@ namespace FiaMedFight.Classes
         /// </summary>
         public static Grid gameBoard { get; set; }
 
-        public static Page activePage { get; set; }
+        public static MainPage activePage { get; set; }
 
         /// <summary>
         /// Initiates a new game session, setting up the game environment.
@@ -103,18 +103,6 @@ namespace FiaMedFight.Classes
             }
             return player;
         }
-        /// <summary>
-        /// Retrieves the row and column indices of a specified element by its name within the game board.
-        /// </summary>
-        /// <param name="childElementName">The name of the child element within the game board grid.</param>
-        /// <returns>A tuple containing the row and column indices of the element.</returns>
-        public static (int, int) GetElementRowAndColumn(string childElementName)
-        {
-            var targetElement = gameBoard.FindName(childElementName) as FrameworkElement;
-            int newColumn = Grid.GetColumn(targetElement);
-            int newRow = Grid.GetRow(targetElement);
-            return (newRow, newColumn);
-        }
 
         /// <summary>
         /// Returns the active player from the current session
@@ -170,23 +158,11 @@ namespace FiaMedFight.Classes
                 string colorBrush = player.color + "Brush";
 
                 var scoreboard = gameBoard.FindName("scorePlayer" + i) as TextBlock;
-                scoreboard.Text = player.color + ": " + player.score;
+                scoreboard.Text = player.color + ": " + player.score.ToString("D5");
                 if (activePage.Resources.TryGetValue(colorBrush, out object brush))
                 {
                     scoreboard.Foreground = brush as SolidColorBrush;
                 }
-            }
-        }
-        
-        /// <summary>
-        /// Clears all scoreboards and makes them invisible.
-        /// </summary>
-        public static void DeactivateScoreBoard()
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                var scoreboard = gameBoard.FindName("scorePlayer" + i) as TextBlock;
-                scoreboard.Text = "";
             }
         }
 
@@ -197,7 +173,7 @@ namespace FiaMedFight.Classes
         {
             var player = ActivePlayer();
             var scoreboard = gameBoard.FindName("scorePlayer" + session.activePlayerIndex) as TextBlock;
-            scoreboard.Text = player.color + ": " + player.score;
+            scoreboard.Text = player.color + ": " + player.score.ToString("D5");
         }
 
         /// <summary>
@@ -219,40 +195,46 @@ namespace FiaMedFight.Classes
             }
             
         }
-        public static void GivePointsForPieceInGoal(GamePieceControl piece)
+        public static async void GivePointsForPieceInGoal(GamePieceControl piece)
         {
             GamePlayer player = piece.Player();
-            int points = 0, numPlayers = 0;
+            int points = 0, bonus = 0, numPlayers = 0;
+            string bonusMessage = "", brushColor = "";
+
             foreach (var p in session.players)
             {
                 points += p.pieces.Count * 100;
                 numPlayers += 1;
             }
             player.AddPoints(points);
-            Debug.WriteLine($"{player} gets {points} points!");
-            UpdateScoreBoard();
-            //TODO: Play animation adding points
-            
+            activePage.ShowPoints(points);
+            await Task.Delay(400);
+
             //Give bonus points for first three pieces to reach goal
             switch (session.numPiecesReachedGoal)
             {
                 case 0:
-                    player.AddPoints(200 * numPlayers); // TODO: Play animation adding bonus points
-                    Debug.WriteLine($"{player} gets {200 * numPlayers} bonus points!");
-                    UpdateScoreBoard();
+                    bonus = 200 * numPlayers;
+                    bonusMessage = $"GOLD BONUS! {bonus} POINTS!";
+                    brushColor = "goldBrush";
                     break;
                 case 1:
-                    player.AddPoints(100 * numPlayers); // TODO: Play animation adding bonus points
-                    UpdateScoreBoard();
-                    Debug.WriteLine($"{player} gets {100 * numPlayers} bonus points!");
+                    bonus = 100 * numPlayers;
+                    bonusMessage = $"SILVER BONUS! {bonus} POINTS!";
+                    brushColor = "silverBrush";
                     break;
                 case 2:
-                    if (numPlayers > 2) player.AddPoints(50 * numPlayers); // TODO: Play animation adding bonus points
-                    UpdateScoreBoard();
-                    Debug.WriteLine($"{player} gets {50 * numPlayers} bonus points!");
+                    bonus = 50 * numPlayers;
+                    bonusMessage = $"BRONZE BONUS! {bonus} POINTS!";
+                    brushColor = "bronzeBrush";
                     break;
                 default:
                     break;
+            }
+            if(bonus > 0)
+            {
+                player.AddPoints(bonus);
+                activePage.ShowBonus(bonusMessage, brushColor);
             }
 
             //Give bonus points for first team to reach goal with all pieces
@@ -260,20 +242,27 @@ namespace FiaMedFight.Classes
             {
                 if (session.numFullTeamsReachedGoal++ == 0)
                 { 
-                    player.AddPoints(200 * numPlayers);
-                    UpdateScoreBoard();
-                    Debug.WriteLine($"{player} gets {200 * numPlayers} bonus points!");
+                    bonus = 200 * numPlayers;
+                    bonusMessage = $"TEAM BONUS! {bonus} POINTS!";
+                    brushColor = "goldBrush";
+                    player.AddPoints(bonus);
+                    activePage.ShowBonus(bonusMessage, brushColor);
                 }
-                //Todo: Play animation adding bonus points
                 if (session.numFullTeamsReachedGoal <= numPlayers -1)
                 {
-                    //TODO: Display game results screen
+                    //TODO: End session and display game results screen
                 }
             }
-            
-            Debug.WriteLine($"{player} got {points} points!");
             session.numPiecesReachedGoal += 1;
         }
+
+
+        public static void RemovePiece(GamePieceControl piece)
+        {
+            GameManager.ActivePlayer().pieces.Remove(piece);
+            GameManager.gameBoard.Children.Remove(piece);
+        }
+
     }
 }
 
