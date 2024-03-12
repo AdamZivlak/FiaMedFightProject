@@ -16,30 +16,22 @@
                 <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
                 <ResourceDictionary Source="Templates/StoryboardAnimations.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>    
+        </ResourceDictionary>
     </Page.Resources>
 
-    <Page.Background>
-        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Black"/>
-            <GradientStop Color="#FFE34040" Offset="1"/>
-        </LinearGradientBrush>
-    </Page.Background>
-
     <Grid x:Name="gamePageGridFull">
-
-        <Popup x:Name="fightingPopup" HorizontalOffset="200" VerticalOffset="200">
-            <local:RulesScreen/>
-        </Popup>
-        
+       
+        <!-- dice and its animation -->
         <Button x:Name="button" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click"></Button>
         <Image x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Width="103" Height="119" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Image.Projection>
                 <PlaneProjection/>
             </Image.Projection>
         </Image>
+        
         <TextBlock x:Name="ResultText"  Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="0,171,0,0" Text="...result..."/>
        
+        <!-- the playable game board -->
         <Grid x:Name="gameBoardGrid" Margin="4,0,-4,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -125,7 +117,6 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-
 
             <Rectangle x:Name="greenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="GreenYellow" RadiusX="50" RadiusY="50"/>
             <Rectangle x:Name="redBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Red" RadiusX="50" RadiusY="50"/>
@@ -232,9 +223,15 @@
                     <CompositeTransform/>
                 </Rectangle.RenderTransform>
             </Rectangle>
-
         </StackPanel>
-
+        
+        <!-- this will hide the playable gameboard to show the fight screen-->
+        <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
+        <Popup x:Name="fightingPopup" HorizontalOffset="200" VerticalOffset="200">
+            <local:FightScreenPopup/>
+        </Popup>
+        
+        <!-- buttons to end game or pause and return to menu -->
         <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
                 Click="MenuButton_Click"  VerticalAlignment="Bottom" HorizontalAlignment="Left">
             <Button.Background>

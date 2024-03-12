@@ -87,6 +87,8 @@ namespace FiaMedFight
 
             GameManager.session.dice.Deactivate();
 
+            FightScreenPopup.BeginFight(); // this is just for testing the fight screen!
+
             var button = sender as Button;
             GameManager.session.dice.RollThisDice(button);
 
