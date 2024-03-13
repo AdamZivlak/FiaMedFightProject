@@ -118,7 +118,7 @@ namespace FiaMedFight.Templates
             this.coordinate = "Coordinate" + coordinate;
         }
 
-        // <summary>
+        /// <summary>
         /// Gets the X and Y coordinates from the current position to the specified target coordinate, with optional offsets.
         /// </summary>
         /// <param name="targetCoordinate">The target coordinate to calculate the position to.</param>
@@ -234,6 +234,13 @@ namespace FiaMedFight.Templates
                 GameManager.ActivePlayer().pieces.Remove(this);
                 GameManager.gameBoard.Children.Remove(this);
             }
+            
+            else if (!isInHomeBase() && !isInSafeZone())
+                foreach (GamePieceControl piece in GameManager.gameBoard.Children.OfType<GamePieceControl>())
+                    if (!GameManager.ActivePlayer().pieces.Contains(piece))
+                        if (piece.coordinate == coordinate)
+                            await FightScreenPopup.Collision(piece, this);
+
             GameManager.NextTurn();
         }
 
@@ -395,8 +402,8 @@ namespace FiaMedFight.Templates
         /// </summary>
         public void MoveToHomeBase()
         {
-            string homeBaseCoordinate = color + "Base";
-            var homeBase = GameManager.gameBoard.FindName(homeBaseCoordinate) as FrameworkElement;
+            this.coordinate = color + "Base";
+            var homeBase = GameManager.gameBoard.FindName(coordinate) as FrameworkElement;
 
             int baseColumn = Grid.GetColumn(homeBase);
             int baseRow = Grid.GetRow(homeBase);

@@ -35,7 +35,7 @@
         <TextBlock x:Name="fightingTurnDescription" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource RulesBodyStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Rectangle x:Name="player" Height="150" Width="100" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Rectangle.Fill>
-                <ImageBrush x:Name="fightingPlayerImage" ImageSource="ms-appx:///Assets/Pieces/red.png" Stretch="Uniform"/>
+                <ImageBrush x:Name="challengingPlayerImage" ImageSource="ms-appx:///Assets/Pieces/red.png" Stretch="Uniform"/>
             </Rectangle.Fill>
         </Rectangle>
 
@@ -53,8 +53,8 @@
             </Rectangle.Fill>
         </Rectangle>
 
-        <TextBlock x:Name="attackerResult" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource RulesHeaderStyle}" Text="Röd: 5+1"/>
-        <TextBlock x:Name="opponentResult" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource RulesHeaderStyle}" Text="Grön: 5"/>
+        <TextBlock x:Name="attackerResult" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource RulesHeaderStyle}"/>
+        <TextBlock x:Name="opponentResult" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource RulesHeaderStyle}"/>
 
     </Grid>
 

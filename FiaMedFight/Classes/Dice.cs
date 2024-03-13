@@ -126,7 +126,8 @@ namespace FiaMedFight.Classes
         public void RollThisDice(Button button)
         {
             Random random = new Random();
-            FaceValue = random.Next(1, Sides + 1);
+            FaceValue = 5;
+            //FaceValue = random.Next(1, Sides + 1);
             ChangeDiceFace(button, this);
         }
 
@@ -138,7 +139,8 @@ namespace FiaMedFight.Classes
         public static void RollDice(Button button, int maxValue, string[] imagePaths)
         {
             Random random = new Random();
-            ChangeDiceFace(button, random.Next(1, maxValue + 1), imagePaths);
+            //ChangeDiceFace(button, random.Next(1, maxValue + 1), imagePaths);
+            ChangeDiceFace(button, 5, imagePaths);
         }
 
         /// <summary>
@@ -149,7 +151,8 @@ namespace FiaMedFight.Classes
         public static void RollDice(Button button, Dice dice)
         {
             Random random = new Random();
-            dice.FaceValue = random.Next(1, dice.Sides + 1);
+            //dice.FaceValue = random.Next(1, dice.Sides + 1);
+            dice.FaceValue = 5;
             ChangeDiceFace(button, dice);
         }
 

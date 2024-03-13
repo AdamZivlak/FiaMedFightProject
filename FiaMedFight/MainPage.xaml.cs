@@ -45,6 +45,8 @@ namespace FiaMedFight
 
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
             Storyboard.SetTarget(spinAnimation, SpinningImage);
+
+         
         }
 
         /// <summary>
@@ -60,13 +62,23 @@ namespace FiaMedFight
 
             GameManager.activePage = this;
 
-            GameManager.LoadSession(sess);
+                GameSession session = new GameSession();
 
-            foreach (GamePlayer player in sess.players)
-            {
-                for (int i = 0; i < 4; i++)
-                    GameManager.AddGamePieceControl(player.color);
-            }
+                session.AddPlayer(new GamePlayer("red", "Coordinate31"));
+                session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
+
+                //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
+            GameManager.LoadSession(session);
+
+                GameManager.AddGamePieceControl("red", "Coordinate35");
+                GameManager.AddGamePieceControl("blue", "Coordinate40");
+
+
+            //foreach (GamePlayer player in session.players)
+            //{
+            //    for (int i = 0; i < 4; i++)
+            //        GameManager.AddGamePieceControl(player.color);
+            //}
 
         }  
 
@@ -86,8 +98,6 @@ namespace FiaMedFight
             if (!GameManager.session.dice.active) return;
 
             GameManager.session.dice.Deactivate();
-
-            FightScreenPopup.BeginFight(); // this is just for testing the fight screen!
 
             var button = sender as Button;
             GameManager.session.dice.RollThisDice(button);
