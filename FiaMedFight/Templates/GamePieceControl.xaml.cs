@@ -194,10 +194,10 @@ namespace FiaMedFight.Templates
             ghostPiece.MoveToNewGridCoordinate(target, 0, 0);
             await ghostPiece.ResizeAnimation(0.1, 1);
             GameManager.gameBoard.Children.Add(ghostPiece);
-            ElementUtils.TransformDoubleProperty(ghostPiece, "Opacity", 0.4, 300);
-            await ghostPiece.ResizeAnimation(0.3, 100);
-            await ghostPiece.ResizeAnimation(1.0, 200);
-            ghostPiece.ResizeAnimation(0.7, 100);
+            ElementUtils.TransformDoubleProperty(ghostPiece, "Opacity", 0.4, 150);
+            await ghostPiece.ResizeAnimation(0.3, 50);
+            await ghostPiece.ResizeAnimation(1.0, 100);
+            ghostPiece.ResizeAnimation(0.7, 50);
         }
 
         /// <summary>
