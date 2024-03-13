@@ -24,6 +24,9 @@ namespace FiaMedFight
     /// </summary>
     public sealed partial class MenuScreen : Page
     {
+        private int currentPageIndex = 1;
+        private int totalPages = 4;
+
         /// <summary>
         /// Collection of string bindings for game rules.
         /// </summary>
@@ -36,6 +39,8 @@ namespace FiaMedFight
         {
             this.InitializeComponent();
             ApplicationExitButton.Click += ApplicationExitButton_Click;
+
+            totalPages = ruleStrings.Rules.Count;
         }
 
         /// <summary>
@@ -126,6 +131,8 @@ namespace FiaMedFight
             RulesOpenButton.Tag = 0;
             RulesHeaderTextBlock.Text = ruleStrings.Title[0];
             RulesBodyTextBlock.Text = ruleStrings.Rules[0];
+
+            UpdatePageInfo();
         }
 
         /// <summary>
@@ -158,6 +165,13 @@ namespace FiaMedFight
 
             if (pageIndex + 1 == ruleStrings.Rules.Count)
                 NextButton.Visibility = Visibility.Collapsed;
+
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                // Update content for the next page
+                UpdatePageInfo();
+            }
         }
 
         /// <summary>
@@ -178,6 +192,18 @@ namespace FiaMedFight
 
             if (pageIndex == 0)
                 PrevButton.Visibility = Visibility.Collapsed;
+
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                // Update content for the previous page
+                UpdatePageInfo();
+            }
+        }
+
+        private void UpdatePageInfo()
+        {
+            PageInfoTextBlock.Text = $"Page {currentPageIndex}/{totalPages}";
         }
     }
 }

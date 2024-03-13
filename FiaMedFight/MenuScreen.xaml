@@ -27,10 +27,10 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Rectangle Fill="#660000" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="#145214" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
             <Rectangle Fill="#000066" Grid.Column="2" Grid.Row="0"/>
-            <Rectangle Fill="#145214" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-            <Rectangle Fill="#FF666600" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+            <Rectangle Fill="#660000" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Rectangle Fill="#666600" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
         </Grid>
 
         <StackPanel HorizontalAlignment="Center" Padding="150">
@@ -88,10 +88,13 @@
         <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
 
         <!-- Popup with rules -->
-        <StackPanel x:Name="RulesPopup" Visibility="Collapsed" Height="600" Width="550" Background="#FF8415EC" BorderBrush="Black" BorderThickness="2" CornerRadius="5,5,5,5">
+        <StackPanel x:Name="RulesPopup" Visibility="Collapsed" Height="630" Width="550" Background="#FF8415EC" BorderBrush="Black" BorderThickness="2" CornerRadius="5,5,5,5">
             <TextBlock x:Name="RulesHeader" Width="550" Height="90" Style="{StaticResource HeaderStyle}" Text="Att spela Fia med Fight" VerticalAlignment="Center" />
             <TextBlock x:Name="RulesHeaderTextBlock" Width="550" Height="60" Style="{StaticResource RulesHeaderStyle}"/>
-            <TextBlock x:Name="RulesBodyTextBlock" Width="500" Height="360" Style="{StaticResource RulesBodyStyle}"/>
+            <ScrollViewer Width="500" Height="360">
+                <TextBlock x:Name="RulesBodyTextBlock" Style="{StaticResource RulesBodyStyle}"/>
+            </ScrollViewer>
+
             <TextBlock Padding="5,0,0,12">
 			    <Hyperlink NavigateUri="https://molk-board-game.atlassian.net/wiki/spaces/MBG/pages/4161552/Information+om+Fia+Med+Fight">Läs reglerna online</Hyperlink> 
             </TextBlock>
@@ -103,6 +106,7 @@
                 <Button x:Name="NextButton" Content="Nästa"
                     Style="{StaticResource SmallMenuButtonStyle}" Click="RulesNextButton_Click" Margin="5,5,10,5" HorizontalAlignment="Right" Background="#FFF59200" />
             </Grid>
+            <TextBlock x:Name="PageInfoTextBlock" Margin="0" HorizontalAlignment="Center" Style="{StaticResource RulesBodyStyle}"/>
         </StackPanel>
 
     </Grid>

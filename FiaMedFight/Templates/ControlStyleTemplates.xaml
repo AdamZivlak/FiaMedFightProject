@@ -91,4 +91,19 @@
     <SolidColorBrush x:Key="silverBrush" Color="Silver"/>
     <SolidColorBrush x:Key="bronzeBrush" Color="RosyBrown"/>
     
+    <Style x:Name="StandardGameboardEllipse" TargetType="Ellipse">
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Grid.RowSpan" Value="2"/>
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Fill" Value="White"/>
+    </Style>
+
+    <Style x:Name="SafelocationEllipse" TargetType="Ellipse">
+        <Setter Property="Grid.ColumnSpan" Value="2"/>
+        <Setter Property="Stroke" Value="Black" />
+        <Setter Property="StrokeThickness" Value="2"/>
+        <Setter Property="Grid.RowSpan" Value="2"/>
+    </Style>
+
 </ResourceDictionary>
