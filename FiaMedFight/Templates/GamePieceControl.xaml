@@ -26,6 +26,6 @@
         </Grid.RenderTransform>
         <Image x:Name="GamePieceImage" Source="ms-appx:///Assets/Pieces/red.png"/>
 
-
+ 
     </Grid>
 </UserControl>

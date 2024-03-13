@@ -119,6 +119,18 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            <Grid x:Name="pointsGrid" Grid.Column="6" Grid.ColumnSpan="28" Grid.Row="0" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="scorePlayer0" Grid.Column="0" Grid.ColumnSpan="1" HorizontalAlignment="Center " Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer1" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer2" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer3" Grid.Column="3" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
+            </Grid>
 
 
             <Rectangle x:Name="greenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="#145214" RadiusX="50" RadiusY="50"/>
@@ -167,7 +179,7 @@
             <Ellipse x:Name="Coordinate39" Grid.Column="7" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate40" Grid.Column="5" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate41" Grid.Column="5" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate42" Grid.Column="5" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#145214" Height="50" VerticalAlignment="Top"/>
+            <Ellipse x:Name="Coordinate42" Grid.Column="5" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#145214"/>
             <Ellipse x:Name="Coordinate43" Grid.Column="7" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate44" Grid.Column="9" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
             <Ellipse x:Name="Coordinate45" Grid.Column="11" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
@@ -186,7 +198,7 @@
             <Ellipse x:Name="blueSafeCoordinate5" Grid.Column="19" Grid.Row="15" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#000066"/>
 
             <Ellipse x:Name="greenSafeCoordinate1" Grid.Column="7" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#145214"/>
-            <Ellipse x:Name="greenSafeCoordinate2" Grid.Column="9" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#145214" Height="50" VerticalAlignment="Center"/>
+            <Ellipse x:Name="greenSafeCoordinate2" Grid.Column="9" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#145214"/>
             <Ellipse x:Name="greenSafeCoordinate3" Grid.Column="11" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#145214"/>
             <Ellipse x:Name="greenSafeCoordinate4" Grid.Column="13" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#145214"/>
             <Ellipse x:Name="greenSafeCoordinate5" Grid.Column="15" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#145214"/>
@@ -207,27 +219,21 @@
             <Ellipse x:Name="redSafeCoordinate2" Grid.Column="19" Grid.Row="29" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#660000"/>
             <Ellipse x:Name="redSafeCoordinate1" Grid.Column="19" Grid.Row="31" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="#660000"/>
 
-            <TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="2" FontSize="30" TextAlignment="Center" Text="Active Player: Green" Foreground="White"/>
+            <TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="38" FontSize="30" TextAlignment="Center" Text="Active Player: " Foreground="White"/>
 
         </Grid>
 
-        <!--trying to make confetti-->
-        <StackPanel x:Name="confettiArea" Visibility="Collapsed" Height="500" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <!-- Confetti Piece 1 -->
-            <Rectangle x:Name="confetti1" Width="20" Height="20" Fill="Red" RenderTransformOrigin="0.5,0.5">
-                <Rectangle.RenderTransform>
-                    <CompositeTransform/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
-
-            <!-- Confetti Piece 2 -->
-            <Rectangle x:Name="confetti2" Width="20" Height="20" Fill="Blue" RenderTransformOrigin="0.5,0.5">
-                <Rectangle.RenderTransform>
-                    <CompositeTransform/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
-
-        </StackPanel>
+        <!--Score text to show and animate when reaching goal-->
+        <TextBlock x:Name="pointsText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <CompositeTransform/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="bonusText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <CompositeTransform/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
 
         <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
                 Click="MenuButton_Click"  VerticalAlignment="Bottom" HorizontalAlignment="Left">
@@ -248,7 +254,5 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-
-
     </Grid>
 </Page>

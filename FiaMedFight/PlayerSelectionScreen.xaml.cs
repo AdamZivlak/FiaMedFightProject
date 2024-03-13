@@ -31,7 +31,7 @@ namespace FiaMedFight
         /// <summary>
         /// The game session used for player selection, to store the selected players until game launch.
         /// </summary>
-        public static GameSession sess = new GameSession();
+        public static GameSession sess;
 
         /// <summary>
         /// Declare the timer variable at class level
@@ -50,6 +50,16 @@ namespace FiaMedFight
             timer.Interval = TimeSpan.FromSeconds(2); // Set the interval .. seconds
             timer.Tick += Timer_Tick; // Add event handler for the Tick event
             timer.Start(); // Start the timer
+
+            //GameManager.ClearSession();
+        }
+        
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            // Adds operations each time the page is navigated to. 
+            sess = new GameSession();
         }
 
         /// <summary>
@@ -79,6 +89,7 @@ namespace FiaMedFight
             // Wait for the exit animation to complete
             await Task.Delay(500);
 
+            GameManager.LoadSession(sess);
             // Navigate to the MainPage
             Frame.Navigate(typeof(MainPage), null, new SuppressNavigationTransitionInfo());
 
