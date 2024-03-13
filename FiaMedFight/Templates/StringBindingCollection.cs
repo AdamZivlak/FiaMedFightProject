@@ -55,14 +55,28 @@ namespace FiaMedFight.Templates
             "Utgång från boet: För att komma ut från boet måste en spelare slå antingen en etta eller en sexa på tärningen.\n" +
             "Kollision: Om en spelares pjäs hamnar på samma ruta som motståndarens pjäs, utlöses en strid. Båda spelarna slår tärningen, den spelare som får högst värde vinner striden och får stå kvar. Motståndarens pjäs flyttas tillbaka 'hem' till deras bo. Om båda slår lika vinner den pjäs som startade striden, dvs den aktiva spelarens pjäs." );
 
-            Title.Insert(2, "Genvägar");
-            Rules.Insert(2, "Om en spelare landar på en ruta med en genväg kan de flytta ett antal extra steg framåt, men har man otur kan en genväg även vara en “senväg”: \n" +
+            Title.Insert(2, "Poäng");
+            Rules.Insert(2, "Poäng i Fia med Fight ges när en spelpjäs kommer in i målet. Varje spelpjäs ger:\n" +
+            "    + 100 poäng för varje spelpjäs kvar på planen\n" +
+            "      (inklusive sig själv)\n\n" +
+            "Dessutom kan spelare få bonuspoäng:\n\n" +
+            "Första spelpjäsen in i mål:\n" +
+            "    + 200 poäng för varje spelare i spelomgången.\n" +
+            "Andra spelpjäsen in i mål:\n" +
+            "    + 100 poäng för varje spelare i spelomgången.\n" +
+            "Tredje spelpjäsen in i mål:\n" +
+            "    + 50 poäng för varje spelare i spelomgången.\n" +
+            "Första spelare att få in alla fyra pjäser i mål:\n" +
+            "    + 200 poäng för varje spelare i spelomgången.");
+
+            Title.Insert(3, "Genvägar");
+            Rules.Insert(3, "Om en spelare landar på en ruta med en genväg kan de flytta ett antal extra steg framåt, men har man otur kan en genväg även vara en “senväg”: \n" +
             "    - Om spelaren slår en etta eller sexa får den gå två steg framåt. \n" +
             "    - Om spelaren slår en tvåa eller fyra får den gå ett steg bakåt. \n" +
             "    - Om spelaren slår en trea eller femma står den kvar på samma ruta.");
             
-            Title.Insert(3, "Fällor");
-            Rules.Insert(3, "Om en spelare hamnar på en ruta med en fälla kan olika händelser inträffa:\n" +
+            Title.Insert(4, "Fällor");
+            Rules.Insert(4, "Om en spelare hamnar på en ruta med en fälla kan olika händelser inträffa:\n" +
             "    - Spelaren står över ett kast: Spelaren missar sin nästa tur och får inte slå tärningen.\n" +
             "    - Flytta bak ett antal steg: Pjäsen flyttas tillbaka ett antal steg på spelplanen.\n" +
             "    - Slå en etta eller sexa: Pjäsen kan bara flytta med en etta, en sexa, eller vid en kollision av en annan pjäs. Spelarens övriga pjäser kan flytta som vanligt");

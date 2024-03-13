@@ -28,7 +28,7 @@ namespace FiaMedFight.Classes
         /// </summary>
         public string entranceToSafeZoneCoordinate;
 
-        int score;
+        public int score;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GamePlayer"/> class with the specified color and number of game pieces.
@@ -69,7 +69,7 @@ namespace FiaMedFight.Classes
                     continue;
 
                 targetCoordinate = piece.GetTargetCoordinateAsString(diceResult);
-                if (targetCoordinate == "overpassingTheGoald")
+                if (targetCoordinate == "overpassingTheGoal")
                     continue;
 
                 piece.Activate();

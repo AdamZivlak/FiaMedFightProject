@@ -33,7 +33,7 @@ namespace FiaMedFight
         /// <summary>
         /// An animation for spinning the Dice.
         /// </summary>
-        static Storyboard spinAnimation;
+        static Storyboard spinAnimation, pointAnimation, bonusAnimation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage"/> class.
@@ -44,7 +44,12 @@ namespace FiaMedFight
             this.Loaded += MainPage_Loaded;
 
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
+            pointAnimation = this.Resources["GetPoints"] as Storyboard;
+            bonusAnimation = this.Resources["GetBonus"] as Storyboard;
             Storyboard.SetTarget(spinAnimation, SpinningImage);
+            Storyboard.SetTarget(pointAnimation, pointsText);
+            Storyboard.SetTarget(bonusAnimation, bonusText);
+
         }
 
         /// <summary>
@@ -57,13 +62,13 @@ namespace FiaMedFight
             GameManager.gameBoard = gameBoardGrid;
             GameManager.activePage = this;
 
-            GameManager.LoadSession(sess);
-
-            foreach (GamePlayer player in sess.players)
+            foreach (GamePlayer player in GameManager.session.players)
             {
                 for (int i = 0; i < 4; i++)
                     GameManager.AddGamePieceControl(player.color);
-            }
+            }//For debugging replace with: GameManager.AddGamePieceControl(player.color, player.color + "SafeCoordinate" + (i + 1));
+            GameManager.ActivateScoreBoard();
+            GameManager.GUIChangeActivePlayer();
 
         }  
 
@@ -147,8 +152,29 @@ namespace FiaMedFight
         private async void QuitGameButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(GameOverDialog));
-            await Task.Delay(4000);
-            Frame.Navigate(typeof(MenuScreen));
+            if (!GameManager.session.complete)
+            {
+                await Task.Delay(4000);
+                Frame.Navigate(typeof(MenuScreen));
+            }
         }
-   }
+
+        public void ShowPoints(int points)
+        {
+            pointAnimation.Stop();
+            pointsText.Text = $"{points} POINTS";
+            pointAnimation.Begin();
+
+        }
+        public void ShowBonus(string text, string colorBrush)
+        {
+            bonusAnimation.Stop();
+            bonusText.Text = text;
+            if (Resources.TryGetValue(colorBrush, out object brush))
+            {
+                bonusText.Foreground = brush as SolidColorBrush;
+            }
+            bonusAnimation.Begin();
+        }
+    }
 }
