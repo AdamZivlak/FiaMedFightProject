@@ -144,6 +144,8 @@
       <DependentUpon>RulesScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\StringBindingCollection.cs" />
+    <Compile Include="Utilities\ElementUtils.cs" />
+    <Compile Include="Utilities\StringUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

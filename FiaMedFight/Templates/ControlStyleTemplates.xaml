@@ -73,6 +73,25 @@
         <Setter Property="TextWrapping" Value="WrapWholeWords"/>
     </Style>
 
+    <Style x:Key="ResultsEntryStyle" TargetType="TextBlock">
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="Serif"/>
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Defines brushes with colors for each player-->
+    <SolidColorBrush x:Key="redBrush" Color="Red"/>
+    <SolidColorBrush x:Key="greenBrush" Color="GreenYellow"/>
+    <SolidColorBrush x:Key="yellowBrush" Color="Yellow"/>
+    <SolidColorBrush x:Key="blueBrush" Color="LightBlue"/>
+    <SolidColorBrush x:Key="goldBrush" Color="Gold"/>
+    <SolidColorBrush x:Key="silverBrush" Color="Silver"/>
+    <SolidColorBrush x:Key="bronzeBrush" Color="RosyBrown"/>
+    
     <Style x:Name="StandardGameboardEllipse" TargetType="Ellipse">
         <Setter Property="Grid.ColumnSpan" Value="2"/>
         <Setter Property="Grid.RowSpan" Value="2"/>

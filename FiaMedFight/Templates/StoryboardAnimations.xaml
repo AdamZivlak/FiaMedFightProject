@@ -84,30 +84,59 @@
         </ObjectAnimationUsingKeyFrames>
     </Storyboard>
 
-    <!--TODO: animates confetti when pieces reach goal -->
-    <Storyboard x:Name="confettiAnimation">
-        <!-- Confetti piece 1 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="confetti1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
-            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="250"/>
+    <!--animates points when pieces reach goal -->
+    <Storyboard x:Name="GetPoints">
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)">
+            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                <DiscreteObjectKeyFrame.Value>
+                    <Visibility>Visible</Visibility>
+                </DiscreteObjectKeyFrame.Value>
+            </DiscreteObjectKeyFrame>
+            <DiscreteObjectKeyFrame KeyTime="00:00:00.3000000">
+                <DiscreteObjectKeyFrame.Value>
+                    <Visibility>Visible</Visibility>
+                </DiscreteObjectKeyFrame.Value>
+            </DiscreteObjectKeyFrame>
+        </ObjectAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="36.667"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="146.667"/>
         </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="confetti1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:1.3" Value="100"/>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="-20"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-82"/>
         </DoubleAnimationUsingKeyFrames>
-
-        <!-- Confetti piece 2 -->
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="confetti2" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
-            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:1.6" Value="1"/>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
         </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetName="confetti2" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
-            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
-            <EasingDoubleKeyFrame KeyTime="0:0:1.8" Value="1"/>
-        </DoubleAnimationUsingKeyFrames>
-
-        <!-- Add more confetti pieces here... -->
     </Storyboard>
 
+    <Storyboard x:Name="GetBonus">
+        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)">
+            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                <DiscreteObjectKeyFrame.Value>
+                    <Visibility>Visible</Visibility>
+                </DiscreteObjectKeyFrame.Value>
+            </DiscreteObjectKeyFrame>
+            <DiscreteObjectKeyFrame KeyTime="00:00:00.3000000">
+                <DiscreteObjectKeyFrame.Value>
+                    <Visibility>Visible</Visibility>
+                </DiscreteObjectKeyFrame.Value>
+            </DiscreteObjectKeyFrame>
+        </ObjectAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="36.667"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="146.667"/>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="-20"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="-82"/>
+        </DoubleAnimationUsingKeyFrames>
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+            <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
+            <EasingDoubleKeyFrame KeyTime="00:00:01" Value="0"/>
+        </DoubleAnimationUsingKeyFrames>
+    </Storyboard>
 
 </ResourceDictionary>
