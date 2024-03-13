@@ -114,6 +114,18 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            <Grid x:Name="pointsGrid" Grid.Column="6" Grid.ColumnSpan="28" Grid.Row="0" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="scorePlayer0" Grid.Column="0" Grid.ColumnSpan="1" HorizontalAlignment="Center " Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer1" Grid.Column="1" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer2" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
+                <TextBlock x:Name="scorePlayer3" Grid.Column="3" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
+            </Grid>
             <Rectangle Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="32" Grid.RowSpan="32" Fill="#b78f76" Stroke="Black" StrokeThickness="2.5" Opacity="0.85" RadiusX="50" RadiusY="50"/>
 
 
@@ -236,5 +248,16 @@
             </Rectangle>
 
         </StackPanel>
+        <!--Score text to show and animate when reaching goal-->
+        <TextBlock x:Name="pointsText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <CompositeTransform/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="bonusText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <CompositeTransform/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
     </Grid>
 </Page>
