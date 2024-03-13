@@ -13,7 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <!-- Include custom template, storyboard and style files here -->
                 <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Templates/ControlFunctionTemplates.xaml"/>            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
@@ -85,29 +85,13 @@
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
             <!-- this should be used to start game once a number of players are chosen -->
-            <Button x:Name="RedoPlayerButton" Visibility="Visible" Content="Redo" Style="{StaticResource MenuButtonStyle}" Click="RedoPlayerButton_Click" FocusVisualPrimaryBrush="White" Foreground="Black">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <Button Template="{StaticResource ButtonTemplate}" x:Name="RedoPlayerButton" Visibility="Visible" Content="Redo" Style="{StaticResource MenuButtonStyle}" Click="RedoPlayerButton_Click" >
+
             </Button>
-            <Button x:Name="MenuOpenButton" Visibility="Visible" Content="Menu" Style="{StaticResource MenuButtonStyle}" Click="MenuOpenButton_Click" Foreground="Black">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFFF9800" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <Button Template="{StaticResource ButtonTemplate}" x:Name="MenuOpenButton" Visibility="Visible" Content="Menu" Style="{StaticResource MenuButtonStyle}" Click="MenuOpenButton_Click" >
+ 
             </Button>
-            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click" Foreground="Black">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFFF9800" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <Button Template="{StaticResource ButtonTemplate}" x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click" >
             </Button>
         </StackPanel>
 

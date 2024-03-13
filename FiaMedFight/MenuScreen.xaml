@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <!-- Include custom template, storyboard and style files here -->
                 <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
+                <ResourceDictionary Source="Templates/ControlFunctionTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -37,49 +38,26 @@
 
             <!-- this is where the selection for number of players pops up -->
             <Button x:Name="NewGameButton" Content="New Game"
+                    Template="{StaticResource ButtonTemplate}"
             Style="{StaticResource MenuButtonStyle}" Click="NewGameButton_Click">
-                <Button.Shadow>
-                    <ThemeShadow/>
-                </Button.Shadow>
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
             </Button>
 
             <!-- this should be used to start game once a number of players are chosen -->
             <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" 
+                    Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
             </Button>
 
             <!-- this shows a hidden popup on current page -->
             <Button x:Name="RulesOpenButton" Content="Open Rules"
+                    Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="RulesOpenButton_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
             </Button>
 
             <!-- close the application -->
             <Button x:Name="ApplicationExitButton" Content="Exit Program"
+                    Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="ApplicationExitButton_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
             </Button>
         </StackPanel>
 

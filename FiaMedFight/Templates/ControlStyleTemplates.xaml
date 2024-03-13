@@ -18,7 +18,7 @@
     <Style x:Key="MenuButtonStyle" TargetType="Button">
         <Setter Property="Background">
             <Setter.Value>
-                <ImageBrush ImageSource="ms-appx:///Assets/PlayButton.png"/>
+                <ImageBrush ImageSource="ms-appx:///Assets/Button-normal.png"/>
             </Setter.Value>
         </Setter>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -35,7 +35,8 @@
     <Style x:Key="SmallMenuButtonStyle" TargetType="Button">
         <Setter Property="Background">
             <Setter.Value>
-                <ImageBrush ImageSource="ms-appx:///Assets/PlayButton.png"/>
+                <ImageBrush ImageSource="ms-appx:///Assets/Button-normal.png"/>
+                
             </Setter.Value>
         </Setter>
         <Setter Property="FontWeight" Value="Bold"/>
