@@ -203,13 +203,14 @@ namespace FiaMedFight.Classes
         public static async void GivePointsForPieceInGoal(GamePieceControl piece)
         {
             GamePlayer player = piece.Player();
-            int points = 0, bonus = 0, numPlayers = 0;
+            int points = 0, 
+                bonus = 0, 
+                numPlayers = session.players.Count;
             string bonusMessage = "", brushColor = "";
 
             foreach (var p in session.players)
             {
                 points += p.pieces.Count * 100;
-                numPlayers += 1;
             }
             player.AddPoints(points);
             activePage.ShowPoints(points);
@@ -245,7 +246,7 @@ namespace FiaMedFight.Classes
             //Give bonus points for first team to reach goal with all pieces
             if (player.pieces.Count == 1)
             {
-                if (session.numFullTeamsReachedGoal++ == 0)
+                if (session.numFullTeamsReachedGoal == 0)
                 { 
                     bonus = 200 * numPlayers;
                     bonusMessage = $"WINNER BONUS! {bonus} POINTS!";
@@ -259,7 +260,9 @@ namespace FiaMedFight.Classes
                 }
                 activePage.ShowBonus(bonusMessage, brushColor);
 
-                if (session.numFullTeamsReachedGoal <= numPlayers -1) //If only one player has pieces left on the board, end the game
+                session.numFullTeamsReachedGoal++;
+
+                if (session.numFullTeamsReachedGoal == numPlayers -1) //If only one player has pieces left on the board, end the game
                 {
                     session.complete = true;
                     await Task.Delay(1000);
