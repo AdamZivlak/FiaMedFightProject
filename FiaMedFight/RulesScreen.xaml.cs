@@ -26,5 +26,10 @@ namespace FiaMedFight
         {
             this.InitializeComponent();
         }
+
+        private void RulesExitButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

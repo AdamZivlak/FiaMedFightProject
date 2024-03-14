@@ -11,11 +11,12 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Include custom template, storyboard and style files here -->
                 <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
+                <ResourceDictionary Source="Templates/ControlFunctionTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -23,16 +24,25 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
-        <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
-        <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-        <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+        <!-- Adjusted Grid layout to fit additional content -->
+        <Rectangle Fill="#660000" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <Rectangle Fill="#000066" Grid.Column="0" Grid.Row="2"/>
+        <Rectangle Fill="#145214" Grid.Column="1" Grid.Row="0"/>
+        <Rectangle Fill="#FF666600" Grid.Column="1" Grid.Row="2"/>
 
-        <Button x:Name="RulesExitButton" Content="Exit Rules"
-            Style="{StaticResource MenuButtonStyle}" Grid.ColumnSpan="2" Margin="860,320,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <!-- Scrollable Rules Content -->
+        <ScrollViewer Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+            <TextBlock Text="Insert your rules text here..." TextWrapping="Wrap"/>
+        </ScrollViewer>
 
+        <!-- Page Indicator -->
+        <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Text="Page X of Y"/>
+
+        <Button Template="{StaticResource ButtonTemplate}" x:Name="RulesExitButton" Content="Exit Rules"
+                Style="{StaticResource MenuButtonStyle}" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,10,10"/>
     </Grid>
 </Page>

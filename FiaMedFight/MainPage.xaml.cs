@@ -68,7 +68,7 @@ namespace FiaMedFight
                     GameManager.AddGamePieceControl(player.color);
             }//For debugging replace with: GameManager.AddGamePieceControl(player.color, player.color + "SafeCoordinate" + (i + 1));
             GameManager.ActivateScoreBoard();
-            GameManager.GUIChangeActivePlayer();
+            GameManager.ChangeBackgroundImage(GameManager.ActivePlayer().color);
 
         }  
 
