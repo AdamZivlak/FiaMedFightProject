@@ -12,6 +12,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
+                <ResourceDictionary Source="Templates/ControlFunctionTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -41,7 +42,7 @@
         <!-- Page Indicator -->
         <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Text="Page X of Y"/>
 
-        <Button x:Name="RulesExitButton" Content="Exit Rules"
+        <Button Template="{StaticResource ButtonTemplate}" x:Name="RulesExitButton" Content="Exit Rules"
                 Style="{StaticResource MenuButtonStyle}" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,10,10"/>
     </Grid>
 </Page>

@@ -24,14 +24,8 @@
     </Page.Background>
 
     <Grid>
-        <Button x:Name="button" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0"></Button>
-        <Image x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Height="100" Width="100" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="30,0,0,0">
-            <Image.Projection>
-                <PlaneProjection/>
-            </Image.Projection>
-        </Image>
         <TextBlock x:Name="ResultText" Visibility="Collapsed" Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="30,300,0,0" Text="...result..." />
-        <Grid x:Name="gameBoardGrid" Margin="4,0,-4,0">
+        <Grid x:Name="gameBoardGrid" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -116,6 +110,9 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid x:Name="pointsGrid" Grid.Column="6" Grid.ColumnSpan="28" Grid.Row="0" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
@@ -129,6 +126,7 @@
                 <TextBlock x:Name="scorePlayer2" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
                 <TextBlock x:Name="scorePlayer3" Grid.Column="3" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
             </Grid>
+            <Rectangle Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="32" Grid.RowSpan="32" Fill="#b78f76" Stroke="Black" StrokeThickness="2.5" Opacity="0.85" RadiusX="50" RadiusY="50"/>
 
 
             <Rectangle x:Name="greenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" StrokeThickness="2" Fill="#00ff00" RadiusX="50" RadiusY="50"/>
@@ -218,9 +216,38 @@
             <Ellipse x:Name="redSafeCoordinate1" Grid.Column="19" Grid.Row="31" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
 
             <!--<TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="2" FontSize="30" TextAlignment="Center" Text="Active Player: Green" Foreground="White"/>-->
+            <StackPanel Grid.Column="5" Grid.Row="37" Grid.ColumnSpan="30" Grid.RowSpan="5" Spacing="600" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="MenuButton_Click">
+                </Button>
 
+                <Button x:Name="QuitGameButton" Content="Quit game" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="QuitGameButton_Click">
+                </Button>
+            </StackPanel>
+            <Button Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="5" x:Name="button" Template="{StaticResource DiceButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Button>
+            <Image Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="5" x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Height="100" Width="100" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Image.Projection>
+                    <PlaneProjection/>
+                </Image.Projection>
+            </Image>
         </Grid>
 
+        <!--trying to make confetti-->
+        <StackPanel x:Name="confettiArea" Visibility="Collapsed" Height="500" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!-- Confetti Piece 1 -->
+            <Rectangle x:Name="confetti1" Width="20" Height="20" Fill="Red" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <CompositeTransform/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
+            <!-- Confetti Piece 2 -->
+            <Rectangle x:Name="confetti2" Width="20" Height="20" Fill="Blue" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <CompositeTransform/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
+        </StackPanel>
         <!--Score text to show and animate when reaching goal-->
         <TextBlock x:Name="pointsText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
             <TextBlock.RenderTransform>
@@ -232,25 +259,5 @@
                 <CompositeTransform/>
             </TextBlock.RenderTransform>
         </TextBlock>
-
-        <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
-                Click="MenuButton_Click"  VerticalAlignment="Bottom" HorizontalAlignment="Left">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFDCDCE8"/>
-                    <GradientStop Color="#FFF59200" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-
-        <Button x:Name="QuitGameButton" Content="Quit game" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2"
-                    Click="QuitGameButton_Click" VerticalAlignment="Bottom" HorizontalAlignment="Right" >
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFDCDCE8"/>
-                    <GradientStop Color="#FFF59200" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
     </Grid>
 </Page>
