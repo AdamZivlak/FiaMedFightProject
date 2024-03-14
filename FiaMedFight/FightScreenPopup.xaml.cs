@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -40,8 +41,8 @@ namespace FiaMedFight
         private static Dice fightDiceSix;
         static int turnsPerFight;
 
-        static string challengerTurnDescription = "hi";
-        static string opponentTurnDescription = "ho";
+        static string challengerTurnDescription = "";
+        static string opponentTurnDescription = "";
 
         static Style winStyle;
         static Style loseStyle;
@@ -196,8 +197,9 @@ namespace FiaMedFight
             if (popupElement.IsOpen) { popupElement.IsOpen = false; }
             dimmer.Visibility = Visibility.Collapsed;
 
-            await Task.Delay(1500);
+            await loser.AnimateToCoordinate(loser.color + "Base", 1000, 0,0);
             loser.MoveToHomeBase();
+            loser.ResetMovementTransform();
         }
 
         public static string TranslateColourSwedish(string colourEnglish)
