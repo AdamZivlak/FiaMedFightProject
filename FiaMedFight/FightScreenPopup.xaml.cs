@@ -119,7 +119,7 @@ namespace FiaMedFight
                         opponentRounds.Children.Add(new Image() { Style = winStyle } );
                         challengerRounds.Children.Add(new Image() { Style = loseStyle } );
                     }
-
+                   // await Task.Delay(500);
                     turnsPerFight--;
 
                 } while (turnsPerFight > 0);
@@ -131,9 +131,9 @@ namespace FiaMedFight
                     else { score--; }
                 }
                 if (score < 0)
-                    FinishFight(challengerPiece);
+                    await FinishFight(challengerPiece);
                 else if (score > 0)
-                    FinishFight(opponentPiece);
+                    await FinishFight(opponentPiece);
 
                 ClearFight(challengerRounds);
                 ClearFight(opponentRounds);
@@ -148,7 +148,6 @@ namespace FiaMedFight
             {
                 rounds.Children.Remove(child);
             }
-
         }
 
         private static void SetUpFight(GamePieceControl opponentPiece, GamePieceControl challengerPiece)
@@ -185,7 +184,7 @@ namespace FiaMedFight
             return result;
         }
 
-        private static async void FinishFight(GamePieceControl loser)
+        private static async Task FinishFight(GamePieceControl loser)
         {
             // get the visual elements from mainpage.xaml
             var popupElement = GameManager.gamePageGridFull.FindName("fightingPopup") as Popup;
@@ -253,13 +252,13 @@ namespace FiaMedFight
                 isChallengersTurn = true;
             }
 
-            fightingTurnDescription.Visibility = Visibility.Visible;
-
             // Signal that the turn is completed
             if (turnCompleted != null)
             {
                 turnCompleted.SetResult(fightDiceSix.FaceValue);
             }
+
+            fightingTurnDescription.Visibility = Visibility.Visible;
         }
 
         /// <summary>

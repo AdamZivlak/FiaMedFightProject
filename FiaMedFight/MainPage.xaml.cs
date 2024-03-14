@@ -33,7 +33,7 @@ namespace FiaMedFight
         /// <summary>
         /// An animation for spinning the Dice.
         /// </summary>
-        static Storyboard spinAnimation;
+        static Storyboard spinAnimation, pointAnimation, bonusAnimation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage"/> class.
@@ -44,9 +44,12 @@ namespace FiaMedFight
             this.Loaded += MainPage_Loaded;
 
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
+            pointAnimation = this.Resources["GetPoints"] as Storyboard;
+            bonusAnimation = this.Resources["GetBonus"] as Storyboard;
             Storyboard.SetTarget(spinAnimation, SpinningImage);
+            Storyboard.SetTarget(pointAnimation, pointsText);
+            Storyboard.SetTarget(bonusAnimation, bonusText);
 
-         
         }
 
         /// <summary>
@@ -57,29 +60,30 @@ namespace FiaMedFight
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             GameManager.gameBoard = gameBoardGrid;
-
             GameManager.gamePageGridFull = gamePageGridFull;
-
             GameManager.activePage = this;
 
-                GameSession session = new GameSession();
+             // To Testing the Fight, uncomment this and comment out the "foreach" beneath.
+             
+              GameSession session = new GameSession();
 
                 session.AddPlayer(new GamePlayer("red", "Coordinate31"));
                 session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
 
                 //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
-            GameManager.LoadSession(session);
+                 GameManager.LoadSession(session);
 
                 GameManager.AddGamePieceControl("red", "Coordinate35");
                 GameManager.AddGamePieceControl("blue", "Coordinate40");
-
-
-            //foreach (GamePlayer player in session.players)
+            
+            //foreach (GamePlayer player in GameManager.session.players)
             //{
             //    for (int i = 0; i < 4; i++)
             //        GameManager.AddGamePieceControl(player.color);
-            //}
+            //}//For debugging replace with: GameManager.AddGamePieceControl(player.color, player.color + "SafeCoordinate" + (i + 1));
 
+            GameManager.ActivateScoreBoard();
+            GameManager.GUIChangeActivePlayer();
         }  
 
         /// <summary>
@@ -162,8 +166,29 @@ namespace FiaMedFight
         private async void QuitGameButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(GameOverDialog));
-            await Task.Delay(4000);
-            Frame.Navigate(typeof(MenuScreen));
+            if (!GameManager.session.complete)
+            {
+                await Task.Delay(4000);
+                Frame.Navigate(typeof(MenuScreen));
+            }
+        }
+
+        public void ShowPoints(int points)
+        {
+            pointAnimation.Stop();
+            pointsText.Text = $"{points} POINTS";
+            pointAnimation.Begin();
+
+        }
+        public void ShowBonus(string text, string colorBrush)
+        {
+            bonusAnimation.Stop();
+            bonusText.Text = text;
+            if (Resources.TryGetValue(colorBrush, out object brush))
+            {
+                bonusText.Foreground = brush as SolidColorBrush;
+            }
+            bonusAnimation.Begin();
         }
     }
 }

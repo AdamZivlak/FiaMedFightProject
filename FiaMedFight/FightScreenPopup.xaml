@@ -50,7 +50,7 @@
             </Image.Projection>
         </Image>
 
-        <StackPanel x:Name="opponentRounds" Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top"></StackPanel>
+        <StackPanel x:Name="opponentRounds" Grid.Column="2" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top"/>
 
         <Rectangle x:Name="opponentFightPiece" Height="150" Width="100" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Rectangle.Fill>

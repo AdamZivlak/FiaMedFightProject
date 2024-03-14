@@ -83,12 +83,12 @@
             </Button>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,200">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Padding="15,50" Spacing="50">
             <Button x:Name="GameMode1Button" Visibility="Visible" Style="{StaticResource MenuButtonStyle}" Click="GameMode1Button_Click" Margin="0,0,0,0"  Height="100" Width="300">
-                <TextBlock TextWrapping="WrapWholeWords" FontSize="17" Text="Spelvariant 1: En strid är en runda, attackeraren vinner vid lika slag" Padding="2" HorizontalAlignment="Center" VerticalAlignment="Top" />
+                <TextBlock TextWrapping="WrapWholeWords" FontSize="17" Text="" Padding="2" HorizontalAlignment="Center" VerticalAlignment="Top">Spelvariant 1:<LineBreak/>En strid är en runda, attackeraren vinner vid likadana tärningsslag </TextBlock>
             </Button>
-            <Button x:Name="GameMode2Button" Visibility="Visible"  Style="{StaticResource MenuButtonStyle}" Click="GameMode2Button_Click" Margin="0,0,0,0" Height="100." Width="300" >
-                <TextBlock TextWrapping="WrapWholeWords" FontSize="17"  Text="Spelvariant 2: En strid är 3 rundor, attackeraren får +1 på sitt slag" Padding="2" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <Button x:Name="GameMode2Button" Visibility="Visible"  Style="{StaticResource MenuButtonStyle}" Click="GameMode2Button_Click" Margin="0,0,0,0" Height="100" Width="300" >
+                <TextBlock TextWrapping="WrapWholeWords" FontSize="17"  Text="" Padding="2" VerticalAlignment="Top" HorizontalAlignment="Center">Spelvariant 2:<LineBreak/>En strid är 3 rundor, attackeraren får +1 på sina tärningsslag</TextBlock>
             </Button>
         </StackPanel>
         
