@@ -178,15 +178,17 @@ namespace FiaMedFight.Templates
                 return;
 
             ResizeAnimation(1.35, 30);
-            await ShowGhostPieceOnTarget();
+            await ShowGhostPieceOnTarget(GetTargetCoordinateAsString(GameManager.session.dice.FaceValue));
 
         }
 
-        private async Task ShowGhostPieceOnTarget()
+        /// <summary>
+        /// Spawns a see-through copy of this game piece on the target coordinate
+        /// </summary>
+        /// <param name="target">the x:Name value of the xaml element where to spawn the ghost piece</param>
+        /// <returns>Completed Task when the spawn animation has finished</returns>
+        private async Task ShowGhostPieceOnTarget(string target)
         {
-            int steps = GameManager.session.dice.FaceValue;
-            string target = GetTargetCoordinateAsString(steps);
-
             ghostPiece = new GamePieceControl(color, target);
             ghostPiece.Opacity = 0;
             Grid.SetRowSpan(ghostPiece, 2);
@@ -201,7 +203,7 @@ namespace FiaMedFight.Templates
         }
 
         /// <summary>
-        /// Handles the end of hover event for the game piece.
+        /// Handles the end of hover event for the game piece. If a ghost piece has been spawned, it deletes the ghost piece.
         /// </summary>
         private async void GamePiece_EndHover(object sender, PointerRoutedEventArgs e)
         {
@@ -211,12 +213,18 @@ namespace FiaMedFight.Templates
             await RemoveGhostPieceFromBoard();
             active = true;
         }
-
+        /// <summary>
+        /// If a ghostpiece exist on the board, runs an animation for it and then removes it.
+        /// </summary>
+        /// <returns>Completed Task when the animation is completed</returns>
         private async Task RemoveGhostPieceFromBoard()
         {
+            if (ghostPiece == null) return;
+
             ghostPiece.ResizeAnimation(0.1, 200);
             await ElementUtils.TransformDoubleProperty(ghostPiece, "Opacity", 0, 200);
             GameManager.gameBoard.Children.Remove(ghostPiece);
+            ghostPiece = null;
             return;
         }
 
@@ -290,7 +298,7 @@ namespace FiaMedFight.Templates
         }
 
         /// <summary>
-        /// Moves the game piece a specified number of steps with an animation over a set duration and with optional offsets.
+        /// Transforms the game piece to move a specified number of steps with an animation over a set duration and with optional offsets.
         /// </summary>
         /// <param name="steps">The number of steps to move.</param>
         /// <param name="milliseconds">The duration of the animation in milliseconds.</param>
@@ -304,6 +312,15 @@ namespace FiaMedFight.Templates
             return AnimateToCoordinate(endCoordinate, milliseconds, offsetX, offsetY);
         }
 
+        /// <summary>
+        /// Transforms the game piece to move to a new coordinate with an animation over a set duration and with optional offsets.
+        /// </summary>
+        /// <param name="endCoordinate">The coordinate to move to.</param>
+        /// <param name="milliseconds">The duration of the animation in milliseconds.</param>
+        /// <param name="offsetX">Optional X offset for each step. Any double between -1.0 and 1.0.</param>
+        /// <param name="offsetY">Optional Y offset for each step. Any double between -1.0 and 1.0.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <remarks>In effect the offset is in </remarks>
         private Task AnimateToCoordinate(string endCoordinate, int milliseconds, double offsetX, double offsetY)
         {
             this.RenderTransform = new CompositeTransform();
