@@ -168,6 +168,10 @@
     <Content Include="Assets\Sounds\clickSound.mp3" />
     <Content Include="Assets\Sounds\combatSound.mp3" />
     <Content Include="Assets\Sounds\diceSound.mp3" />
+    <Content Include="Assets\Sounds\draggedBackHomeSound.mp3" />
+    <Content Include="Assets\Sounds\draggedBackHomeSounds.mp3" />
+    <Content Include="Assets\Sounds\fightBackgroundMusic.mp3" />
+    <Content Include="Assets\Sounds\fightBackgroundSoundWithEnding.mp3" />
     <Content Include="Assets\Sounds\goalSound.mp3" />
     <Content Include="Assets\Sounds\punchSound.mp3" />
     <Content Include="Assets\Sounds\stepSound.mp3" />
