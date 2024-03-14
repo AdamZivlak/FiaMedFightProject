@@ -69,7 +69,6 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-                
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -115,6 +114,7 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+                
             <Grid x:Name="pointsGrid" Grid.Column="6" Grid.ColumnSpan="28" Grid.Row="0" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -217,38 +217,21 @@
             <Ellipse x:Name="redSafeCoordinate1" Grid.Column="19" Grid.Row="31" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
 
             <!--<TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="2" FontSize="30" TextAlignment="Center" Text="Active Player: Green" Foreground="White"/>-->
-            <StackPanel Grid.Column="5" Grid.Row="37" Grid.ColumnSpan="30" Grid.RowSpan="5" Spacing="600" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel Grid.Column="5" Grid.Row="37" Grid.ColumnSpan="30" Grid.RowSpan="6" Spacing="600" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                 <Button x:Name="MenuOpenButton" Content="Meny" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="MenuButton_Click">
                 </Button>
 
                 <Button x:Name="QuitGameButton" Content="Avsluta" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="QuitGameButton_Click">
                 </Button>
             </StackPanel>
-            <Button Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="5" x:Name="button" Template="{StaticResource DiceButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Button>
-            <Image Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="5" x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Height="100" Width="100" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+            <Button Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="6" x:Name="SimpleDice" Template="{StaticResource DiceButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Button>
+            <Image Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="6" x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Height="100" Width="100" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
                 <Image.Projection>
                     <PlaneProjection/>
                 </Image.Projection>
             </Image>
         </Grid>
 
-        <!--trying to make confetti-->
-        <StackPanel x:Name="confettiArea" Visibility="Collapsed" Height="500" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <!-- Confetti Piece 1 -->
-            <Rectangle x:Name="confetti1" Width="20" Height="20" Fill="Red" RenderTransformOrigin="0.5,0.5">
-                <Rectangle.RenderTransform>
-                    <CompositeTransform/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
-
-            <!-- Confetti Piece 2 -->
-            <Rectangle x:Name="confetti2" Width="20" Height="20" Fill="Blue" RenderTransformOrigin="0.5,0.5">
-                <Rectangle.RenderTransform>
-                    <CompositeTransform/>
-                </Rectangle.RenderTransform>
-            </Rectangle>
-
-        </StackPanel>
         <!--Score text to show and animate when reaching goal-->
         <TextBlock x:Name="pointsText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
             <TextBlock.RenderTransform>
@@ -263,7 +246,7 @@
         
         <!-- this will hide the playable gameboard to show the fight screen-->
         <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
-        <Popup x:Name="fightingPopup" HorizontalOffset="200" VerticalOffset="200">
+        <Popup x:Name="fightingPopup" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalOffset="-340" VerticalOffset="-250">
             <local:FightScreenPopup/>
         </Popup>
     </Grid>

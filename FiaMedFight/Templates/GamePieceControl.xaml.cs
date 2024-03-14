@@ -249,6 +249,9 @@ namespace FiaMedFight.Templates
             //Animates the movement by transformation
             ResizeAnimation(1.5, 100);
             Canvas.SetZIndex(this, 100);
+
+            MainPage.walkingSoundManager.Play();
+
             while (steps-- > 0)
                 await MoveStepsAsync(1, 300, 0, -1);
 
@@ -292,12 +295,18 @@ namespace FiaMedFight.Templates
 
             ResizeAnimation(1, 150);
             await AnimateToCoordinate(coordinate, 150, offsetX, offsetY);
+            //await MoveStepsAsync(0, 150, 0, -0.5);
+
+            MainPage.walkingSoundManager.Pause();
+            MainPage.walkingSoundManager.Position = TimeSpan.Zero;
+
             //Resets the transform and actually moves the piece within the grid.
             MoveToNewGridCoordinate(coordinate, -1, 0, offsetZ);
             await ResetMovementTransform();
             AnimateToCoordinate(coordinate, 0, offsetX, offsetY);
             if (coordinate == "goalCoordinate")
             {
+                GameManager.PlaySound("goalSound.mp3");
                 ResizeAnimation(3, 1500);
                 GameManager.GivePointsForPieceInGoal(this);
                 await ElementUtils.TransformDoubleProperty(this, "Opacity", 0, 1500);
@@ -305,6 +314,7 @@ namespace FiaMedFight.Templates
                 GameManager.UpdateScoreBoard();
             }
             
+            // Check for collision with opponent piece
             else if (!isInHomeBase() && !isInSafeZone())
                 foreach (GamePieceControl piece in GameManager.gameBoard.Children.OfType<GamePieceControl>())
                     if (!GameManager.ActivePlayer().pieces.Contains(piece))
