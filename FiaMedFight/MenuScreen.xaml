@@ -46,15 +46,10 @@
                 </Button.Background>
             </Button>
 
-            <!-- this should be used to start game once a number of players are chosen -->
-            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" 
-                    Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <!-- this should be used to resume game once a number of players are chosen -->
+            <!-- curently used for testing game conditions -->
+            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Resume Game" 
+                    Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click" Background="Gray">
             </Button>
 
             <!-- this shows a hidden popup on current page -->

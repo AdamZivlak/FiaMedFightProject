@@ -25,6 +25,9 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace FiaMedFight
 {
+    /// <summary>
+    /// Represents a user control for managing fights between game pieces.
+    /// </summary>
     public sealed partial class FightScreenPopup : UserControl
     {
         private static Storyboard spinfightDiceAnimation;
@@ -47,6 +50,9 @@ namespace FiaMedFight
         static Style winStyle;
         static Style loseStyle;
 
+        /// <summary>
+        /// Initializes a new instance of the FightScreenPopup class.
+        /// </summary>
         public FightScreenPopup()
         {
             InitializeComponent();
@@ -64,14 +70,18 @@ namespace FiaMedFight
             turnDescription = fightingTurnDescription;
             fightDescription = fightingHeaderDescription;
             fightScreen = fightScreenOverlay;
-          
         }
 
+        /// <summary>
+        /// Handles collision between game pieces initiating a fight.
+        /// </summary>
+        /// <param name="opponentPiece">The game piece controlled by the opponent player.</param>
+        /// <param name="challengerPiece">The game piece controlled by the challenger player.</param>
         public static async Task Collision(GamePieceControl opponentPiece, GamePieceControl challengerPiece)
         {
             SetUpFight(opponentPiece, challengerPiece);
 
-            // regular fight, 1 turn, challenger (attacking player) wins a draw
+            // Regular fight, 1 turn, challenger (attacking player) wins a draw
             if (PlayerSelectionScreen.fightMode == 0)
             {
                 fightDescription.Text = "~ Vid lika vinner attackeraren ~";
@@ -87,7 +97,7 @@ namespace FiaMedFight
                     FinishFight(challengerPiece);
             }
 
-            // best of three, challenger has +1 to hits, a draw repeats the turn
+            // Best of three, challenger has +1 to hits, a draw repeats the turn
             else if (PlayerSelectionScreen.fightMode == 1)
             {
                 StackPanel challengerRounds = fightScreen.FindName("challengerRounds") as StackPanel;
@@ -99,10 +109,20 @@ namespace FiaMedFight
                 challengerTurnDescription = "Attackerande spelare slår med +1. \nRulla tärningen!";
                 opponentTurnDescription = "Motståndaren får försvara sig. \nRulla tärningen!";
 
+
                 List<GamePieceControl> winner = new List<GamePieceControl>();
                 do
                 {
+                    ClearResult();
+
                     int challengerResult = await TakeTurn(challengerTurnDescription) + 1;
+                    // Modifies the result to add +1 to result text after challenger turn
+                    if (!isChallengersTurn) 
+                    {
+                        var specialResult = fightScreen.FindName("attackerResult") as TextBlock;
+                        specialResult.Text = specialResult.Text + " + 1";
+                    }
+
                     int opponentResult = await TakeTurn(opponentTurnDescription);
 
                     if (challengerResult == opponentResult) 
@@ -120,7 +140,6 @@ namespace FiaMedFight
                         opponentRounds.Children.Add(new Image() { Style = winStyle } );
                         challengerRounds.Children.Add(new Image() { Style = loseStyle } );
                     }
-                   // await Task.Delay(500);
                     turnsPerFight--;
 
                 } while (turnsPerFight > 0);
@@ -141,6 +160,14 @@ namespace FiaMedFight
             }
 
             else return;
+        }
+
+        private static void ClearResult()
+        {
+            var attackResultText = fightScreen.FindName("attackerResult") as TextBlock;
+            attackResultText.Visibility = Visibility.Collapsed;
+            var opponentResultText = fightScreen.FindName("opponentResult") as TextBlock;
+            opponentResultText.Visibility = Visibility.Collapsed;
         }
 
         static void ClearFight(StackPanel rounds)
@@ -246,11 +273,14 @@ namespace FiaMedFight
             if (isChallengersTurn)
             {
                 attackerResult.Text = $"{TranslateColourSwedish(challenger.color)}: " + fightDiceSix.FaceValue;
+                attackerResult.Visibility = Visibility.Visible;
                 isChallengersTurn = false;
             }
             else
             {
                 opponentResult.Text = $"{TranslateColourSwedish(opponent.color)}: " + fightDiceSix.FaceValue;
+                opponentResult.Visibility = Visibility.Visible;
+                await Task.Delay(1000);
                 isChallengersTurn = true;
             }
 
@@ -261,6 +291,7 @@ namespace FiaMedFight
             }
 
             fightingTurnDescription.Visibility = Visibility.Visible;
+            
         }
 
         /// <summary>
