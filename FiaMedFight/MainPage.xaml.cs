@@ -60,16 +60,32 @@ namespace FiaMedFight
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             GameManager.gameBoard = gameBoardGrid;
+            GameManager.gamePageGridFull = gamePageGridFull;
             GameManager.activePage = this;
+
+            // To Test the Fight sequence, uncomment this and comment out the "foreach" beneath.
+
+            //GameSession session = new GameSession();
+
+            //  session.AddPlayer(new GamePlayer("red", "Coordinate31"));
+            //  session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
+
+            //  //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
+            //   GameManager.LoadSession(session);
+
+            //  GameManager.AddGamePieceControl("red", "Coordinate35");
+            //  GameManager.AddGamePieceControl("blue", "Coordinate40");
 
             foreach (GamePlayer player in GameManager.session.players)
             {
                 for (int i = 0; i < 4; i++)
                     GameManager.AddGamePieceControl(player.color);
             }//For debugging replace with: GameManager.AddGamePieceControl(player.color, player.color + "SafeCoordinate" + (i + 1));
+
             GameManager.ActivateScoreBoard();
             GameManager.ChangeBackgroundImage(GameManager.ActivePlayer().color);
 
+            //GameManager.GUIChangeActivePlayer();
         }  
 
         /// <summary>

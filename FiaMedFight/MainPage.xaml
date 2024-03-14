@@ -23,8 +23,9 @@
         <ImageBrush ImageSource="/Assets/ActivePlayerColours/woodenBg.png"/>
     </Page.Background>
 
-    <Grid>
+    <Grid x:Name="gamePageGridFull">
         <TextBlock x:Name="ResultText" Visibility="Collapsed" Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="30,300,0,0" Text="...result..." />
+        <!-- the playable game board -->
         <Grid x:Name="gameBoardGrid" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -67,8 +68,8 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
-                
             </Grid.ColumnDefinitions>
+                
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -217,10 +218,10 @@
 
             <!--<TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="2" FontSize="30" TextAlignment="Center" Text="Active Player: Green" Foreground="White"/>-->
             <StackPanel Grid.Column="5" Grid.Row="37" Grid.ColumnSpan="30" Grid.RowSpan="5" Spacing="600" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-                <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="MenuButton_Click">
+                <Button x:Name="MenuOpenButton" Content="Meny" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="MenuButton_Click">
                 </Button>
 
-                <Button x:Name="QuitGameButton" Content="Quit game" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="QuitGameButton_Click">
+                <Button x:Name="QuitGameButton" Content="Avsluta" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="QuitGameButton_Click">
                 </Button>
             </StackPanel>
             <Button Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="5" x:Name="button" Template="{StaticResource DiceButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Button>
@@ -259,5 +260,11 @@
                 <CompositeTransform/>
             </TextBlock.RenderTransform>
         </TextBlock>
+        
+        <!-- this will hide the playable gameboard to show the fight screen-->
+        <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
+        <Popup x:Name="fightingPopup" HorizontalOffset="200" VerticalOffset="200">
+            <local:FightScreenPopup/>
+        </Popup>
     </Grid>
 </Page>

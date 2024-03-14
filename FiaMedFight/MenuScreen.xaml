@@ -37,31 +37,31 @@
         <StackPanel HorizontalAlignment="Center" Padding="150">
 
             <!-- this is where the selection for number of players pops up -->
-            <Button x:Name="NewGameButton" Content="New Game"
+            <Button x:Name="NewGameButton" Content="Nytt Spel"
                     Template="{StaticResource ButtonTemplate}"
             Style="{StaticResource MenuButtonStyle}" Click="NewGameButton_Click">
             </Button>
 
-            <!-- this should be used to start game once a number of players are chosen -->
-            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" 
-                    Template="{StaticResource ButtonTemplate}"
-                    Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click">
+            <!-- this should be used to resume game once a number of players are chosen -->
+            <!-- curently used for testing game conditions -->
+            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Fortsätt Spel" 
+                                        Template="{StaticResource ButtonTemplate}"
+                    Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click" Background="Gray">
             </Button>
 
             <!-- this shows a hidden popup on current page -->
-            <Button x:Name="RulesOpenButton" Content="Open Rules"
+            <Button x:Name="RulesOpenButton" Content="Spelregler"
                     Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="RulesOpenButton_Click">
             </Button>
 
             <!-- close the application -->
-            <Button x:Name="ApplicationExitButton" Content="Exit Program"
+            <Button x:Name="ApplicationExitButton" Content="Avsluta"
                     Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="ApplicationExitButton_Click">
             </Button>
         </StackPanel>
 
-        
         <!-- Hides buttons while popup windows are open-->
         <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
 
@@ -80,9 +80,9 @@
                 <Button x:Name="PrevButton" Content="Föregående"
                     Style="{StaticResource SmallMenuButtonStyle}" Click="RulesPreviousButton_Click" Margin="10,5,5,5" HorizontalAlignment="Left" />
                 <Button x:Name="ReturnButton" Content="Stäng"
-                    Style="{StaticResource SmallMenuButtonStyle}" Click="ReturnButton_Click" Margin="5" HorizontalAlignment="Center" Background="#FFF79200"/>
+                    Style="{StaticResource SmallMenuButtonStyle}" Click="ReturnButton_Click" Margin="5" HorizontalAlignment="Center"/>
                 <Button x:Name="NextButton" Content="Nästa"
-                    Style="{StaticResource SmallMenuButtonStyle}" Click="RulesNextButton_Click" Margin="5,5,10,5" HorizontalAlignment="Right" Background="#FFF59200" />
+                    Style="{StaticResource SmallMenuButtonStyle}" Click="RulesNextButton_Click" Margin="5,5,10,5" HorizontalAlignment="Right" />
             </Grid>
             <TextBlock x:Name="PageInfoTextBlock" Margin="0" HorizontalAlignment="Center" Style="{StaticResource RulesBodyStyle}"/>
         </StackPanel>

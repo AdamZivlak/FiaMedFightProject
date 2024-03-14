@@ -26,6 +26,8 @@ namespace FiaMedFight.Classes
         /// </summary>
         public static Grid gameBoard { get; set; }
 
+        public static Grid gamePageGridFull { get; set; }
+
         public static MainPage activePage { get; set; }
 
         /// <summary>

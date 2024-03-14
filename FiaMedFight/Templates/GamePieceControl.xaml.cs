@@ -107,7 +107,7 @@ namespace FiaMedFight.Templates
             this.coordinate = "Coordinate" + coordinate;
         }
 
-        // <summary>
+        /// <summary>
         /// Gets the X and Y coordinates from the current position to the specified target coordinate, with optional offsets.
         /// </summary>
         /// <param name="targetCoordinate">The target coordinate to calculate the position to.</param>
@@ -304,6 +304,13 @@ namespace FiaMedFight.Templates
                 GameManager.RemovePiece(this);
                 GameManager.UpdateScoreBoard();
             }
+            
+            else if (!isInHomeBase() && !isInSafeZone())
+                foreach (GamePieceControl piece in GameManager.gameBoard.Children.OfType<GamePieceControl>())
+                    if (!GameManager.ActivePlayer().pieces.Contains(piece))
+                        if (piece.coordinate == coordinate)
+                            await FightScreenPopup.Collision(piece, this);
+
             GameManager.NextTurn();
         }
 
@@ -327,7 +334,7 @@ namespace FiaMedFight.Templates
         /// <summary>
         /// Resets the movement transform for the game piece, setting its translation transforms to zero.
         /// </summary>
-        private async Task ResetMovementTransform()
+        internal async Task ResetMovementTransform()
         {
             (this.RenderTransform as CompositeTransform).TranslateX = 0;
             (this.RenderTransform as CompositeTransform).TranslateY = 0;
@@ -360,7 +367,7 @@ namespace FiaMedFight.Templates
         /// <param name="offsetY">Optional Y offset for each step. Any double between -1.0 and 1.0.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         /// <remarks>In effect the offset is in </remarks>
-        private Task AnimateToCoordinate(string endCoordinate, int milliseconds, double offsetX, double offsetY)
+        public Task AnimateToCoordinate(string endCoordinate, int milliseconds, double offsetX, double offsetY)
         {
             this.RenderTransform = new CompositeTransform();
             Storyboard moveAnimation = new Storyboard();
@@ -441,8 +448,8 @@ namespace FiaMedFight.Templates
         /// </summary>
         public void MoveToHomeBase()
         {
-            string homeBaseCoordinate = color + "Base";
-            var homeBase = GameManager.gameBoard.FindName(homeBaseCoordinate) as FrameworkElement;
+            this.coordinate = color + "Base";
+            var homeBase = GameManager.gameBoard.FindName(coordinate) as FrameworkElement;
 
             int baseColumn = Grid.GetColumn(homeBase);
             int baseRow = Grid.GetRow(homeBase);

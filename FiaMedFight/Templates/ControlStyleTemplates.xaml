@@ -37,7 +37,6 @@
         <Setter Property="Background">
             <Setter.Value>
                 <ImageBrush ImageSource="ms-appx:///Assets/Button-normal.png"/>
-                
             </Setter.Value>
         </Setter>
         <Setter Property="FontWeight" Value="Bold"/>
@@ -108,4 +107,21 @@
         <Setter Property="Grid.RowSpan" Value="2"/>
     </Style>
 
+    <!-- displays wins and losses for each fight turn -->
+    <Style x:Key="WinningStar" TargetType="Image">
+        <Setter Property="Source" Value="ms-appx:///Assets/Star.png"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    
+    <Style x:Key="LosingCross" TargetType="Image">
+        <Setter Property="Source" Value="ms-appx:///Assets/X.png"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    
 </ResourceDictionary>

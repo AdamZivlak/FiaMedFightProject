@@ -124,6 +124,9 @@
     <Compile Include="Classes\GameManager.cs" />
     <Compile Include="Classes\GamePlayer.cs" />
     <Compile Include="Classes\GameSession.cs" />
+    <Compile Include="FightScreenPopup.xaml.cs">
+      <DependentUpon>FightScreenPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameOverDialog.xaml.cs">
       <DependentUpon>GameOverDialog.xaml</DependentUpon>
     </Compile>
@@ -139,9 +142,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Templates\GamePieceControl.xaml.cs">
       <DependentUpon>GamePieceControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="RulesScreen.xaml.cs">
-      <DependentUpon>RulesScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="Templates\StringBindingCollection.cs" />
     <Compile Include="Utilities\ElementUtils.cs" />
@@ -184,7 +184,9 @@
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
     <Content Include="Assets\SplashScreen.scale-400.png" />
+    <Content Include="Assets\Star.png" />
     <Content Include="Assets\WelcomeImage.png" />
+    <Content Include="Assets\X.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -199,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="FightScreenPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GameOverDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,10 +214,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PlayerSelectionScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RulesScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
