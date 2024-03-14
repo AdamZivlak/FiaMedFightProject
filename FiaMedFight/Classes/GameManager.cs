@@ -19,14 +19,13 @@ namespace FiaMedFight.Classes
 {
     public static class GameManager
     {
-        static MediaPlayer soundManager = new MediaPlayer();
-        static bool isPlayingSound = false;
-
+        internal static MediaPlayer soundManager = new MediaPlayer();
 
         /// <summary>
         /// Manages the overall game logic, including starting the game, managing players, and handling game piece movements on the board.
         /// </summary>
         internal static GameSession session { get; set; }
+
         /// <summary>
         /// The game board grid where game pieces are placed and moved.
         /// </summary>
@@ -45,9 +44,6 @@ namespace FiaMedFight.Classes
             GameManager.session = sess;
         }
 
-        public static void RollDice(object sender)
-        {
-        }
         /// <summary>
         /// Adds a game piece control to the specified location on the game board. Adds the game piece to the active sessions players list of pieces.
         /// </summary>
@@ -140,8 +136,9 @@ namespace FiaMedFight.Classes
 
             if (ActivePlayer().pieces.Count == 0) { NextTurn(); } //End turn before rolling dice if all pieces in goal
 
-            //GUIChangeActivePlayer();
+            // GUIChangeActivePlayer();
             // Ändra bakgrundsfärgen baserat på spelarens färg
+            Task.Delay(800);
             ChangeBackgroundImage(ActivePlayer().color);
 
             session.dice.Activate();
@@ -156,7 +153,6 @@ namespace FiaMedFight.Classes
             var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
             activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;
         }*/
-
 
         /// <summary>
         /// Makes the scoreboards for players in the game visible.
@@ -274,16 +270,6 @@ namespace FiaMedFight.Classes
         }
 
         /// <summary>
-        /// Plays a preloaded sound using the specified MediaPlayer.
-        /// </summary>
-        /// <param name="manager">The MediaPlayer instance to play the sound.</param>
-        /// <returns>A Task representing the asynchronous operation.</returns>
-        async public static Task PlayClickSound(MediaPlayer manager)
-        {
-            manager.Play();
-        }
-
-        /// <summary>
         /// Plays a new sound file using a globally available MediaPlayer instance.
         /// </summary>
         /// <param name="soundFile">The filename of the sound to play (default is "clickSound.mp3").</param>
@@ -298,7 +284,6 @@ namespace FiaMedFight.Classes
 
             // sets which sound to play
             Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync(@"Assets\Sounds");
-            //string folderpath = "ms - appx:///Assets/Sounds/";
 
             Windows.Storage.StorageFile file = await folder.GetFileAsync(soundFile);
 

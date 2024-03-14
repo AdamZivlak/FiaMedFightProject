@@ -57,13 +57,14 @@ namespace FiaMedFight
             timer.Tick += Timer_Tick; // Add event handler for the Tick event
             timer.Start(); // Start the timer
 
-            //GameManager.ClearSession();
+            GameStartButton.IsEnabled = false;
         }
-        
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
+            GameStartButton.IsEnabled = false;
             // Adds operations each time the page is navigated to. 
             sess = new GameSession();
         }
@@ -139,6 +140,8 @@ namespace FiaMedFight
             MenuScreen.clickSoundManager.Play();
             sess.AddPlayer(new GamePlayer("green", "Coordinate42"));
             GreenImage.Visibility = Visibility.Visible;
+            if(!GameStartButton.IsEnabled)
+                GameStartButton.IsEnabled = true;
         }
 
         /// <summary>
@@ -152,6 +155,8 @@ namespace FiaMedFight
             MenuScreen.clickSoundManager.Play();
             sess.AddPlayer(new GamePlayer("yellow", "Coordinate16"));
             YellowImage.Visibility = Visibility.Visible;
+            if (!GameStartButton.IsEnabled)
+                GameStartButton.IsEnabled = true;
         }
 
         /// <summary>
@@ -165,6 +170,8 @@ namespace FiaMedFight
             MenuScreen.clickSoundManager.Play();
             sess.AddPlayer(new GamePlayer("red", "Coordinate29"));
             RedImage.Visibility = Visibility.Visible;
+            if (!GameStartButton.IsEnabled)
+                GameStartButton.IsEnabled = true;
         }
 
         /// <summary>
@@ -178,6 +185,8 @@ namespace FiaMedFight
             MenuScreen.clickSoundManager.Play();
             sess.AddPlayer(new GamePlayer("blue", "Coordinate3"));
             BlueImage.Visibility = Visibility.Visible;
+            if (!GameStartButton.IsEnabled)
+                GameStartButton.IsEnabled = true;
         }
 
         /// <summary>
@@ -190,6 +199,7 @@ namespace FiaMedFight
             MenuScreen.clickSoundManager.Play();
             sess.players.Clear();
             ResetImages();
+            GameStartButton.IsEnabled = false;
         }
 
         /// <summary>
@@ -255,11 +265,13 @@ namespace FiaMedFight
 
         private void GameMode2Button_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             fightMode = 1;
         }
 
         private void GameMode1Button_Click(object sender, RoutedEventArgs e)
         {
+            MenuScreen.clickSoundManager.Play();
             fightMode = 0;
         }
     }

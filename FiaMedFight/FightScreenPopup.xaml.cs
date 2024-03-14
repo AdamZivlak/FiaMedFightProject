@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Playback;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -50,6 +51,9 @@ namespace FiaMedFight
         static Style winStyle;
         static Style loseStyle;
 
+        private static MediaPlayer punchSoundManager = new MediaPlayer();
+        private static MediaPlayer dragSoundManager = new MediaPlayer();
+
         /// <summary>
         /// Initializes a new instance of the FightScreenPopup class.
         /// </summary>
@@ -70,6 +74,8 @@ namespace FiaMedFight
             turnDescription = fightingTurnDescription;
             fightDescription = fightingHeaderDescription;
             fightScreen = fightScreenOverlay;
+
+            GameManager.PreloadSoundManagers("punchSound.mp3", punchSoundManager);
         }
 
         /// <summary>
@@ -90,6 +96,9 @@ namespace FiaMedFight
 
                 int challengerResult = await TakeTurn(challengerTurnDescription);
                 int opponentResult = await TakeTurn(opponentTurnDescription);
+
+                punchSoundManager.Play();
+                Task.Delay(1000);
 
                 if (challengerResult >= opponentResult)
                     FinishFight(opponentPiece);
@@ -125,6 +134,8 @@ namespace FiaMedFight
 
                     int opponentResult = await TakeTurn(opponentTurnDescription);
 
+                    punchSoundManager.Play();
+
                     if (challengerResult == opponentResult) 
                         continue;
 
@@ -155,8 +166,7 @@ namespace FiaMedFight
                 else if (score > 0)
                     await FinishFight(opponentPiece);
 
-                ClearFight(challengerRounds);
-                ClearFight(opponentRounds);
+                await ClearFight(challengerRounds, opponentRounds);
             }
 
             else return;
@@ -174,14 +184,18 @@ namespace FiaMedFight
         }
 
         /// <summary>
-        /// Clears the visual elements representing fight rounds.
+        /// Clears the visual elements from the finished fight.
         /// </summary>
         /// <param name="rounds">The StackPanel containing the visual elements.</param>
-        static void ClearFight(StackPanel rounds)
+        static async Task ClearFight(StackPanel attackRounds, StackPanel opposeRounds)
         {
-            foreach (var child in rounds.Children)
+            foreach (var child in attackRounds.Children)
             {
-                rounds.Children.Remove(child);
+                attackRounds.Children.Remove(child);
+            }
+            foreach (var child in opposeRounds.Children)
+            {
+                opposeRounds.Children.Remove(child);
             }
         }
 
@@ -192,6 +206,8 @@ namespace FiaMedFight
         /// <param name="challengerPiece">The challenger's game piece control.</param>
         private static void SetUpFight(GamePieceControl opponentPiece, GamePieceControl challengerPiece)
         {
+            GameManager.PlaySound("startCombatSound.mp3");
+
             opponent =  opponentPiece.Player();
             challenger = challengerPiece.Player();
 
@@ -245,9 +261,12 @@ namespace FiaMedFight
             if (popupElement.IsOpen) { popupElement.IsOpen = false; }
             dimmer.Visibility = Visibility.Collapsed;
 
+            GameManager.PlaySound("draggedHomeSound.mp3");
+
             await loser.AnimateToCoordinate(loser.color + "Base", 1000, 0,0);
             loser.MoveToHomeBase();
             loser.ResetMovementTransform();
+            GameManager.soundManager.Pause();
         }
 
         /// <summary>
@@ -298,6 +317,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private async void fightingDice_Click(object sender, RoutedEventArgs e)
         {
+            MainPage.diceSoundManager.Play();
             var button = sender as Button;
 
             fightingTurnDescription.Visibility = Visibility.Collapsed;

@@ -37,7 +37,7 @@ namespace FiaMedFight
         /// </summary>
         static Storyboard spinAnimation, pointAnimation, bonusAnimation;
 
-        public static MediaPlayer walkingSoundManager;
+        public static MediaPlayer walkingSoundManager, diceSoundManager;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MainPage"/> class.
@@ -46,11 +46,14 @@ namespace FiaMedFight
         {
             this.InitializeComponent();
             this.Loaded += MainPage_Loaded;
-            
+
             // create move sounds for pieces
             walkingSoundManager = new MediaPlayer();
             GameManager.PreloadSoundManagers("stepSound.mp3", walkingSoundManager);
             walkingSoundManager.IsLoopingEnabled = true;
+
+            diceSoundManager = new MediaPlayer();
+            GameManager.PreloadSoundManagers("stepSound.mp3", diceSoundManager);
 
             spinAnimation = this.Resources["SpinAnimation"] as Storyboard;
             pointAnimation = this.Resources["GetPoints"] as Storyboard;
@@ -72,20 +75,20 @@ namespace FiaMedFight
             GameManager.gamePageGridFull = gamePageGridFull;
             GameManager.activePage = this;
 
-            //GameManager.LoadSession(sess);
-
             // To Test the Fight sequence, uncomment this and comment out the "foreach" beneath.
 
-            //GameSession session = new GameSession();
+            /*
+             GameSession session = new GameSession();
 
-            //  session.AddPlayer(new GamePlayer("red", "Coordinate31"));
-            //  session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
+              session.AddPlayer(new GamePlayer("red", "Coordinate31"));
+              session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
 
-            //  //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
-            //   GameManager.LoadSession(session);
+              //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
+               GameManager.LoadSession(session);
 
-            //  GameManager.AddGamePieceControl("red", "Coordinate35");
-            //  GameManager.AddGamePieceControl("blue", "Coordinate40");
+              GameManager.AddGamePieceControl("red", "Coordinate35");
+              GameManager.AddGamePieceControl("blue", "Coordinate40");
+            */
 
             foreach (GamePlayer player in GameManager.session.players)
             {
@@ -114,14 +117,14 @@ namespace FiaMedFight
         {
             if (!GameManager.session.dice.active) return;
 
-            //GameManager.PlaySound("diceSound.mp3");
             MenuScreen.clickSoundManager.Play();
+            GameManager.PlaySound("diceSound.mp3");
 
             GameManager.session.dice.Deactivate();
+            await Task.Delay(300);
 
             var button = sender as Button;
             GameManager.session.dice.RollThisDice(button);
-            await Task.Delay(500);
             await SimpleDice_Animation(button);
             
             GameManager.PlayerRolledDice();

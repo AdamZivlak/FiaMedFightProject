@@ -57,7 +57,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private async void ApplicationExitButton_Click(object sender, RoutedEventArgs e)
         {
-            GameManager.PlayClickSound(clickSoundManager);
+            clickSoundManager.Play();
             await Task.Delay(500);
             Application.Current.Exit();
         }
@@ -69,7 +69,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private async void NewGameButton_Click(object sender, RoutedEventArgs e)
         {
-            GameManager.PlayClickSound(clickSoundManager);
+            clickSoundManager.Play();
 
             //await Task.Delay(500);
 
@@ -87,13 +87,10 @@ namespace FiaMedFight
             var exitStoryboard = new Storyboard();
             exitStoryboard.Children.Add(exitAnimation);
 
-            // Begin the exit animation on the PlayerSelectionScreen
             exitStoryboard.Begin();
 
-            // Wait for the exit animation to complete
             await Task.Delay(500);
 
-            // Navigate to the MainPage
             Frame.Navigate(typeof(PlayerSelectionScreen), null, new SuppressNavigationTransitionInfo());
 
             // Define an entrance animation for the MainPage (eases in)
@@ -111,7 +108,6 @@ namespace FiaMedFight
             var entranceStoryboard = new Storyboard();
             entranceStoryboard.Children.Add(entranceAnimation);
 
-            // Begin the entrance animation on the MainPage
             entranceStoryboard.Begin();
         }
 
@@ -122,8 +118,8 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void ResumeGameButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuScreen.clickSoundManager.Play();
-            GameManager.PlaySound("combatSound.mp3");
+            clickSoundManager.Play();
+            GameManager.PlaySound("goalSound.mp3");
 
             Frame.Navigate(typeof(MainPage));
         }
@@ -135,7 +131,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void RulesOpenButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuScreen.clickSoundManager.Play();
+            clickSoundManager.Play();
             Dimmer.Visibility = Visibility.Visible;
             RulesPopup.Visibility = Visibility.Visible;
 
@@ -156,7 +152,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void ReturnButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuScreen.clickSoundManager.Play();
+            clickSoundManager.Play();
             RulesPopup.Visibility = Visibility.Collapsed;
             Dimmer.Visibility = Visibility.Collapsed;
         }
@@ -168,7 +164,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void RulesNextButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuScreen.clickSoundManager.Play();
+            clickSoundManager.Play();
             if (PrevButton.Visibility != Visibility.Visible)
                 PrevButton.Visibility = Visibility.Visible;
 
@@ -196,7 +192,7 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void RulesPreviousButton_Click(object sender, RoutedEventArgs e)
         {
-            MenuScreen.clickSoundManager.Play();
+            clickSoundManager.Play();
             if (NextButton.Visibility != Visibility.Visible)
                 NextButton.Visibility = Visibility.Visible;
 

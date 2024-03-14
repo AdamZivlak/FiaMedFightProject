@@ -181,9 +181,9 @@
     <Content Include="Assets\GameOverImage.png" />
     <Content Include="Assets\PlayButton.png" />
     <Content Include="Assets\Sounds\clickSound.mp3" />
-    <Content Include="Assets\Sounds\combatSound.mp3" />
+    <Content Include="Assets\Sounds\draggedHomeSound.mp3" />
+    <Content Include="Assets\Sounds\startCombatSound.mp3" />
     <Content Include="Assets\Sounds\diceSound.mp3" />
-    <Content Include="Assets\Sounds\draggedBackHomeSound.mp3" />
     <Content Include="Assets\Sounds\draggedBackHomeSounds.mp3" />
     <Content Include="Assets\Sounds\fightBackgroundMusic.mp3" />
     <Content Include="Assets\Sounds\fightBackgroundSoundWithEnding.mp3" />

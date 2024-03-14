@@ -32,11 +32,19 @@
                         <Storyboard>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
                                                            Storyboard.TargetProperty="Background">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource GrayBrush}"/>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <SolidColorBrush Color="Gray"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame> 
                             </ObjectAnimationUsingKeyFrames>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                            Storyboard.TargetProperty="Foreground">
-                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource DarkGrayBrush}"/>
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <SolidColorBrush Color="DarkGray"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>  <!--Value="{StaticResource darkgra}"/>-->
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>

@@ -10,8 +10,8 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Opacity" Value="1"/>
-        <Setter Property="Height" Value="115"/>
-        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="110"/>
+        <Setter Property="Width" Value="95"/>
     </Style>
 
     <!-- Defines a Style for the Menu Buttons with specific properties, including centered text. -->
