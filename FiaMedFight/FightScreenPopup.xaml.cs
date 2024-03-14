@@ -162,6 +162,9 @@ namespace FiaMedFight
             else return;
         }
 
+        /// <summary>
+        /// Clears the displayed results of the fight turn.
+        /// </summary>
         private static void ClearResult()
         {
             var attackResultText = fightScreen.FindName("attackerResult") as TextBlock;
@@ -170,6 +173,10 @@ namespace FiaMedFight
             opponentResultText.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Clears the visual elements representing fight rounds.
+        /// </summary>
+        /// <param name="rounds">The StackPanel containing the visual elements.</param>
         static void ClearFight(StackPanel rounds)
         {
             foreach (var child in rounds.Children)
@@ -178,6 +185,11 @@ namespace FiaMedFight
             }
         }
 
+        /// <summary>
+        /// Sets up the fight by initializing opponent and challenger, setting fighter images, and showing the fight popup.
+        /// </summary>
+        /// <param name="opponentPiece">The opponent's game piece control.</param>
+        /// <param name="challengerPiece">The challenger's game piece control.</param>
         private static void SetUpFight(GamePieceControl opponentPiece, GamePieceControl challengerPiece)
         {
             opponent =  opponentPiece.Player();
@@ -199,6 +211,11 @@ namespace FiaMedFight
         }
         
         private static TaskCompletionSource<int> turnCompleted;
+        /// <summary>
+        /// Handles taking turns during the fight, displaying the provided text and awaiting completion of the turn.
+        /// </summary>
+        /// <param name="text">The text to display indicating the turn.</param>
+        /// <returns>The result of the turn as an integer.</returns>
         private static async Task<int> TakeTurn(string text)
         {
             turnDescription.Text = text;
@@ -212,6 +229,10 @@ namespace FiaMedFight
             return result;
         }
 
+        /// <summary>
+        /// Finishes the fight by hiding the fight popup, moving the loser to their home base, and resetting movement.
+        /// </summary>
+        /// <param name="loser">The game piece control representing the loser.</param>
         private static async Task FinishFight(GamePieceControl loser)
         {
             // get the visual elements from mainpage.xaml
@@ -229,6 +250,11 @@ namespace FiaMedFight
             loser.ResetMovementTransform();
         }
 
+        /// <summary>
+        /// Translates the English name of a color to Swedish.
+        /// </summary>
+        /// <param name="colourEnglish">The English name of the color.</param>
+        /// <returns>The Swedish name of the color.</returns>
         public static string TranslateColourSwedish(string colourEnglish)
         {
             switch(colourEnglish.ToLower())
@@ -245,13 +271,18 @@ namespace FiaMedFight
                     return colourEnglish;
             }
         }
-        
+
+        /// <summary>
+        /// Sets the image for the fighter based on the provided color.
+        /// </summary>
+        /// <param name="color">The color of the fighter.</param>
+        /// <param name="fighter">The rectangle representing the fighter.</param>
         private static void SetFighterImage(string color, Windows.UI.Xaml.Shapes.Rectangle fighter)
         {
             string imageName = $"ms-appx:///Assets/Pieces/{color}.png";
             fighter.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri(imageName, UriKind.Absolute)) };
         }
-   
+
         //private void ClosePopup()
         //{
         //    // close the Popup
@@ -260,6 +291,11 @@ namespace FiaMedFight
 
         //}
 
+        /// <summary>
+        /// Handles the Click event of the dice button during a fight, initiating the dice roll animation and updating UI elements accordingly.
+        /// </summary>
+        /// <param name="sender">The button that was clicked.</param>
+        /// <param name="e">The event arguments.</param>
         private async void fightingDice_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -302,7 +338,8 @@ namespace FiaMedFight
         /// <item> 3. Upon completion of the animation, it updates the UI to show the dice's face value and makes the button visible again. </item>
         /// </list>
         /// </summary>
-        /// <param name="sender">The source of the event, typically the button that was clicked.</param>
+        /// <param name="button">The button that was clicked.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         private Task SimpleDice_Animation(Button button)
         {
             button.Visibility = Visibility.Collapsed;
