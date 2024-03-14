@@ -9,8 +9,9 @@ using Windows.UI.Xaml;
 using System.Diagnostics;
 using System.ServiceModel;
 using Windows.Media.Control;
-using System.Runtime.CompilerServices;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media;
+using System.Runtime.CompilerServices;
 
 namespace FiaMedFight.Classes
 {
@@ -133,7 +134,9 @@ namespace FiaMedFight.Classes
 
             if (ActivePlayer().pieces.Count == 0) { NextTurn(); } //End turn before rolling dice if all pieces in goal
 
-            GUIChangeActivePlayer();
+            //GUIChangeActivePlayer();
+            // Ändra bakgrundsfärgen baserat på spelarens färg
+            ChangeBackgroundImage(ActivePlayer().color);
 
             session.dice.Activate();
         }
@@ -142,11 +145,11 @@ namespace FiaMedFight.Classes
         /// Changes the GUI to show who is the active player.
         /// TODO: MBG-111
         /// </summary>
-        public static void GUIChangeActivePlayer()
+        /*public static void GUIChangeActivePlayer()
         {
             var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
             activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;
-        }
+        }*/
 
 
         /// <summary>
@@ -176,6 +179,56 @@ namespace FiaMedFight.Classes
             var player = ActivePlayer();
             var scoreboard = gameBoard.FindName("scorePlayer" + session.activePlayerIndex) as TextBlock;
             scoreboard.Text = player.color + ": " + player.score.ToString("D5");
+
+        }
+
+        internal static void ChangeBackgroundImage(string playerColor)
+        {
+            string imagePath = "";
+
+            switch (playerColor.ToLower())
+            {
+                /*case "blue":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/BlueActive.png";
+                    break;
+                case "red":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/RedActive.png";
+                    break;
+                case "yellow":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/YellowActive.png";
+                    break;
+                case "green":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/GreenActive.png";
+                    break;
+                default:
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/MainPageBg.png";
+                    break;*/
+
+                case "blue":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/BlueActiveWood.png";
+                    break;
+                case "red":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/RedActiveWood.png";
+                    break;
+                case "yellow":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/YellowActiveWood.png";
+                    break;
+                case "green":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/GreenActiveWood.png";
+                    break;
+                default:
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/woodenBg.png";
+                    break;
+            }
+
+            BitmapImage image = new BitmapImage(new Uri(imagePath));
+            ImageBrush newBackgroundBrush = new ImageBrush { ImageSource = image };
+
+            Page currentPage = (Window.Current.Content as Frame).Content as Page;
+            if (currentPage != null)
+            {
+                currentPage.Background = newBackgroundBrush;
+            }
         }
 
         /// <summary>

@@ -19,8 +19,13 @@
         </ResourceDictionary>
     </Page.Resources>
 
+    <Page.Background>
+        <ImageBrush ImageSource="/Assets/ActivePlayerColours/woodenBg.png"/>
+    </Page.Background>
+
     <Grid x:Name="gamePageGridFull">
-       
+        <TextBlock x:Name="ResultText" Visibility="Collapsed" Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="30,300,0,0" Text="...result..." />
+
         <!-- dice and its animation -->
         <Button x:Name="button" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click"></Button>
         <Image x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Width="103" Height="119" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -29,10 +34,8 @@
             </Image.Projection>
         </Image>
         
-        <TextBlock x:Name="ResultText"  Width="461" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Margin="0,171,0,0" Text="...result..."/>
-       
         <!-- the playable game board -->
-        <Grid x:Name="gameBoardGrid" Margin="4,0,-4,0">
+        <Grid x:Name="gameBoardGrid" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -75,7 +78,11 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
+                
             <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -129,97 +136,128 @@
                 <TextBlock x:Name="scorePlayer2" Grid.Column="2" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
                 <TextBlock x:Name="scorePlayer3" Grid.Column="3" Grid.ColumnSpan="1" HorizontalAlignment="Center" Text="" FontSize="30" FontWeight="ExtraBold" />
             </Grid>
-
-            <Rectangle x:Name="greenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="GreenYellow" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="redBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Red" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="yellowBase" Grid.Column="24" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Yellow" RadiusX="50" RadiusY="50"/>
-            <Rectangle x:Name="blueBase" Grid.Column="24" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" Fill="Blue" RadiusX="50" RadiusY="50"/>
-
-            <Ellipse x:Name="Coordinate1" Grid.Column="17" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate2" Grid.Column="19" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate3" Grid.Column="21" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
-            <Ellipse x:Name="Coordinate4" Grid.Column="21" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate5" Grid.Column="21" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate6" Grid.Column="21" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate7" Grid.Column="21" Grid.Row="13" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate8" Grid.Column="21" Grid.Row="15" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate9" Grid.Column="23" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate10" Grid.Column="25" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate11" Grid.Column="27" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate12" Grid.Column="29" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate13" Grid.Column="31" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate14" Grid.Column="33" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate15" Grid.Column="33" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate16" Grid.Column="33" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
-            <Ellipse x:Name="Coordinate17" Grid.Column="31" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate18" Grid.Column="29" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate19" Grid.Column="27" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate20" Grid.Column="25" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate21" Grid.Column="23" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate22" Grid.Column="21" Grid.Row="23" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate23" Grid.Column="21" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate24" Grid.Column="21" Grid.Row="27" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate25" Grid.Column="21" Grid.Row="29" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate26" Grid.Column="21" Grid.Row="31" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate27" Grid.Column="21" Grid.Row="33" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate28" Grid.Column="19" Grid.Row="33" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate29" Grid.Column="17" Grid.Row="33" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
-            <Ellipse x:Name="Coordinate30" Grid.Column="17" Grid.Row="31" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate31" Grid.Column="17" Grid.Row="29" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate32" Grid.Column="17" Grid.Row="27" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate33" Grid.Column="17" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate34" Grid.Column="17" Grid.Row="23" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate35" Grid.Column="15" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate36" Grid.Column="13" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate37" Grid.Column="11" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate38" Grid.Column="9" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate39" Grid.Column="7" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate40" Grid.Column="5" Grid.Row="21" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate41" Grid.Column="5" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate42" Grid.Column="5" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
-            <Ellipse x:Name="Coordinate43" Grid.Column="7" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate44" Grid.Column="9" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate45" Grid.Column="11" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate46" Grid.Column="13" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate47" Grid.Column="15" Grid.Row="17" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate48" Grid.Column="17" Grid.Row="15" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate49" Grid.Column="17" Grid.Row="13" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate50" Grid.Column="17" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate51" Grid.Column="17" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-            <Ellipse x:Name="Coordinate52" Grid.Column="17" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="White"/>
-
-            <Ellipse x:Name="blueSafeCoordinate1" Grid.Column="19" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
-            <Ellipse x:Name="blueSafeCoordinate2" Grid.Column="19" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
-            <Ellipse x:Name="blueSafeCoordinate3" Grid.Column="19" Grid.Row="11" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
-            <Ellipse x:Name="blueSafeCoordinate4" Grid.Column="19" Grid.Row="13" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
-            <Ellipse x:Name="blueSafeCoordinate5" Grid.Column="19" Grid.Row="15" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Blue"/>
-
-            <Ellipse x:Name="greenSafeCoordinate1" Grid.Column="7" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
-            <Ellipse x:Name="greenSafeCoordinate2" Grid.Column="9" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
-            <Ellipse x:Name="greenSafeCoordinate3" Grid.Column="11" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
-            <Ellipse x:Name="greenSafeCoordinate4" Grid.Column="13" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
-            <Ellipse x:Name="greenSafeCoordinate5" Grid.Column="15" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="GreenYellow"/>
-            <Ellipse Grid.Column="17" Grid.Row="17" Grid.ColumnSpan="6" Grid.RowSpan="6" Stroke="Black" Fill="Yellow"/>
-            <Ellipse Grid.Column="18" Grid.Row="18" Grid.ColumnSpan="4" Grid.RowSpan="4" Stroke="Black" Fill="Orange"/>
-            <Ellipse x:Name="goalCoordinate" Grid.Column="19" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
+            <Rectangle Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="32" Grid.RowSpan="32" Fill="#b78f76" Stroke="Black" StrokeThickness="2.5" Opacity="0.85" RadiusX="50" RadiusY="50"/>
 
 
-            <Ellipse x:Name="yellowSafeCoordinate5" Grid.Column="23" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
-            <Ellipse x:Name="yellowSafeCoordinate4" Grid.Column="25" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
-            <Ellipse x:Name="yellowSafeCoordinate3" Grid.Column="27" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
-            <Ellipse x:Name="yellowSafeCoordinate2" Grid.Column="29" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
-            <Ellipse x:Name="yellowSafeCoordinate1" Grid.Column="31" Grid.Row="19" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Yellow"/>
+            <Rectangle x:Name="greenBase" Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" StrokeThickness="2" Fill="#00ff00" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="redBase" Grid.Column="6" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" StrokeThickness="2" Fill="#ff0000" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="yellowBase" Grid.Column="24" Grid.Row="24" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" StrokeThickness="2" Fill="#ffff00" RadiusX="50" RadiusY="50"/>
+            <Rectangle x:Name="blueBase" Grid.Column="24" Grid.Row="6" Grid.ColumnSpan="10" Grid.RowSpan="10" Stroke="Black" StrokeThickness="2" Fill="#0038FF" RadiusX="50" RadiusY="50"/>
 
-            <Ellipse x:Name="redSafeCoordinate5" Grid.Column="19" Grid.Row="23" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
-            <Ellipse x:Name="redSafeCoordinate4" Grid.Column="19" Grid.Row="25" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
-            <Ellipse x:Name="redSafeCoordinate3" Grid.Column="19" Grid.Row="27" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
-            <Ellipse x:Name="redSafeCoordinate2" Grid.Column="19" Grid.Row="29" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
-            <Ellipse x:Name="redSafeCoordinate1" Grid.Column="19" Grid.Row="31" Grid.ColumnSpan="2" Grid.RowSpan="2" Stroke="Black" Fill="Red"/>
+            <Ellipse x:Name="Coordinate1" Grid.Column="17" Grid.Row="5" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate2" Grid.Column="19" Grid.Row="5" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate3" Grid.Column="21" Grid.Row="5" Style="{StaticResource SafelocationEllipse}" Fill="#0038FF"/>
+            <Ellipse x:Name="Coordinate4" Grid.Column="21" Grid.Row="7" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate5" Grid.Column="21" Grid.Row="9" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate6" Grid.Column="21" Grid.Row="11" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate7" Grid.Column="21" Grid.Row="13" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate8" Grid.Column="21" Grid.Row="15" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate9" Grid.Column="23" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate10" Grid.Column="25" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate11" Grid.Column="27" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate12" Grid.Column="29" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate13" Grid.Column="31" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate14" Grid.Column="33" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate15" Grid.Column="33" Grid.Row="19" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate16" Grid.Column="33" Grid.Row="21" Style="{StaticResource SafelocationEllipse}" Fill="#FFFF00"/>
+            <Ellipse x:Name="Coordinate17" Grid.Column="31" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate18" Grid.Column="29" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate19" Grid.Column="27" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate20" Grid.Column="25" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate21" Grid.Column="23" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate22" Grid.Column="21" Grid.Row="23" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate23" Grid.Column="21" Grid.Row="25" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate24" Grid.Column="21" Grid.Row="27" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate25" Grid.Column="21" Grid.Row="29" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate26" Grid.Column="21" Grid.Row="31" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate27" Grid.Column="21" Grid.Row="33" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate28" Grid.Column="19" Grid.Row="33" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate29" Grid.Column="17" Grid.Row="33" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
+            <Ellipse x:Name="Coordinate30" Grid.Column="17" Grid.Row="31" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate31" Grid.Column="17" Grid.Row="29" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate32" Grid.Column="17" Grid.Row="27" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate33" Grid.Column="17" Grid.Row="25" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate34" Grid.Column="17" Grid.Row="23" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate35" Grid.Column="15" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate36" Grid.Column="13" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate37" Grid.Column="11" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate38" Grid.Column="9" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate39" Grid.Column="7" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate40" Grid.Column="5" Grid.Row="21" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate41" Grid.Column="5" Grid.Row="19" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate42" Grid.Column="5" Grid.Row="17" Style="{StaticResource SafelocationEllipse}" Fill="#00ff00"/>
+            <Ellipse x:Name="Coordinate43" Grid.Column="7" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate44" Grid.Column="9" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate45" Grid.Column="11" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate46" Grid.Column="13" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate47" Grid.Column="15" Grid.Row="17" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate48" Grid.Column="17" Grid.Row="15" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate49" Grid.Column="17" Grid.Row="13" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate50" Grid.Column="17" Grid.Row="11" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate51" Grid.Column="17" Grid.Row="9" Style="{StaticResource StandardGameboardEllipse}"/>
+            <Ellipse x:Name="Coordinate52" Grid.Column="17" Grid.Row="7" Style="{StaticResource StandardGameboardEllipse}"/>
 
-            <TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="38" FontSize="30" TextAlignment="Center" Text="Active Player: " Foreground="White"/>
+            <Ellipse x:Name="blueSafeCoordinate1" Grid.Column="19" Grid.Row="7" Style="{StaticResource SafelocationEllipse}" Fill="#0038FF"/>
+            <Ellipse x:Name="blueSafeCoordinate2" Grid.Column="19" Grid.Row="9" Style="{StaticResource SafelocationEllipse}" Fill="#0038FF"/>
+            <Ellipse x:Name="blueSafeCoordinate3" Grid.Column="19" Grid.Row="11" Style="{StaticResource SafelocationEllipse}" Fill="#0038FF"/>
+            <Ellipse x:Name="blueSafeCoordinate4" Grid.Column="19" Grid.Row="13" Style="{StaticResource SafelocationEllipse}" Fill="#0038FF"/>
+            <Ellipse x:Name="blueSafeCoordinate5" Grid.Column="19" Grid.Row="15" Style="{StaticResource SafelocationEllipse}" Fill="#0038FF"/>
 
+            <Ellipse x:Name="greenSafeCoordinate1" Grid.Column="7" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#00ff00"/>
+            <Ellipse x:Name="greenSafeCoordinate2" Grid.Column="9" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#00ff00"/>
+            <Ellipse x:Name="greenSafeCoordinate3" Grid.Column="11" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#00ff00"/>
+            <Ellipse x:Name="greenSafeCoordinate4" Grid.Column="13" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#00ff00"/>
+            <Ellipse x:Name="greenSafeCoordinate5" Grid.Column="15" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#00ff00"/>
+            <Ellipse Grid.Column="17" Grid.Row="17" Grid.ColumnSpan="6" Grid.RowSpan="6" Stroke="Black" StrokeThickness="2" Fill="#FFFF00"/>
+            <Ellipse Grid.Column="18" Grid.Row="18" Grid.ColumnSpan="4" Grid.RowSpan="4" Stroke="Black" StrokeThickness="2" Fill="Orange"/>
+            <Ellipse x:Name="goalCoordinate" Grid.Column="19" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
+
+
+            <Ellipse x:Name="yellowSafeCoordinate5" Grid.Column="23" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#FFFF00"/>
+            <Ellipse x:Name="yellowSafeCoordinate4" Grid.Column="25" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#FFFF00"/>
+            <Ellipse x:Name="yellowSafeCoordinate3" Grid.Column="27" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#FFFF00"/>
+            <Ellipse x:Name="yellowSafeCoordinate2" Grid.Column="29" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#FFFF00"/>
+            <Ellipse x:Name="yellowSafeCoordinate1" Grid.Column="31" Grid.Row="19" Style="{StaticResource SafelocationEllipse}" Fill="#FFFF00"/>
+
+            <Ellipse x:Name="redSafeCoordinate5" Grid.Column="19" Grid.Row="23" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
+            <Ellipse x:Name="redSafeCoordinate4" Grid.Column="19" Grid.Row="25" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
+            <Ellipse x:Name="redSafeCoordinate3" Grid.Column="19" Grid.Row="27" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
+            <Ellipse x:Name="redSafeCoordinate2" Grid.Column="19" Grid.Row="29" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
+            <Ellipse x:Name="redSafeCoordinate1" Grid.Column="19" Grid.Row="31" Style="{StaticResource SafelocationEllipse}" Fill="#FF0000"/>
+
+            <!--<TextBlock x:Name="ActivePlayerText" Grid.ColumnSpan="20" Grid.RowSpan="5" Grid.Column="10" Grid.Row="2" FontSize="30" TextAlignment="Center" Text="Active Player: Green" Foreground="White"/>-->
+            <StackPanel Grid.Column="5" Grid.Row="37" Grid.ColumnSpan="30" Grid.RowSpan="5" Spacing="600" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Button x:Name="MenuOpenButton" Content="Menu" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="MenuButton_Click">
+                </Button>
+
+                <Button x:Name="QuitGameButton" Content="Quit game" Style="{StaticResource MenuButtonStyle}" Canvas.ZIndex="2" Margin="0" Click="QuitGameButton_Click">
+                </Button>
+            </StackPanel>
+            <Button Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="5" x:Name="button" Template="{StaticResource DiceButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="SimpleDice_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"></Button>
+            <Image Grid.Column="18" Grid.Row="37" Grid.ColumnSpan="4" Grid.RowSpan="5" x:Name="SpinningImage" Visibility="Collapsed" Source="ms-appx:///Assets/Dice/Face4.png" Height="100" Width="100" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                <Image.Projection>
+                    <PlaneProjection/>
+                </Image.Projection>
+            </Image>
         </Grid>
 
+        <!--trying to make confetti-->
+        <StackPanel x:Name="confettiArea" Visibility="Collapsed" Height="500" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!-- Confetti Piece 1 -->
+            <Rectangle x:Name="confetti1" Width="20" Height="20" Fill="Red" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <CompositeTransform/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
+            <!-- Confetti Piece 2 -->
+            <Rectangle x:Name="confetti2" Width="20" Height="20" Fill="Blue" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <CompositeTransform/>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+
+        </StackPanel>
         <!--Score text to show and animate when reaching goal-->
         <TextBlock x:Name="pointsText" VerticalAlignment="Center" Visibility="Collapsed" HorizontalAlignment="Center" Margin ="0,0,0,75" Foreground="Aquamarine" Text="" FontSize="32" FontWeight="ExtraBold" RenderTransformOrigin="0.5,0.5">
             <TextBlock.RenderTransform>

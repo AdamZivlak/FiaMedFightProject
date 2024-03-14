@@ -13,6 +13,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <!-- Include custom template, storyboard and style files here -->
                 <ResourceDictionary Source="Templates/ControlStyleTemplates.xaml"/>
+                <ResourceDictionary Source="Templates/ControlFunctionTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -27,51 +28,37 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Rectangle Fill="Red" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
-            <Rectangle Fill="Blue" Grid.Column="2" Grid.Row="0"/>
-            <Rectangle Fill="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
-            <Rectangle Fill="Yellow" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
+            <Rectangle Fill="#145214" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <Rectangle Fill="#000066" Grid.Column="2" Grid.Row="0"/>
+            <Rectangle Fill="#660000" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Rectangle Fill="#666600" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2"/>
         </Grid>
 
         <StackPanel HorizontalAlignment="Center" Padding="150">
 
             <!-- this is where the selection for number of players pops up -->
-            <Button x:Name="NewGameButton" Content="New Game"
+            <Button x:Name="NewGameButton" Content="Nytt Spel"
+                    Template="{StaticResource ButtonTemplate}"
             Style="{StaticResource MenuButtonStyle}" Click="NewGameButton_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
             </Button>
 
             <!-- this should be used to resume game once a number of players are chosen -->
             <!-- curently used for testing game conditions -->
-            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Resume Game" 
+            <Button x:Name="GameStartButton" Visibility="Visible"  Content="Fortsätt Spela" 
+                                        Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click" Background="Gray">
             </Button>
 
             <!-- this shows a hidden popup on current page -->
-            <Button x:Name="RulesOpenButton" Content="Open Rules"
+            <Button x:Name="RulesOpenButton" Content="Spelregler"
+                    Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="RulesOpenButton_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
             </Button>
 
             <!-- close the application -->
-            <Button x:Name="ApplicationExitButton" Content="Exit Program"
+            <Button x:Name="ApplicationExitButton" Content="Avsluta Programmet"
+                    Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="ApplicationExitButton_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFDCDCE8"/>
-                        <GradientStop Color="#FFF59200" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
             </Button>
         </StackPanel>
 
@@ -79,10 +66,13 @@
         <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
 
         <!-- Popup with rules -->
-        <StackPanel x:Name="RulesPopup" Visibility="Collapsed" Height="600" Width="550" Background="BlueViolet" BorderBrush="Black" BorderThickness="2" CornerRadius="5,5,5,5">
+        <StackPanel x:Name="RulesPopup" Visibility="Collapsed" Height="630" Width="550" Background="#FF8415EC" BorderBrush="Black" BorderThickness="2" CornerRadius="5,5,5,5">
             <TextBlock x:Name="RulesHeader" Width="550" Height="90" Style="{StaticResource HeaderStyle}" Text="Att spela Fia med Fight" VerticalAlignment="Center" />
             <TextBlock x:Name="RulesHeaderTextBlock" Width="550" Height="60" Style="{StaticResource RulesHeaderStyle}"/>
-            <TextBlock x:Name="RulesBodyTextBlock" Width="500" Height="360" Style="{StaticResource RulesBodyStyle}"/>
+            <ScrollViewer Width="500" Height="360">
+                <TextBlock x:Name="RulesBodyTextBlock" Style="{StaticResource RulesBodyStyle}"/>
+            </ScrollViewer>
+
             <TextBlock Padding="5,0,0,12">
 			    <Hyperlink NavigateUri="https://molk-board-game.atlassian.net/wiki/spaces/MBG/pages/4161552/Information+om+Fia+Med+Fight">Läs reglerna online</Hyperlink> 
             </TextBlock>
@@ -90,10 +80,11 @@
                 <Button x:Name="PrevButton" Content="Föregående"
                     Style="{StaticResource SmallMenuButtonStyle}" Click="RulesPreviousButton_Click" Margin="10,5,5,5" HorizontalAlignment="Left" />
                 <Button x:Name="ReturnButton" Content="Stäng"
-                    Style="{StaticResource SmallMenuButtonStyle}" Click="ReturnButton_Click" Margin="5" HorizontalAlignment="Center"/>
+                    Style="{StaticResource SmallMenuButtonStyle}" Click="ReturnButton_Click" Margin="5" HorizontalAlignment="Center" Background="#FFF79200"/>
                 <Button x:Name="NextButton" Content="Nästa"
-                    Style="{StaticResource SmallMenuButtonStyle}" Click="RulesNextButton_Click" Margin="5,5,10,5" HorizontalAlignment="Right" />
+                    Style="{StaticResource SmallMenuButtonStyle}" Click="RulesNextButton_Click" Margin="5,5,10,5" HorizontalAlignment="Right" Background="#FFF59200" />
             </Grid>
+            <TextBlock x:Name="PageInfoTextBlock" Margin="0" HorizontalAlignment="Center" Style="{StaticResource RulesBodyStyle}"/>
         </StackPanel>
 
     </Grid>
