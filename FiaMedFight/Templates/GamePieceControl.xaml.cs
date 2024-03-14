@@ -199,7 +199,7 @@ namespace FiaMedFight.Templates
             ElementUtils.TransformDoubleProperty(ghostPiece, "Opacity", 0.4, 150);
             await ghostPiece.ResizeAnimation(0.3, 50);
             await ghostPiece.ResizeAnimation(1.0, 100);
-            ghostPiece.ResizeAnimation(0.7, 50);
+            if(ghostPiece != null) ghostPiece.ResizeAnimation(0.7, 50);
         }
 
         /// <summary>
@@ -248,17 +248,54 @@ namespace FiaMedFight.Templates
 
             //Animates the movement by transformation
             ResizeAnimation(1.5, 100);
-            Canvas.SetZIndex(this, 50);
+            Canvas.SetZIndex(this, 100);
             while (steps-- > 0)
                 await MoveStepsAsync(1, 300, 0, -1);
+
+            int piecesOnSquare = 0,
+                offsetZ;
+            double offsetX,
+                offsetY;
+
+                        foreach (var p in Player().pieces)
+                if (p.coordinate == coordinate)
+                    piecesOnSquare++;
+            
+            switch(piecesOnSquare)
+            {
+                case 1:
+                    offsetX = 0;
+                    offsetY = -0.5;
+                    offsetZ = 0;
+                    break;
+                case 2:
+                    offsetX = 0.5;
+                    offsetY = -0.25;
+                    offsetZ = 1;
+                    break;
+                case 3:
+                    offsetX = -0.5;
+                    offsetY = -0.25;
+                    offsetZ = 1;
+                    break;
+                case 4:
+                    offsetX = 0;
+                    offsetY = 0;
+                    offsetZ = 2;
+                    break;
+                default:
+                    offsetX = 0;
+                    offsetY = -0.5;
+                    offsetZ = 0;
+                    break;
+            }
+
             ResizeAnimation(1, 150);
-            await MoveStepsAsync(0, 150, 0, -0.5);
-
+            await AnimateToCoordinate(coordinate, 150, offsetX, offsetY);
             //Resets the transform and actually moves the piece within the grid.
-            ResetMovementTransform();
-            MoveToNewGridCoordinate(coordinate, -1);
-            Canvas.SetZIndex(this, Grid.GetRow(this));
-
+            MoveToNewGridCoordinate(coordinate, -1, 0, offsetZ);
+            await ResetMovementTransform();
+            AnimateToCoordinate(coordinate, 0, offsetX, offsetY);
             if (coordinate == "goalCoordinate")
             {
                 ResizeAnimation(3, 1500);
@@ -276,25 +313,27 @@ namespace FiaMedFight.Templates
         /// <param name="endCoordinate">The end coordinate to move the game piece to.</param>
         /// <param name="rowOffset">Optional row offset. (integer)</param>
         /// <param name="columnOffset">Optional column offset. (integer)</param>
-        private void MoveToNewGridCoordinate(string endCoordinate, int rowOffset = 0, int columnOffset = 0)
+        private void MoveToNewGridCoordinate(string endCoordinate, int rowOffset = 0, int columnOffset = 0, int zOffset = 0)
         {
             (int targetRow, int targetColumn) = ElementUtils.GetElementRowAndColumn(GameManager.gameBoard, endCoordinate);
             targetRow += rowOffset;
             targetColumn += columnOffset;
             Grid.SetColumn(this, targetColumn);
             Grid.SetRow(this, targetRow);
-            Canvas.SetZIndex(this, targetRow);
+            Canvas.SetZIndex(this, (targetRow * 2) + zOffset);
             coordinate = endCoordinate;
         }
 
         /// <summary>
         /// Resets the movement transform for the game piece, setting its translation transforms to zero.
         /// </summary>
-        private void ResetMovementTransform()
+        private async Task ResetMovementTransform()
         {
             (this.RenderTransform as CompositeTransform).TranslateX = 0;
             (this.RenderTransform as CompositeTransform).TranslateY = 0;
             currentPoint = new Point(0, 0);
+            await Task.Delay(25);
+            return;
         }
 
         /// <summary>
