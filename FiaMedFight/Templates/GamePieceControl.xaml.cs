@@ -16,6 +16,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -38,6 +39,8 @@ namespace FiaMedFight.Templates
         public string coordinate;
         public Point currentPoint = new Point(0, 0);
         public string color;
+        internal string imageUri;
+        internal GamePieceControl ghostPiece;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GamePieceControl"/> class at a specified coordinate.
@@ -75,8 +78,8 @@ namespace FiaMedFight.Templates
         /// </summary>
         /// <param name="color">The color of the game piece.</param>
         private void UpdateImageSource(string color) {
-            string imageName = $"ms-appx:///Assets/Pieces/{color}.png";
-            GamePieceImage.Source = new BitmapImage(new Uri(imageName, UriKind.Absolute));
+            imageUri = $"ms-appx:///Assets/Pieces/{color}.png";
+            GamePieceImage.Source = new BitmapImage(new Uri(imageUri, UriKind.Absolute));
         }
 
         /// <summary>
@@ -169,19 +172,60 @@ namespace FiaMedFight.Templates
         /// <summary>
         /// Handles the hover event for the game piece.
         /// </summary>
-        private void GamePiece_OnHover(object sender, PointerRoutedEventArgs e)
+        private async void GamePiece_OnHover(object sender, PointerRoutedEventArgs e)
         {
-            if (active)
-                ResizeAnimation(1.35, 30);
+            if (!active)
+                return;
+
+            ResizeAnimation(1.35, 30);
+            await ShowGhostPieceOnTarget(GetTargetCoordinateAsString(GameManager.session.dice.FaceValue));
+
         }
 
         /// <summary>
-        /// Handles the end of hover event for the game piece.
+        /// Spawns a see-through copy of this game piece on the target coordinate
         /// </summary>
-        private void GamePiece_EndHover(object sender, PointerRoutedEventArgs e)
+        /// <param name="target">the x:Name value of the xaml element where to spawn the ghost piece</param>
+        /// <returns>Completed Task when the spawn animation has finished</returns>
+        private async Task ShowGhostPieceOnTarget(string target)
         {
-            if (active)
-                ResizeAnimation(1, 60);
+            ghostPiece = new GamePieceControl(color, target);
+            ghostPiece.Opacity = 0;
+            Grid.SetRowSpan(ghostPiece, 2);
+            Grid.SetColumnSpan(ghostPiece, 2);
+            ghostPiece.MoveToNewGridCoordinate(target, 0, 0);
+            await ghostPiece.ResizeAnimation(0.1, 1);
+            GameManager.gameBoard.Children.Add(ghostPiece);
+            ElementUtils.TransformDoubleProperty(ghostPiece, "Opacity", 0.4, 150);
+            await ghostPiece.ResizeAnimation(0.3, 50);
+            await ghostPiece.ResizeAnimation(1.0, 100);
+            if(ghostPiece != null) ghostPiece.ResizeAnimation(0.7, 50);
+        }
+
+        /// <summary>
+        /// Handles the end of hover event for the game piece. If a ghost piece has been spawned, it deletes the ghost piece.
+        /// </summary>
+        private async void GamePiece_EndHover(object sender, PointerRoutedEventArgs e)
+        {
+            if (!active) return;
+            active = false;
+            ResizeAnimation(1, 60);
+            await RemoveGhostPieceFromBoard();
+            active = true;
+        }
+        /// <summary>
+        /// If a ghostpiece exist on the board, runs an animation for it and then removes it.
+        /// </summary>
+        /// <returns>Completed Task when the animation is completed</returns>
+        private async Task RemoveGhostPieceFromBoard()
+        {
+            if (ghostPiece == null) return;
+
+            ghostPiece.ResizeAnimation(0.1, 200);
+            await ElementUtils.TransformDoubleProperty(ghostPiece, "Opacity", 0, 200);
+            GameManager.gameBoard.Children.Remove(ghostPiece);
+            ghostPiece = null;
+            return;
         }
 
         /// <summary>
@@ -198,24 +242,62 @@ namespace FiaMedFight.Templates
         {
             if (!active) return;
 
+            GameManager.gameBoard.Children.Remove(ghostPiece);
             GameManager.ActivePlayer().EndTurn();
             int steps = GameManager.session.dice.FaceValue;
 
             //Animates the movement by transformation
             ResizeAnimation(1.5, 100);
-            Canvas.SetZIndex(this, 50);
+            Canvas.SetZIndex(this, 100);
             while (steps-- > 0)
                 await MoveStepsAsync(1, 300, 0, -1);
-            ResizeAnimation(1, 150);
-            await MoveStepsAsync(0, 150, 0, -0.5);
 
+            int piecesOnSquare = 0,
+                offsetZ;
+            double offsetX,
+                offsetY;
+
+                        foreach (var p in Player().pieces)
+                if (p.coordinate == coordinate)
+                    piecesOnSquare++;
+            
+            switch(piecesOnSquare)
+            {
+                case 1:
+                    offsetX = 0;
+                    offsetY = -0.5;
+                    offsetZ = 0;
+                    break;
+                case 2:
+                    offsetX = 0.5;
+                    offsetY = -0.25;
+                    offsetZ = 1;
+                    break;
+                case 3:
+                    offsetX = -0.5;
+                    offsetY = -0.25;
+                    offsetZ = 1;
+                    break;
+                case 4:
+                    offsetX = 0;
+                    offsetY = 0;
+                    offsetZ = 2;
+                    break;
+                default:
+                    offsetX = 0;
+                    offsetY = -0.5;
+                    offsetZ = 0;
+                    break;
+            }
+
+            ResizeAnimation(1, 150);
+            await AnimateToCoordinate(coordinate, 150, offsetX, offsetY);
             //Resets the transform and actually moves the piece within the grid.
-            ResetMovementTransform();
-            MoveToNewGridCoordinate(coordinate, -1);
+            MoveToNewGridCoordinate(coordinate, -1, 0, offsetZ);
+            await ResetMovementTransform();
+            AnimateToCoordinate(coordinate, 0, offsetX, offsetY);
             if (coordinate == "goalCoordinate")
             {
-                //GoalAnimation(); //TODO: Fix confetti animation
-
                 ResizeAnimation(3, 1500);
                 GameManager.GivePointsForPieceInGoal(this);
                 await ElementUtils.TransformDoubleProperty(this, "Opacity", 0, 1500);
@@ -231,29 +313,31 @@ namespace FiaMedFight.Templates
         /// <param name="endCoordinate">The end coordinate to move the game piece to.</param>
         /// <param name="rowOffset">Optional row offset. (integer)</param>
         /// <param name="columnOffset">Optional column offset. (integer)</param>
-        private void MoveToNewGridCoordinate(string endCoordinate, int rowOffset = 0, int columnOffset = 0)
+        private void MoveToNewGridCoordinate(string endCoordinate, int rowOffset = 0, int columnOffset = 0, int zOffset = 0)
         {
             (int targetRow, int targetColumn) = ElementUtils.GetElementRowAndColumn(GameManager.gameBoard, endCoordinate);
             targetRow += rowOffset;
             targetColumn += columnOffset;
             Grid.SetColumn(this, targetColumn);
             Grid.SetRow(this, targetRow);
-            Canvas.SetZIndex(this, targetRow);
+            Canvas.SetZIndex(this, (targetRow * 2) + zOffset);
             coordinate = endCoordinate;
         }
 
         /// <summary>
         /// Resets the movement transform for the game piece, setting its translation transforms to zero.
         /// </summary>
-        private void ResetMovementTransform()
+        private async Task ResetMovementTransform()
         {
             (this.RenderTransform as CompositeTransform).TranslateX = 0;
             (this.RenderTransform as CompositeTransform).TranslateY = 0;
             currentPoint = new Point(0, 0);
+            await Task.Delay(25);
+            return;
         }
 
         /// <summary>
-        /// Moves the game piece a specified number of steps with an animation over a set duration and with optional offsets.
+        /// Transforms the game piece to move a specified number of steps with an animation over a set duration and with optional offsets.
         /// </summary>
         /// <param name="steps">The number of steps to move.</param>
         /// <param name="milliseconds">The duration of the animation in milliseconds.</param>
@@ -263,6 +347,21 @@ namespace FiaMedFight.Templates
         /// <remarks>In effect the offset is in </remarks>
         private Task MoveStepsAsync(int steps, int milliseconds, double offsetX = 0, double offsetY = 0)
         {
+            string endCoordinate = GetTargetCoordinateAsString(steps);
+            return AnimateToCoordinate(endCoordinate, milliseconds, offsetX, offsetY);
+        }
+
+        /// <summary>
+        /// Transforms the game piece to move to a new coordinate with an animation over a set duration and with optional offsets.
+        /// </summary>
+        /// <param name="endCoordinate">The coordinate to move to.</param>
+        /// <param name="milliseconds">The duration of the animation in milliseconds.</param>
+        /// <param name="offsetX">Optional X offset for each step. Any double between -1.0 and 1.0.</param>
+        /// <param name="offsetY">Optional Y offset for each step. Any double between -1.0 and 1.0.</param>
+        /// <returns>A task that represents the asynchronous operation.</returns>
+        /// <remarks>In effect the offset is in </remarks>
+        private Task AnimateToCoordinate(string endCoordinate, int milliseconds, double offsetX, double offsetY)
+        {
             this.RenderTransform = new CompositeTransform();
             Storyboard moveAnimation = new Storyboard();
             DoubleAnimation oDoubleAnimationX = new DoubleAnimation();
@@ -270,7 +369,6 @@ namespace FiaMedFight.Templates
             oDoubleAnimationX.Duration = new Duration(TimeSpan.FromMilliseconds(milliseconds));
             oDoubleAnimationY.Duration = new Duration(TimeSpan.FromMilliseconds(milliseconds));
 
-            string endCoordinate = GetTargetCoordinateAsString(steps);
 
             Point startPoint = currentPoint;
             Point endPoint = GetXYFromElementToCoordinate(this, endCoordinate, offsetX, offsetY);
@@ -297,7 +395,7 @@ namespace FiaMedFight.Templates
             };
 
             moveAnimation.Begin();
-            this.coordinate = endCoordinate;            
+            this.coordinate = endCoordinate;
             return tcs.Task;
         }
 
