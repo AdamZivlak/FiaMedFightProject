@@ -44,7 +44,7 @@
 
             <!-- this should be used to resume game once a number of players are chosen -->
             <!-- curently used for testing game conditions -->
-            <Button x:Name="ResumeGameButton" Visibility="Visible"  Content="Fortsätt Spel" 
+            <Button x:Name="ResumeGameButton" Visibility="Collapsed"  Content="Fortsätt Spel" 
                                         Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource MenuButtonStyle}" Click="ResumeGameButton_Click" Background="Gray">
             </Button>

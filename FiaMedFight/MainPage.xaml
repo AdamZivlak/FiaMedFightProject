@@ -246,7 +246,7 @@
         
         <!-- this will hide the playable gameboard to show the fight screen-->
         <Canvas x:Name="Dimmer" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
-        <Popup x:Name="fightingPopup" HorizontalOffset="200" VerticalOffset="200">
+        <Popup x:Name="fightingPopup" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalOffset="-340" VerticalOffset="-250">
             <local:FightScreenPopup/>
         </Popup>
     </Grid>
