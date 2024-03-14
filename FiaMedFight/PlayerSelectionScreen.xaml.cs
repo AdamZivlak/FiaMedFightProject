@@ -38,6 +38,8 @@ namespace FiaMedFight
         /// </summary>
         private DispatcherTimer timer;
 
+        public static int fightMode = 0;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSelectionScreen"/> class.
         /// </summary>
@@ -59,7 +61,6 @@ namespace FiaMedFight
         /// <param name="e">Event arguments containing information about the event.</param>
         private async void GameStartButton_Click(object sender, RoutedEventArgs e)
         {
-            // Define an exit animation for the PlayerSelectionScreen (eases out)
             var exitAnimation = new DoubleAnimation
             {
                 To = 0,
@@ -230,6 +231,16 @@ namespace FiaMedFight
 
             // Begin the storyboard
             storyboard.Begin();
+        }
+
+        private void GameMode2Button_Click(object sender, RoutedEventArgs e)
+        {
+            fightMode = 1;
+        }
+
+        private void GameMode1Button_Click(object sender, RoutedEventArgs e)
+        {
+            fightMode = 0;
         }
     }
 }

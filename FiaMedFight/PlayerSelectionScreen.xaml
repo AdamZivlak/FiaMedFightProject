@@ -82,6 +82,15 @@
                 </Button.Background>
             </Button>
         </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,200">
+            <Button x:Name="GameMode1Button" Visibility="Visible" Style="{StaticResource MenuButtonStyle}" Click="GameMode1Button_Click" Margin="0,0,0,0"  Height="100" Width="300">
+                <TextBlock TextWrapping="WrapWholeWords" FontSize="17" Text="Spelvariant 1: En strid är en runda, attackeraren vinner vid lika slag" Padding="2" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            </Button>
+            <Button x:Name="GameMode2Button" Visibility="Visible"  Style="{StaticResource MenuButtonStyle}" Click="GameMode2Button_Click" Margin="0,0,0,0" Height="100." Width="300" >
+                <TextBlock TextWrapping="WrapWholeWords" FontSize="17"  Text="Spelvariant 2: En strid är 3 rundor, attackeraren får +1 på sitt slag" Padding="2" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            </Button>
+        </StackPanel>
         
         <StackPanel Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
             <!-- this should be used to start game once a number of players are chosen -->
@@ -101,6 +110,7 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
+           
             <Button x:Name="GameStartButton" Visibility="Visible"  Content="Start Game" Style="{StaticResource MenuButtonStyle}" Click="GameStartButton_Click" Foreground="Black">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

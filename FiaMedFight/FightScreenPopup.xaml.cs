@@ -3,9 +3,11 @@ using FiaMedFight.Templates;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -17,7 +19,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -28,16 +29,22 @@ namespace FiaMedFight
         private static Storyboard spinfightDiceAnimation;
         static GamePlayer challenger;
         static GamePlayer opponent;
+
+        static Windows.UI.Xaml.Shapes.Rectangle challengerPawn;
+        static Windows.UI.Xaml.Shapes.Rectangle opponentPawn;
+        static TextBlock turnDescription;
+        static TextBlock fightDescription;
+        static Grid fightScreen;
+
         static bool isChallengersTurn;
         private static Dice fightDiceSix;
-
-        static TextBlock turnDescription;
-        static Button fightingDiceButton;
-
         static int turnsPerFight;
 
         static string challengerTurnDescription = "hi";
         static string opponentTurnDescription = "ho";
+
+        static Style winStyle;
+        static Style loseStyle;
 
         public FightScreenPopup()
         {
@@ -47,19 +54,28 @@ namespace FiaMedFight
             spinfightDiceAnimation = Resources["SpinAnimation"] as Storyboard;
             Storyboard.SetTarget(spinfightDiceAnimation, spinningFightDice);
 
-            fightingDiceButton = fightingDice;
+            loseStyle = Resources["LosingCross"] as Style;
+            winStyle = Resources["WinningStar"] as Style;
+
+            challengerPawn = challengerFightPiece;
+            opponentPawn = opponentFightPiece;
+
             turnDescription = fightingTurnDescription;
+            fightDescription = fightingHeaderDescription;
+            fightScreen = fightScreenOverlay;
+          
         }
 
-        public static async Task Collision(GamePieceControl opponentPiece, GamePieceControl challengerPiece, int fightMode = 0)
+        public static async Task Collision(GamePieceControl opponentPiece, GamePieceControl challengerPiece)
         {
             SetUpFight(opponentPiece, challengerPiece);
 
             // regular fight, 1 turn, challenger (attacking player) wins a draw
-            if (fightMode == 0)
+            if (PlayerSelectionScreen.fightMode == 0)
             {
-                challengerTurnDescription = "~Vid lika vinner attackeraren~\n   Attackerande spelare börjar. \nRulla tärningen!";
-                opponentTurnDescription = "~Vid lika vinner attackeraren~\n   Motståndaren får försvara sig. \nRulla tärningen!";
+                fightDescription.Text = "~ Vid lika vinner attackeraren ~";
+                challengerTurnDescription = "Attackerande spelare börjar. \nRulla tärningen!";
+                opponentTurnDescription = "Motståndaren får försvara sig. \nRulla tärningen!";
 
                 int challengerResult = await TakeTurn(challengerTurnDescription);
                 int opponentResult = await TakeTurn(opponentTurnDescription);
@@ -71,42 +87,68 @@ namespace FiaMedFight
             }
 
             // best of three, challenger has +1 to hits, a draw repeats the turn
-            //else if (fightMode == 1)
-            //{
-            //    turnsPerFight = 3;
-            //    challengerTurnDescription = "Bäst av tre: \nAttackerande spelare slår med +1. \nRulla tärningen!";
-            //    opponentTurnDescription = "Bäst av tre: \nMotståndaren får försvara sig. \nRulla tärningen!";
-            //    turnDescription.Text = challengerTurnDescription;
+            else if (PlayerSelectionScreen.fightMode == 1)
+            {
+                StackPanel challengerRounds = fightScreen.FindName("challengerRounds") as StackPanel;
+                StackPanel opponentRounds = fightScreen.FindName("opponentRounds") as StackPanel;
 
-            //    List<GamePieceControl> winner = new List<GamePieceControl>();
-            //    do
-            //    {
-            //        int challengerResult = TakeTurn() + 1;
-            //        int opponentResult = TakeTurn();
+                turnsPerFight = 3;
+                fightDescription.Text = "~ Bäst av tre ~";
 
-            //        if (challengerResult > opponentResult)
-            //            winner.Add(challengerPiece);
-            //        else if (challengerResult == opponentResult)
-            //            continue;
-            //        else
-            //            winner.Add(opponentPiece);
+                challengerTurnDescription = "Attackerande spelare slår med +1. \nRulla tärningen!";
+                opponentTurnDescription = "Motståndaren får försvara sig. \nRulla tärningen!";
 
-            //        turnsPerFight--;
-            //    } while (turnsPerFight > 0);
+                List<GamePieceControl> winner = new List<GamePieceControl>();
+                do
+                {
+                    int challengerResult = await TakeTurn(challengerTurnDescription) + 1;
+                    int opponentResult = await TakeTurn(opponentTurnDescription);
 
-            //    int score = 0;
-            //    foreach (GamePieceControl win in winner)
-            //    {
-            //        if (win == challengerPiece) { score++; }
-            //        else { score--; }
-            //    }
-            //    if (score < 0) 
-            //        FinishFight(challengerPiece);
-            //    else if (score > 0) 
-            //        FinishFight(opponentPiece);
-            //}
+                    if (challengerResult == opponentResult) 
+                        continue;
+
+                    else if (challengerResult > opponentResult)
+                    {
+                        winner.Add(challengerPiece);
+                        challengerRounds.Children.Add(new Image() { Style = winStyle } );
+                        opponentRounds.Children.Add(new Image() { Style = loseStyle } );
+                    }
+                    else
+                    {
+                        winner.Add(opponentPiece);
+                        opponentRounds.Children.Add(new Image() { Style = winStyle } );
+                        challengerRounds.Children.Add(new Image() { Style = loseStyle } );
+                    }
+
+                    turnsPerFight--;
+
+                } while (turnsPerFight > 0);
+
+                int score = 0;
+                foreach (GamePieceControl win in winner)
+                {
+                    if (win == challengerPiece) { score++; }
+                    else { score--; }
+                }
+                if (score < 0)
+                    FinishFight(challengerPiece);
+                else if (score > 0)
+                    FinishFight(opponentPiece);
+
+                ClearFight(challengerRounds);
+                ClearFight(opponentRounds);
+            }
 
             else return;
+        }
+
+        static void ClearFight(StackPanel rounds)
+        {
+            foreach (var child in rounds.Children)
+            {
+                rounds.Children.Remove(child);
+            }
+
         }
 
         private static void SetUpFight(GamePieceControl opponentPiece, GamePieceControl challengerPiece)
@@ -114,7 +156,8 @@ namespace FiaMedFight
             opponent =  opponentPiece.Player();
             challenger = challengerPiece.Player();
 
-            //UpdateImageSource(opponent.color, challengingPlayerImage);
+            SetFighterImage(opponent.color, opponentPawn);
+            SetFighterImage(challenger.color, challengerPawn);
 
             // get the visual elements from mainpage.xaml
             var popupElement = GameManager.gamePageGridFull.FindName("fightingPopup") as Popup;
@@ -174,17 +217,13 @@ namespace FiaMedFight
                     return colourEnglish;
             }
         }
-        private void UpdateImageSource(string color, Image image)
+        
+        private static void SetFighterImage(string color, Windows.UI.Xaml.Shapes.Rectangle fighter)
         {
             string imageName = $"ms-appx:///Assets/Pieces/{color}.png";
-            image.Source = new BitmapImage(new Uri(imageName, UriKind.Absolute));
+            fighter.Fill = new ImageBrush() { ImageSource = new BitmapImage(new Uri(imageName, UriKind.Absolute)) };
         }
-
-        //static void CreateOpponent()
-        //{
-
-        //}
-
+   
         //private void ClosePopup()
         //{
         //    // close the Popup
@@ -207,13 +246,11 @@ namespace FiaMedFight
             {
                 attackerResult.Text = $"{TranslateColourSwedish(challenger.color)}: " + fightDiceSix.FaceValue;
                 isChallengersTurn = false;
-                //fightingTurnDescription.Text = opponentTurnDescription;
             }
             else
             {
                 opponentResult.Text = $"{TranslateColourSwedish(opponent.color)}: " + fightDiceSix.FaceValue;
                 isChallengersTurn = true;
-                //fightingTurnDescription.Text = challengerTurnDescription;
             }
 
             fightingTurnDescription.Visibility = Visibility.Visible;

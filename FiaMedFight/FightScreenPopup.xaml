@@ -22,7 +22,8 @@
 
     <Grid x:Name="fightScreenOverlay" Background="BlueViolet" HorizontalAlignment="Center" VerticalAlignment="Center" Height="500" Padding="20" CornerRadius="25,25,25,25" BorderThickness="2" BorderBrush="Black" Opacity="0.9">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="250"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -32,29 +33,33 @@
             <ColumnDefinition Width="220"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="fightingTurnDescription" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource RulesBodyStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Rectangle x:Name="player" Height="150" Width="100" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock x:Name="fightingHeaderDescription" Grid.Row="0" Grid.ColumnSpan="3" Style="{StaticResource RulesHeaderStyle}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="0" Text="heheh"/>
+        <TextBlock x:Name="fightingTurnDescription" Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource RulesBodyStyle}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="heheh" Padding="0,0,0,0"/>
+
+        <StackPanel x:Name="challengerRounds" Grid.Column="0" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top"></StackPanel>
+        <Rectangle x:Name="challengerFightPiece" Height="150" Width="100" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Rectangle.Fill>
                 <ImageBrush x:Name="challengingPlayerImage" ImageSource="ms-appx:///Assets/Pieces/red.png" Stretch="Uniform"/>
             </Rectangle.Fill>
         </Rectangle>
 
-        <Button x:Name="fightingDice" Grid.Row="1" Grid.Column="1" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="fightingDice_Click" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
-        <Image x:Name="spinningFightDice" Grid.Row="1" Grid.Column="1" Visibility="Collapsed"  RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="103" Height="119">
+        <Button x:Name="fightingDice" Grid.Row="2" Grid.Column="1" Template="{StaticResource ButtonTemplate}" Style="{StaticResource DiceButtonStyle}" Click="fightingDice_Click" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+        <Image x:Name="spinningFightDice" Grid.Row="2" Grid.Column="1" Visibility="Collapsed"  RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Width="103" Height="119">
             <Image.Projection>
                 <PlaneProjection/>
             </Image.Projection>
         </Image>
-        <!--Source="ms-appx:///Assets/Dice/Face4.png"-->
 
-        <Rectangle x:Name="opponentFightPiece" Height="150" Width="100" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel x:Name="opponentRounds" Grid.Column="2" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top"></StackPanel>
+
+        <Rectangle x:Name="opponentFightPiece" Height="150" Width="100" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Rectangle.Fill>
                 <ImageBrush x:Name="opponentPlayerImage" ImageSource="ms-appx:///Assets/Pieces/green.png" Stretch="Uniform"/>
             </Rectangle.Fill>
         </Rectangle>
 
-        <TextBlock x:Name="attackerResult" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource RulesHeaderStyle}"/>
-        <TextBlock x:Name="opponentResult" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource RulesHeaderStyle}"/>
+        <TextBlock x:Name="attackerResult" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource RulesHeaderStyle}" Text="heheh"/>
+        <TextBlock x:Name="opponentResult" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource RulesHeaderStyle}" Text="heheh"/>
 
     </Grid>
 
