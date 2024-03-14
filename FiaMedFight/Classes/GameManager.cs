@@ -9,6 +9,9 @@ using Windows.UI.Xaml;
 using System.Diagnostics;
 using System.ServiceModel;
 using Windows.Media.Control;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Media;
+using System.Runtime.CompilerServices;
 using Windows.Media.Playback;
 using Windows.Media.Core;
 
@@ -29,7 +32,9 @@ namespace FiaMedFight.Classes
         /// </summary>
         public static Grid gameBoard { get; set; }
 
-        public static Page activePage { get; set; }
+        public static Grid gamePageGridFull { get; set; }
+
+        public static MainPage activePage { get; set; }
 
         /// <summary>
         /// Initiates a new game session, setting up the game environment.
@@ -107,18 +112,6 @@ namespace FiaMedFight.Classes
             }
             return player;
         }
-        /// <summary>
-        /// Retrieves the row and column indices of a specified element by its name within the game board.
-        /// </summary>
-        /// <param name="childElementName">The name of the child element within the game board grid.</param>
-        /// <returns>A tuple containing the row and column indices of the element.</returns>
-        public static (int, int) GetElementRowAndColumn(string childElementName)
-        {
-            var targetElement = gameBoard.FindName(childElementName) as FrameworkElement;
-            int newColumn = Grid.GetColumn(targetElement);
-            int newRow = Grid.GetRow(targetElement);
-            return (newRow, newColumn);
-        }
 
         /// <summary>
         /// Returns the active player from the current session
@@ -143,14 +136,105 @@ namespace FiaMedFight.Classes
             int numberOfPlayers = session.players.Count;
 
             ActivePlayer().EndTurn(); // Deactivate all pieces
-            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;   
-            
-            if(ActivePlayer().pieces.Count == 0) { NextTurn(); } //End turn before rolling dice if all pieces in goal
+            session.activePlayerIndex = (session.activePlayerIndex + 1) % numberOfPlayers;
 
-            var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
-            activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;
+            if (ActivePlayer().pieces.Count == 0) { NextTurn(); } //End turn before rolling dice if all pieces in goal
+
+            //GUIChangeActivePlayer();
+            // Ändra bakgrundsfärgen baserat på spelarens färg
+            ChangeBackgroundImage(ActivePlayer().color);
 
             session.dice.Activate();
+        }
+
+        /// <summary>
+        /// Changes the GUI to show who is the active player.
+        /// TODO: MBG-111
+        /// </summary>
+        /*public static void GUIChangeActivePlayer()
+        {
+            var activePlayerTextBox = gameBoard.FindName("ActivePlayerText") as TextBlock;
+            activePlayerTextBox.Text = "Active Player: " + ActivePlayer().color;
+        }*/
+
+
+        /// <summary>
+        /// Makes the scoreboards for players in the game visible.
+        /// </summary>
+        public static void ActivateScoreBoard()
+        {
+            for (int i = 0; i < session.players.Count; i++)
+            {
+                var player = session.players[i];
+                string colorBrush = player.color + "Brush";
+
+                var scoreboard = gameBoard.FindName("scorePlayer" + i) as TextBlock;
+                scoreboard.Text = player.color + ": " + player.score.ToString("D5");
+                if (activePage.Resources.TryGetValue(colorBrush, out object brush))
+                {
+                    scoreboard.Foreground = brush as SolidColorBrush;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Updates the GUI to show the score value for the active player
+        /// </summary>
+        public static void UpdateScoreBoard()
+        {
+            var player = ActivePlayer();
+            var scoreboard = gameBoard.FindName("scorePlayer" + session.activePlayerIndex) as TextBlock;
+            scoreboard.Text = player.color + ": " + player.score.ToString("D5");
+
+        }
+
+        internal static void ChangeBackgroundImage(string playerColor)
+        {
+            string imagePath = "";
+
+            switch (playerColor.ToLower())
+            {
+                /*case "blue":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/BlueActive.png";
+                    break;
+                case "red":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/RedActive.png";
+                    break;
+                case "yellow":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/YellowActive.png";
+                    break;
+                case "green":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/GreenActive.png";
+                    break;
+                default:
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/MainPageBg.png";
+                    break;*/
+
+                case "blue":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/BlueActiveWood.png";
+                    break;
+                case "red":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/RedActiveWood.png";
+                    break;
+                case "yellow":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/YellowActiveWood.png";
+                    break;
+                case "green":
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/GreenActiveWood.png";
+                    break;
+                default:
+                    imagePath = "ms-appx:///Assets/ActivePlayerColours/woodenBg.png";
+                    break;
+            }
+
+            BitmapImage image = new BitmapImage(new Uri(imagePath));
+            ImageBrush newBackgroundBrush = new ImageBrush { ImageSource = image };
+
+            Page currentPage = (Window.Current.Content as Frame).Content as Page;
+            if (currentPage != null)
+            {
+                currentPage.Background = newBackgroundBrush;
+            }
         }
 
         /// <summary>
@@ -170,9 +254,13 @@ namespace FiaMedFight.Classes
             {
                 NextTurn();
             }
-            
         }
 
+        /// <summary>
+        /// Preloads a sound file into a specified MediaPlayer for later use.
+        /// </summary>
+        /// <param name="soundFile">The filename of the sound to preload.</param>
+        /// <param name="manager">The MediaPlayer instance to preload the sound into.</param>
         public static async void PreloadSoundManagers(string soundFile, MediaPlayer manager)
         {
             // Set up the MediaElement
@@ -185,11 +273,21 @@ namespace FiaMedFight.Classes
             manager.Source = MediaSource.CreateFromStorageFile(file);
         }
 
+        /// <summary>
+        /// Plays a preloaded sound using the specified MediaPlayer.
+        /// </summary>
+        /// <param name="manager">The MediaPlayer instance to play the sound.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         async public static Task PlayClickSound(MediaPlayer manager)
         {
             manager.Play();
         }
 
+        /// <summary>
+        /// Plays a new sound file using a globally available MediaPlayer instance.
+        /// </summary>
+        /// <param name="soundFile">The filename of the sound to play (default is "clickSound.mp3").</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task PlaySound(string soundFile = "clickSound.mp3")
         {
             // clears the previously played sound
@@ -205,10 +303,97 @@ namespace FiaMedFight.Classes
             Windows.Storage.StorageFile file = await folder.GetFileAsync(soundFile);
 
             soundManager.Source = MediaSource.CreateFromStorageFile(file);
-            
 
             //soundManager.Play();
         }
+
+        /// <summary>
+        /// Triggered when a piece enters the goal area. Adds points to owning player, plays animations and removes piece.
+        /// </summary>
+        /// <param name="piece">The GamePieceControl that triggered the event</param>
+        public static async void GivePointsForPieceInGoal(GamePieceControl piece)
+        {
+            GamePlayer player = piece.Player();
+            int points = 0, 
+                bonus = 0, 
+                numPlayers = session.players.Count;
+            string bonusMessage = "", brushColor = "";
+
+            foreach (var p in session.players)
+            {
+                points += p.pieces.Count * 100;
+            }
+            player.AddPoints(points);
+            activePage.ShowPoints(points);
+            await Task.Delay(400);
+
+            //Give bonus points for first three pieces to reach goal
+            switch (session.numPiecesReachedGoal)
+            {
+                case 0:
+                    bonus = 200 * numPlayers;
+                    bonusMessage = $"GOLD BONUS! {bonus} POINTS!";
+                    brushColor = "goldBrush";
+                    break;
+                case 1:
+                    bonus = 100 * numPlayers;
+                    bonusMessage = $"SILVER BONUS! {bonus} POINTS!";
+                    brushColor = "silverBrush";
+                    break;
+                case 2:
+                    bonus = 50 * numPlayers;
+                    bonusMessage = $"BRONZE BONUS! {bonus} POINTS!";
+                    brushColor = "bronzeBrush";
+                    break;
+                default:
+                    break;
+            }
+            if(bonus > 0)
+            {
+                player.AddPoints(bonus);
+                activePage.ShowBonus(bonusMessage, brushColor);
+            }
+
+            //Give bonus points for first team to reach goal with all pieces
+            if (player.pieces.Count == 1)
+            {
+                if (session.numFullTeamsReachedGoal == 0)
+                { 
+                    bonus = 200 * numPlayers;
+                    bonusMessage = $"WINNER BONUS! {bonus} POINTS!";
+                    brushColor = "goldBrush";
+                    player.AddPoints(bonus);
+                }
+                else
+                {
+                    bonusMessage = $"{player.color.ToUpper()} HAS FINISHED!";
+                    brushColor = "goldBrush";
+                }
+                activePage.ShowBonus(bonusMessage, brushColor);
+
+                session.numFullTeamsReachedGoal++;
+
+                if (session.numFullTeamsReachedGoal == numPlayers -1) //If only one player has pieces left on the board, end the game
+                {
+                    session.complete = true;
+                    await Task.Delay(1000);
+                    activePage.Frame.Navigate(typeof(GameOverDialog));
+
+                }
+            }
+            session.numPiecesReachedGoal += 1;
+        }
+
+        /// <summary>
+        /// Removes a GamePieceControl both from the GamePlayer object's list and from the xaml Page
+        /// </summary>
+        /// <param name="piece"></param>
+        public static void RemovePiece(GamePieceControl piece)
+        {
+            GameManager.ActivePlayer().pieces.Remove(piece);
+            GameManager.gameBoard.Children.Remove(piece);
+        }
+
     }
 }
 

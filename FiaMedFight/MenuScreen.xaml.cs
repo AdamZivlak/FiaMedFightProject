@@ -27,6 +27,9 @@ namespace FiaMedFight
     /// </summary>
     public sealed partial class MenuScreen : Page
     {
+        private int currentPageIndex = 1;
+        private int totalPages = 4;
+
         public static MediaPlayer clickSoundManager;
 
         /// <summary>
@@ -43,6 +46,8 @@ namespace FiaMedFight
             ApplicationExitButton.Click += ApplicationExitButton_Click;
             clickSoundManager = new MediaPlayer();
             GameManager.PreloadSoundManagers("clickSound.mp3", clickSoundManager);
+
+            totalPages = ruleStrings.Rules.Count;
         }
 
         /// <summary>
@@ -56,7 +61,6 @@ namespace FiaMedFight
             await Task.Delay(500);
             Application.Current.Exit();
         }
-
 
         /// <summary>
         /// Click to open the game options screen, to select number of players for the new game.
@@ -118,7 +122,6 @@ namespace FiaMedFight
         /// <param name="e">The event arguments.</param>
         private void ResumeGameButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO: populate the gameboard with number of players and pieces here?
             MenuScreen.clickSoundManager.Play();
             GameManager.PlaySound("combatSound.mp3");
 
@@ -142,6 +145,8 @@ namespace FiaMedFight
             RulesOpenButton.Tag = 0;
             RulesHeaderTextBlock.Text = ruleStrings.Title[0];
             RulesBodyTextBlock.Text = ruleStrings.Rules[0];
+
+            UpdatePageInfo();
         }
 
         /// <summary>
@@ -175,6 +180,13 @@ namespace FiaMedFight
 
             if (pageIndex + 1 == ruleStrings.Rules.Count)
                 NextButton.Visibility = Visibility.Collapsed;
+
+            if (currentPageIndex < totalPages)
+            {
+                currentPageIndex++;
+                // Update content for the next page
+                UpdatePageInfo();
+            }
         }
 
         /// <summary>
@@ -196,6 +208,18 @@ namespace FiaMedFight
 
             if (pageIndex == 0)
                 PrevButton.Visibility = Visibility.Collapsed;
+
+            if (currentPageIndex > 1)
+            {
+                currentPageIndex--;
+                // Update content for the previous page
+                UpdatePageInfo();
+            }
+        }
+
+        private void UpdatePageInfo()
+        {
+            PageInfoTextBlock.Text = $"Page {currentPageIndex}/{totalPages}";
         }
     }
 }

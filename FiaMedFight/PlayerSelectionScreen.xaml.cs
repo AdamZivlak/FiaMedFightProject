@@ -35,12 +35,14 @@ namespace FiaMedFight
         /// <summary>
         /// The game session used for player selection, to store the selected players until game launch.
         /// </summary>
-        public static GameSession sess = new GameSession();
+        public static GameSession sess;
 
         /// <summary>
         /// Declare the timer variable at class level
         /// </summary>
         private DispatcherTimer timer;
+
+        public static int fightMode = 0;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PlayerSelectionScreen"/> class.
@@ -54,6 +56,16 @@ namespace FiaMedFight
             timer.Interval = TimeSpan.FromSeconds(2); // Set the interval .. seconds
             timer.Tick += Timer_Tick; // Add event handler for the Tick event
             timer.Start(); // Start the timer
+
+            //GameManager.ClearSession();
+        }
+        
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            // Adds operations each time the page is navigated to. 
+            sess = new GameSession();
         }
 
         /// <summary>
@@ -83,6 +95,7 @@ namespace FiaMedFight
             exitStoryboard.Begin();
             await Task.Delay(500);
 
+            GameManager.LoadSession(sess);
             // Navigate to the MainPage
             Frame.Navigate(typeof(MainPage), null, new SuppressNavigationTransitionInfo());
 
@@ -237,8 +250,17 @@ namespace FiaMedFight
             Storyboard storyboard = new Storyboard();
             storyboard.Children.Add(opacityAnimation);
 
-            // Begin the storyboard
             storyboard.Begin();
+        }
+
+        private void GameMode2Button_Click(object sender, RoutedEventArgs e)
+        {
+            fightMode = 1;
+        }
+
+        private void GameMode1Button_Click(object sender, RoutedEventArgs e)
+        {
+            fightMode = 0;
         }
     }
 }
