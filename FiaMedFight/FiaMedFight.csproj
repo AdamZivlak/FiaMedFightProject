@@ -166,6 +166,7 @@
     <Content Include="Assets\Button click.png" />
     <Content Include="Assets\Button hover.png" />
     <Content Include="Assets\Button-normal.png" />
+    <Content Include="Assets\Button.png" />
     <Content Include="Assets\cartoonFigure.png" />
     <Content Include="Assets\Dice\Face1.png" />
     <Content Include="Assets\Dice\Face2.png" />

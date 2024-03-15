@@ -16,16 +16,18 @@
                                     </DiscreteObjectKeyFrame.Value>
                                 </DiscreteObjectKeyFrame>
                             </ObjectAnimationUsingKeyFrames>
-                            <DoubleAnimation Storyboard.TargetName="Border"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="0.9" Duration="0"/>
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Pressed">
                         <Storyboard>
-                            <DoubleAnimation Storyboard.TargetName="Border"
-                                             Storyboard.TargetProperty="Opacity"
-                                             To="0.8" Duration="0"/>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Border"
+                               Storyboard.TargetProperty="Background">
+                                <DiscreteObjectKeyFrame KeyTime="0">
+                                    <DiscreteObjectKeyFrame.Value>
+                                        <ImageBrush ImageSource="ms-appx:///Assets/Button click.png"/>
+                                    </DiscreteObjectKeyFrame.Value>
+                                </DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Disabled">
@@ -44,7 +46,7 @@
                                     <DiscreteObjectKeyFrame.Value>
                                         <SolidColorBrush Color="DarkGray"/>
                                     </DiscreteObjectKeyFrame.Value>
-                                </DiscreteObjectKeyFrame>  <!--Value="{StaticResource darkgra}"/>-->
+                                </DiscreteObjectKeyFrame>  
                             </ObjectAnimationUsingKeyFrames>
                         </Storyboard>
                     </VisualState>

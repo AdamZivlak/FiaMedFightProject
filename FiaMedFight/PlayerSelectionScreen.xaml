@@ -34,15 +34,8 @@
             <!--<TextBlock HorizontalAlignment="Left" Margin="599,80,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Add Player" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="119" Width="373" SelectionChanged="TextBlock_SelectionChanged" FontSize="72" Foreground="Black" FontFamily="Comic Sans MS"/> -->
         </Grid>
 
-        <StackPanel Width="290" Height="290" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
-                    PointerEntered="StackPanel_PointerEntered" PointerExited="StackPanel_PointerExited">
-            <Image x:Name="cartoonFigure"  Source="ms-appx:///Assets/cartoonFigure.png"/>
-        </StackPanel>
-        <StackPanel Width="350" Height="300" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150,0,0,40">
-            <Image x:Name="infoImage" Source="ms-appx:///Assets/infoPlayerText.png" Visibility="Collapsed"></Image>
-        </StackPanel>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="100,0,0.3,0" >
             <Button x:Name="GreenButton" Content="Green" Style="{StaticResource MenuButtonStyle}" Click="GreenButton_Click" Foreground="#FF1F0404" FocusVisualPrimaryBrush="White" BorderBrush="White">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -124,6 +117,14 @@
                     <Image x:Name="YellowImage" Height="200" Source="ms-appx:///Assets/Pieces/Yellow.png" Grid.Column="1" Grid.Row="1" Visibility="Collapsed"></Image>
                 </Grid>
             </Border>
+        </StackPanel>
+        
+        <StackPanel Width="290" Height="290" HorizontalAlignment="Left" VerticalAlignment="Bottom" 
+                    PointerEntered="StackPanel_PointerEntered" PointerExited="StackPanel_PointerExited">
+            <Image x:Name="cartoonFigure"  Source="ms-appx:///Assets/cartoonFigure.png"/>
+        </StackPanel>
+        <StackPanel Width="350" Height="300" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="150,0,0,40">
+            <Image x:Name="infoImage" Source="ms-appx:///Assets/infoPlayerText.png" Visibility="Collapsed" Canvas.ZIndex="2"></Image>
         </StackPanel>
     </Grid>
 </Page>

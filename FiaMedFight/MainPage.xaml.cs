@@ -77,18 +77,19 @@ namespace FiaMedFight
 
             // To Test the Fight sequence, uncomment this and comment out the "foreach" beneath.
 
-            /*
-             GameSession session = new GameSession();
+            //GameSession session = new GameSession();
 
-              session.AddPlayer(new GamePlayer("red", "Coordinate31"));
-              session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
+            //session.AddPlayer(new GamePlayer("red", "Coordinate31"));
+            //session.AddPlayer(new GamePlayer("blue", "Coordinate5"));
 
-              //Spawn test pieces (also adds them to each GamePlayer's list of pieces):
-               GameManager.LoadSession(session);
+            //GameManager.LoadSession(session);
 
-              GameManager.AddGamePieceControl("red", "Coordinate35");
-              GameManager.AddGamePieceControl("blue", "Coordinate40");
-            */
+            //GameManager.AddGamePieceControl("red", "Coordinate34");
+            //GameManager.AddGamePieceControl("red", "Coordinate37");
+            //GameManager.AddGamePieceControl("blue", "Coordinate40");
+            //GameManager.AddGamePieceControl("blue", "Coordinate38");
+            //GameManager.AddGamePieceControl("blue", "Coordinate39");
+
 
             foreach (GamePlayer player in GameManager.session.players)
             {

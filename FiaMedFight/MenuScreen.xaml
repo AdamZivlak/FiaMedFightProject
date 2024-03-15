@@ -77,11 +77,11 @@
 			    <Hyperlink NavigateUri="https://molk-board-game.atlassian.net/wiki/spaces/MBG/pages/4161552/Information+om+Fia+Med+Fight">Läs reglerna online</Hyperlink> 
             </TextBlock>
             <Grid >
-                <Button x:Name="PrevButton" Content="Föregående"
+                <Button x:Name="PrevButton" Content="Föregående" Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource SmallMenuButtonStyle}" Click="RulesPreviousButton_Click" Margin="10,5,5,5" HorizontalAlignment="Left" />
-                <Button x:Name="ReturnButton" Content="Stäng"
+                <Button x:Name="ReturnButton" Content="Stäng"  Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource SmallMenuButtonStyle}" Click="ReturnButton_Click" Margin="5" HorizontalAlignment="Center"/>
-                <Button x:Name="NextButton" Content="Nästa"
+                <Button x:Name="NextButton" Content="Nästa"  Template="{StaticResource ButtonTemplate}"
                     Style="{StaticResource SmallMenuButtonStyle}" Click="RulesNextButton_Click" Margin="5,5,10,5" HorizontalAlignment="Right" />
             </Grid>
             <TextBlock x:Name="PageInfoTextBlock" Margin="0" HorizontalAlignment="Center" Style="{StaticResource RulesBodyStyle}"/>
